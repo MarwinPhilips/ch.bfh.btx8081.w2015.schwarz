@@ -1,9 +1,18 @@
-Ich bin ein Tagebuch!
-Ich auch.
-ich bin vieleicht auch ein Tagebuch :S
-Es geht !
-Bï¿½ï¿½ï¿½ï¿½m ! Es ghet 2 ! Gruss Michel
+## Logbuch der Gruppe Schwarz
 
-Hallo zusammen am 17. September waren alle anwesend und wir haben die Gruppen eingeteilt..
 
-2015-09-23: Jonas Mosimann ist nun auch in der Gruppe Schwarz (war in Woche 1 abwesend).
+# Woche 2 - 25.09.2015
+Thema: Task1 & Task2 
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann
+Abwesend: Michel Murbach 
+Protokoll:
+Präsentationen für Task1 und Task2 erstellt.
+Aufgeteilt wer was zu sagen hat.
+
+TODO bis Dienstag Abend 29.09.2015:
+Alle		Präsentation durchlesen und vorbereiten
+Mosimann	2.
+Philips		5.
+Keiser		6.
+Turna		4.
+Ghodrati	3.
