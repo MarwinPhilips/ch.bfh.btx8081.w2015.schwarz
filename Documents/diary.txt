@@ -11,8 +11,9 @@ Aufgeteilt wer was zu sagen hat.
 
 TODO bis Dienstag Abend 29.09.2015:
 Alle		Präsentation durchlesen und vorbereiten
-Mosimann	2.
-Philips		5.
+Mosimann	2. (done)
+Philips		5. (done)
 Keiser		6.
-Turna		4.
+Turna		4. (done)
 Ghodrati	3.
+Murbach		Folie Relationship, ganz am Ende
