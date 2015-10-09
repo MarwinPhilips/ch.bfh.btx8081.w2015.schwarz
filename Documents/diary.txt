@@ -28,3 +28,14 @@ Für Task 3 werden wir 1 - 2 Interviews halten sowie eine Umfrage durchführen.
 Mete & Marwin: Interview 1
 Amin & Michel: Interview 2
 Carole & Jonas: Umfrage
+
+#Woche 4 - 08.10.2015
+Thema: Creative Thinking, Task 4
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
+Protokoll
+Wir haben den Scope eingeschränkt auf Medikation und Terminverwaltung.
+Erstellung von Interview-Leitfaden für Interviews mit 2 Interviewpartner, welche je von Mete und Michel geführt werden (Beide am 10.10.2015).
+Die Umfrage wurde von Carole und Jonas aufgesetzt und läuft seit dem 07.10. bis zum 11.10. 
+Danach werden sie einige Excel-Grafiken und wichtige Informationen zusammenfassen. 
+Da wir nicht auf die Resultate von Umfrage und Interviews warten können haben wir bereits Persona definiert.
+Die ersten Mockups wurden auf Papier erstellt und werden von Amin, Carole und Marwin auf cacoo.com digitalisiert.
