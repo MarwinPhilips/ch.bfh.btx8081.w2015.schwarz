@@ -20,7 +20,7 @@ Murbach		Folie Relationship, ganz am Ende (done)
 
 
 #Woche 3 - 01.10.2015
-Thema: Präsentation Task 1 & 2, Task 3
+Thema: Präsentation Task 1 & 2, Task 3 begonnen
 Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
 Protkoll:
 Präsentation Task 1 & 2 gehalten
@@ -30,7 +30,7 @@ Amin & Michel: Interview 2
 Carole & Jonas: Umfrage
 
 #Woche 4 - 08.10.2015
-Thema: Creative Thinking, Task 4
+Thema: Creative Thinking, Task 3
 Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
 Protokoll
 Wir haben den Scope eingeschränkt auf Medikation und Terminverwaltung.
@@ -39,3 +39,12 @@ Die Umfrage wurde von Carole und Jonas aufgesetzt und läuft seit dem 07.10. bis 
 Danach werden sie einige Excel-Grafiken und wichtige Informationen zusammenfassen. 
 Da wir nicht auf die Resultate von Umfrage und Interviews warten können haben wir bereits Persona definiert.
 Die ersten Mockups wurden auf Papier erstellt und werden von Amin, Carole und Marwin auf cacoo.com digitalisiert.
+
+#Woche 5 - 15.10.2015
+Thema: Presentation Preparation & Preparation, Task 3
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
+Protokoll
+Wir haben die Resultate der Umfrage und den Interviews besprochen.
+Mockups zusammen besprochen und von anderer Gruppe validieren lassen.
+Danach einige Kleinigkeiten an den Mockups angepasst.
+Weiter haben wir die Präsentation erstellt und vorbereitet.
