@@ -1,0 +1,30 @@
+Testperson 1
+Login
+Selbsterklärend
+
+Medikamentenübersicht/Erfassung
+Selbsterklärend
+Knopf neben Stopdatum: Funktion nicht ganz klar
+
+Medikamentenrückmeldung
+Selbsterklärend
+
+Farben können irritieren, bzw zu viel
+
+Testperson 2
+Login
+Fehlende Registrierunsfunktion
+
+Medikamentenübersicht/Erfassung
+Label Medikament erfassen fehlt
+Suche muss Hersteller, Wirkstoff, Produktname unterstützen
+x-x-x-x durch Mo-Mi-Ab-Na ersetzen
+MoMIAbNa als Standard, sonst als "andere" verwenden
+Bemerkungen: Standard-Verabreichnungs-Hinweise als Icons auf Übersicht
+Bestätigung fotografiertes Medikament
+
+Medikamentenrückmeldung
+Reserve-Rot ist irritierend
+Separator zwischen Medikamenten
+Rückmelden-Knopf zu unauffällig
+Zu viele Farben auf zweiter Übersicht
