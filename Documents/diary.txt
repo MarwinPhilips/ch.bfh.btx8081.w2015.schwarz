@@ -1,5 +1,10 @@
 ## Logbuch der Gruppe Schwarz
 
+Punkte der Tasks:
+T1: 4/5 + 5/5
+T2: 10/10 + 5/5
+T3: 17/20 + 5/5
+bis jetzt: 46/50
 
 # Woche 2 - 25.09.2015
 Thema: Task1 & Task2 
@@ -55,3 +60,4 @@ Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosima
 Protokoll
 Wir haben ein 'context model' erstellt.
 Wir haben ein 'high level activity diagram' erstellt
+
