@@ -48,3 +48,10 @@ Wir haben die Resultate der Umfrage und den Interviews besprochen.
 Mockups zusammen besprochen und von anderer Gruppe validieren lassen.
 Danach einige Kleinigkeiten an den Mockups angepasst.
 Weiter haben wir die Präsentation erstellt und vorbereitet.
+
+#Woche 6 - 22.10.2015
+Thema: Task 6 External Perspective
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
+Protokoll
+Wir haben ein 'context model' erstellt.
+Wir haben ein 'high level activity diagram' erstellt
