@@ -61,3 +61,10 @@ Protokoll
 Wir haben ein 'context model' erstellt.
 Wir haben ein 'high level activity diagram' erstellt
 
+#Woche 7 - 29/30.10.2015
+Thema: Task 7 Domain Model & Sequence Diagrams
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
+Protokoll
+Domain Model (Class Diagram) erstellt und ergiebig miteinander besprochen.
+Sequence Diagram erstellt
+
