@@ -67,4 +67,11 @@ Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosima
 Protokoll
 Domain Model (Class Diagram) erstellt und ergiebig miteinander besprochen.
 Sequence Diagram erstellt
+Präsentation erstellt
 
+#Woche 8 - 05./06.11.2015
+Thema: Task 7 Domain Model & Sequence Diagrams
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosimann, Michel Murbach
+Protokoll
+Klassendiagramm erweitert/angepasst
+Präsentation erstellt
