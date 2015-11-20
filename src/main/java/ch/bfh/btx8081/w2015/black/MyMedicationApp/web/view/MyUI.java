@@ -1,4 +1,4 @@
-package ch.bfh.btx8081.w2015.black.MyMedicationApp;
+package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 import javax.servlet.annotation.WebServlet;
 
