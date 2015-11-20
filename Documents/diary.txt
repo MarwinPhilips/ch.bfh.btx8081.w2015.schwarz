@@ -75,3 +75,15 @@ Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser, Jonas Mosima
 Protokoll
 Klassendiagramm erweitert/angepasst
 Präsentation erstellt
+
+#Woche 9 - 19./20.11.2015
+Thema: Task 9 Software Architecture & Task 10 Scrum Setup
+Anwesend: Marwin Philips, Mete Turna, Amin Ghodrati, Carole Kaiser
+Protokoll
+UML Package erstellt
+Project Team, Product Backlog erstellt
+Offene Punkte: 
+Backlog abschliessen
+Herr Pfahrer Datenbank anfragen 
+
+
