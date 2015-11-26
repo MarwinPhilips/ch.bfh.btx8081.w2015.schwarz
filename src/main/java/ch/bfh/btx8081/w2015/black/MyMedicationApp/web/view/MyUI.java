@@ -9,6 +9,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -22,19 +23,33 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
+        final VerticalLayout layout = new VerticalLayout();   
+        layout.setSizeFull();
         setContent(layout);
-
+        
+        
+        final HorizontalLayout navigationBar = new HorizontalLayout();
+        navigationBar.setHeight("100px");
+        navigationBar.setWidth("100%");
+        
+        
+        final HorizontalLayout mainContainer = new HorizontalLayout();
+        mainContainer.setSizeFull();
+        
         Button button = new Button("Click Me");
         button.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                layout.addComponent(new Label("Thank you for clicking"));
+        	mainContainer.addComponent(new Label("Thank you for clicking"));
             }
         });
-        layout.addComponent(button);
-
+        //navigationBar.addComponent(button);
+        navigationBar.addComponent(new NavigationBarView());
+        
+        layout.addComponent(navigationBar);
+        layout.addComponent(mainContainer);
+        
+        layout.setExpandRatio(mainContainer, 1);
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
