@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+
+	<persistence-unit name="Medication" transaction-type="RESOURCE_LOCAL">
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medicament</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MethodOfApplication</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Person</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.ActivityFeedback</class>
+		<properties>
+ 	
+ 			<!-- MS SQL SERVER -->
+  			<property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver" />
+ 			<property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://corpus.bfh.ch:55783;DatabaseName=SWE_Black" /> 
+ 			<property name="javax.persistence.jdbc.user" value="philm2" />
+			<property name="javax.persistence.jdbc.password" value="philm2" />
+
+ 			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"	value="both" />
+		</properties>
+	</persistence-unit>
+</persistence>
