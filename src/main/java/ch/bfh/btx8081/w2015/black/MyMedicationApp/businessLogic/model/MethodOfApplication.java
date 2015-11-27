@@ -14,8 +14,27 @@ public class MethodOfApplication {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int methodOfApplicationId = 0;
 	@OneToMany(mappedBy="MethodOfApplication")
-	private ArrayList<Prescription> perscriptions = null;
+	private ArrayList<Prescription> prescriptions = null;
+	private String name = null;
 	public MethodOfApplication(){
 		
+	}
+	public int getMethodOfApplicationId() {
+		return methodOfApplicationId;
+	}
+	public void setMethodOfApplicationId(int methodOfApplicationId) {
+		this.methodOfApplicationId = methodOfApplicationId;
+	}
+	public ArrayList<Prescription> getPerscriptions() {
+		return prescriptions;
+	}
+	public void setPerscriptions(ArrayList<Prescription> perscriptions) {
+		this.prescriptions = perscriptions;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }

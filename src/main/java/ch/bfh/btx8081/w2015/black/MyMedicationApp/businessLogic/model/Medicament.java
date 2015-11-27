@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Medicament {
 	@Id
@@ -17,7 +16,7 @@ public class Medicament {
 	private String substance = "";
 	private String quantityUnit = "";
 	private String glnNumber = "";
-	//private Image picture = null; Acutally no Image displayed
+	private Byte[] picture = null; //Acutally no Image displayed
 	private String packageInsert = "";
 	
 	public Medicament(){
@@ -53,16 +52,16 @@ public class Medicament {
 	public void setGlnNumber(String glnNumber) {
 		this.glnNumber = glnNumber;
 	}
-//	public Image getPicture() {
-//		return picture;
-//	}
-//	public void setPicture(Image picture) {
-//		this.picture = picture;
-//	}
 	public String getPackageInsert() {
 		return packageInsert;
 	}
 	public void setPackageInsert(String packageInsert) {
 		this.packageInsert = packageInsert;
+	}
+	public Byte[] getPicture() {
+		return picture;
+	}
+	public void setPicture(Byte[] picture) {
+		this.picture = picture;
 	}
 }

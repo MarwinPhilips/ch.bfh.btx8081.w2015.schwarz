@@ -1,3 +1,4 @@
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.junit.Before;
@@ -5,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medicament;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PersistenceManager;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MssqlEntityManager;
 
 
 public class EntityManagerTest {
@@ -20,14 +21,14 @@ public class EntityManagerTest {
 
 	@Test
 	public void test() {
-		PersistenceManager persistenceManager = new PersistenceManager();
-		EntityTransaction transaction =persistenceManager.getTransaction();
+		EntityManager em = MssqlEntityManager.getEntityManager();
+		EntityTransaction transaction =em.getTransaction();
 		transaction.begin();
 		Medicament medicament = new Medicament();		
-		persistenceManager.getEntityManager().persist(medicament);
+		em.persist(medicament);
 		medicament.setName("Dafalgan");
 		transaction.commit();
-		persistenceManager.closeEntityManager();
+		em.close();
 	}
 
 }
