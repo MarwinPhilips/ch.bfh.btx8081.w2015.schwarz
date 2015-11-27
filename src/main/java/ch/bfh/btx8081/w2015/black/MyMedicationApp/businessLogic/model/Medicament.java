@@ -2,6 +2,7 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
 //import java.awt.Image;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,9 @@ public class Medicament {
 	private String substance = "";
 	private String quantityUnit = "";
 	private String glnNumber = "";
+	private String gtin;
 	private Byte[] picture = null; //Acutally no Image displayed
+	@Column(columnDefinition="text")
 	private String packageInsert = "";
 	
 	public Medicament(){
@@ -63,5 +66,11 @@ public class Medicament {
 	}
 	public void setPicture(Byte[] picture) {
 		this.picture = picture;
+	}
+	public String getGtin() {
+		return gtin;
+	}
+	public void setGtin(String gtin) {
+		this.gtin = gtin;
 	}
 }
