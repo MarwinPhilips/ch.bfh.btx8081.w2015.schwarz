@@ -13,7 +13,7 @@ public class MedicationOverviewModel extends Observable {
 	List<MedicationOverviewView> medications = null;
 	EntityManager em = null;
 	public MedicationOverviewModel(){
-		em = MssqlEntityManager.getEntityManager();
+		em = MssqlEntityManager.createEntityManager();
 		loadMedications();
 	}
 	

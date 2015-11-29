@@ -1,6 +1,7 @@
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,19 +15,26 @@ public class EntityManagerTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
-
+	MssqlEntityManager mem = null;
 	@Before
 	public void setUp() throws Exception {
+		mem = new MssqlEntityManager();
+		mem.contextInitialized(null);
+	}
+	
+	@After
+	public void destroy(){
+		mem.contextDestroyed(null);
 	}
 
 	@Test
 	public void test() {
-		EntityManager em = MssqlEntityManager.getEntityManager();
+		EntityManager em = MssqlEntityManager.createEntityManager();
 		EntityTransaction transaction =em.getTransaction();
 		transaction.begin();
 		Medicament medicament = new Medicament();		
 		em.persist(medicament);
-		medicament.setName("Dafalgan");
+		medicament.setName("Vicodin");
 		transaction.commit();
 		em.close();
 	}
