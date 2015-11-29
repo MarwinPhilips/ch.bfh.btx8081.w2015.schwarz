@@ -1,13 +1,62 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="V_MEDICATIONOVERVIEW")
 public class MedicationOverviewView {
+	@ManyToOne
 	private Person person;
+	// The prescription is unique in the view
+	@Id
+	@ManyToOne
 	private Prescription prescription;
-	private String name;
+	private String medicamentname;
 	private String dose;
-	private String scheme;
-	private String note;
+	private String timeschemename;
+	private String prescriptioncomment;
+	
+	public MedicationOverviewView(){
+		
+	}
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	public Prescription getPrescription() {
+		return prescription;
+	}
+	public void setPrescription(Prescription prescription) {
+		this.prescription = prescription;
+	}
+	public String getMedicamentname() {
+		return medicamentname;
+	}
+	public void setMedicamentname(String medicamentname) {
+		this.medicamentname = medicamentname;
+	}
+	public String getDose() {
+		return dose;
+	}
+	public void setDose(String dose) {
+		this.dose = dose;
+	}
+	public String getTimeschemename() {
+		return timeschemename;
+	}
+	public void setTimeschemename(String timeschemename) {
+		this.timeschemename = timeschemename;
+	}
+	public String getPrescriptioncomment() {
+		return prescriptioncomment;
+	}
+	public void setPrescriptioncomment(String prescriptioncomment) {
+		this.prescriptioncomment = prescriptioncomment;
+	}
 }

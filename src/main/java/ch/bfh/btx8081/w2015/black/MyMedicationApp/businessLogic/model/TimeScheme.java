@@ -7,11 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.modelInterfaces.TimeSchemeInterface;
-
 @Entity
-public class TimeScheme implements TimeSchemeInterface {
+public class TimeScheme{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int timeSchemeId = 0;
