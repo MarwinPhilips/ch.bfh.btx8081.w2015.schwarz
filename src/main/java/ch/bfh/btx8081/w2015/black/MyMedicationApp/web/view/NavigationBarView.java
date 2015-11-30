@@ -9,15 +9,22 @@ import com.vaadin.ui.VerticalLayout;
 
 public class NavigationBarView extends HorizontalLayout  {
     
-    Label title = new Label("TITLE");
-    Label subTitle = new Label("SUBTITLE");
-    Button menuButton = new Button("menu", new Button.ClickListener() {
+    Label title = new Label();
+    Label subTitle = new Label();
+    ButtonListener menuButtonListener = new ButtonListener();
+    ButtonListener helpButtonListener = new ButtonListener();
+    Button menuButton = new Button(null, menuButtonListener);
+    Button helpButton = new Button(null, helpButtonListener);
+    
+    class ButtonListener implements Button.ClickListener {
+    	String navigateTo;
+        
         @Override
         public void buttonClick(ClickEvent event) {
-            MyUI.navigateTo("activity");
+            // Navigate to a specific state
+        	MyMedicationApp.navigateTo(navigateTo);
         }
-    });
-    Button helpButton = new Button("Help");
+    }
     
     public NavigationBarView(){  
     	final VerticalLayout titleArea = new VerticalLayout();
@@ -34,5 +41,29 @@ public class NavigationBarView extends HorizontalLayout  {
         addComponent(titleArea);
         addComponent(helpButton);
 	
+    }
+    
+    public void setTitle(String title) {
+    	this.title.setValue(title);
+    }
+    
+    public void setSubTitle(String subTitle) {
+    	this.subTitle.setValue(subTitle);
+    }
+    
+    public void setMenuButtonText(String text) {
+    	this.menuButton.setCaption(text);
+    }
+
+    public void setHelpButtonText(String text) {
+    	this.helpButton.setCaption(text);
+	}
+    
+    public void setMenuButtonPath(String text) {
+    	this.menuButtonListener.navigateTo = text;
+    }
+    
+    public void setHelpButtonPath(String text) {
+    	this.helpButtonListener.navigateTo = text;
     }
 }
