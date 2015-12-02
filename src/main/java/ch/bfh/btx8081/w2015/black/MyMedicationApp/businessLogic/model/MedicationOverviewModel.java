@@ -14,9 +14,12 @@ public class MedicationOverviewModel extends Observable {
 	EntityManager em = null;
 	public MedicationOverviewModel(){
 		em = MssqlEntityManager.createEntityManager();
-		loadMedications();
 	}
-	
+	public void loadData(){
+		loadMedications();
+		setChanged();
+		notifyObservers(null);
+	}
 	private void loadMedications(){
 		EntityTransaction t = em.getTransaction();
 		t.begin();

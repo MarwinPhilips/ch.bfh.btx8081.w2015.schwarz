@@ -1,5 +1,11 @@
 	package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
+import java.util.List;
+import java.util.Observer;
+
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewView;
+
 import com.vaadin.data.Item;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -13,7 +19,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
-public class MedicationOverView extends NavigatorContainer implements View{
+public class MedicationOverView extends NavigatorContainer implements View, Observer{
 
 	private Table medicationTable;
 	private HorizontalLayout topHorizontalLayout;
@@ -21,19 +27,20 @@ public class MedicationOverView extends NavigatorContainer implements View{
 	private Button editDrug;
 	private Button deleteDrug;
 	private VerticalLayout bodyVerticalLayout;
+	private MedicationOverviewModel overviewModel;
 	/**
 	 * 
 	 */
 	public MedicationOverView() {
 		super();
+		overviewModel = new MedicationOverviewModel();
+		overviewModel.addObserver(this);
+		medicationTable=new Table();
 		createTopHorizontalLayout();
 		createBodyVerticalLayout();
 		
 		addComponent(topHorizontalLayout);
 		addComponent(bodyVerticalLayout);
-		
-		
-		
 	}
 
 	/**
@@ -52,7 +59,7 @@ public class MedicationOverView extends NavigatorContainer implements View{
 	 */
 	private void createBodyVerticalLayout(){
 		bodyVerticalLayout=new VerticalLayout();
-		createTable();
+		overviewModel.loadData();
 		bodyVerticalLayout.addComponent(medicationTable);
 	}
 	/**
@@ -72,23 +79,24 @@ public class MedicationOverView extends NavigatorContainer implements View{
 	 * Create medication Table with its headers.
 	 */
 	private void createTable(){
-		medicationTable=new Table();
+		medicationTable.clear();
 		medicationTable.addContainerProperty("Drug", String.class, null);
 		medicationTable.addContainerProperty("Dose", String.class, null);
 		medicationTable.addContainerProperty("Schema", String.class, null);
 		medicationTable.addContainerProperty("Note", String.class, null);
-		
-		Object newItemId = medicationTable.addItem();
-		Item row1 = medicationTable.getItem(newItemId);
-		row1.getItemProperty("Drug").setValue("Brufen");
-		row1.getItemProperty("Dose").setValue("400 mg");
-		row1.getItemProperty("Schema").setValue("1-1-1-0");
-		row1.getItemProperty("Note").setValue("Nach dem Essen");
-		
-		
-
-		
+		for(MedicationOverviewView medicationOverview : overviewModel.getMedications()){
+			System.out.println("drugname: "+medicationOverview.getMedicamentname());
+			Object newItemId = medicationTable.addItem();
+			Item row = medicationTable.getItem(newItemId);
+			row.getItemProperty("Drug").setValue(medicationOverview.getMedicamentname());
+			row.getItemProperty("Dose").setValue(medicationOverview.getDose());
+			row.getItemProperty("Schema").setValue(medicationOverview.getTimeschemename());
+			row.getItemProperty("Note").setValue(medicationOverview.getPrescriptioncomment());
+		}		
 	}
+	public void update(java.util.Observable observable, Object object) {
+		createTable();		
+	};
 	
 	
 	@Override

@@ -1,6 +1,8 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
 
+import java.util.Observable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -8,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="V_MEDICATIONOVERVIEW")
-public class MedicationOverviewView {
+public class MedicationOverviewView extends Observable {
 	@ManyToOne
 	private Person person;
 	// The prescription is unique in the view
