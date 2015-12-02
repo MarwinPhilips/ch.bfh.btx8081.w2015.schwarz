@@ -34,8 +34,8 @@ public class MyMedicationApp extends UI {
     	navigator = new Navigator(this, this);
     	
     	// Create and register the views
-        navigator.addView("", new DummyView());
-        navigator.addView("medication", new DummyView());
+        navigator.addView("", new MedicationOverView());
+        navigator.addView("medication", new MedicationOverView());
         navigator.addView("activity", new DummyView2());
     }
     

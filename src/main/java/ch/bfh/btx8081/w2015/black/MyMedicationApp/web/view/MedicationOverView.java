@@ -120,7 +120,7 @@ public class MedicationOverView extends NavigatorContainer implements View{
 	@Override
 	public String setNavBarMenuButtonText() {
 		// TODO Auto-generated method stub
-		return "Back";
+		return "Dum2";
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class MedicationOverView extends NavigatorContainer implements View{
 	@Override
 	public String setNavBarMenuButtonPath() {
 		// TODO Auto-generated method stub
-		return null;
+		return "activity";
 	}
 
 }
