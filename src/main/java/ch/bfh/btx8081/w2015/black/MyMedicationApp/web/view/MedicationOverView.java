@@ -85,7 +85,6 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 		medicationTable.addContainerProperty("Schema", String.class, null);
 		medicationTable.addContainerProperty("Note", String.class, null);
 		for(MedicationOverviewView medicationOverview : overviewModel.getMedications()){
-			System.out.println("drugname: "+medicationOverview.getMedicamentname());
 			Object newItemId = medicationTable.addItem();
 			Item row = medicationTable.getItem(newItemId);
 			row.getItemProperty("Drug").setValue(medicationOverview.getMedicamentname());
