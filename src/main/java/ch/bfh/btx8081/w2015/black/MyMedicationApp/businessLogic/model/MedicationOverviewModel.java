@@ -31,7 +31,4 @@ public class MedicationOverviewModel extends Observable {
 	public List<MedicationOverviewView> getMedications() {
 		return medications;
 	}
-	public void setMedications(List<MedicationOverviewView> medications) {
-		this.medications = medications;
-	}
 }

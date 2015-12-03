@@ -13,7 +13,7 @@ public class WayOfApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int wayOfApplicationId = 0;
-	@OneToMany(mappedBy="WayOfApplication")
+	@OneToMany(mappedBy="wayOfApplication")
 	private ArrayList<Prescription> prescriptions = null;
 	private String name = null;
 	public WayOfApplication(){

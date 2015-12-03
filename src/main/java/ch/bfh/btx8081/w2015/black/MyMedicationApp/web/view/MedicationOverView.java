@@ -20,7 +20,6 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 public class MedicationOverView extends NavigatorContainer implements View, Observer{
-
 	private Table medicationTable;
 	private HorizontalLayout topHorizontalLayout;
 	private Button insertDrug;
@@ -79,6 +78,11 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 	 * Create medication Table with its headers.
 	 */
 	private void createTable(){
+		//maybe its better to do it somehow like https://www.vaadin.com/web/vaadin/forum#!/thread/85890
+		//Table table2 = new Table("Table 2, automation with BeanItemContainer");
+//        BeanItemContainer<Person> container2 = new BeanItemContainer<Person>(
+//                persons);
+//        table2.setContainerDataSource(container2);
 		medicationTable.clear();
 		medicationTable.addContainerProperty("Drug", String.class, null);
 		medicationTable.addContainerProperty("Dose", String.class, null);

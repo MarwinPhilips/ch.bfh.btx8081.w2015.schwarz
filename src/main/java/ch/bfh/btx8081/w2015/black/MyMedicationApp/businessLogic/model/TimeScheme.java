@@ -12,7 +12,7 @@ public class TimeScheme{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int timeSchemeId = 0;
-	@OneToMany(mappedBy="TimeScheme")
+	@OneToMany(mappedBy="timeScheme")
 	private ArrayList<DosisScheme> dosisSchemes = null;
 	private String name = null;
 	private String repetitionType = null;

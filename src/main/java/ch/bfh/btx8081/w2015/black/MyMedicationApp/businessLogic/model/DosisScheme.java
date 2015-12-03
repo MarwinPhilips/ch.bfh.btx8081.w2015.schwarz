@@ -20,7 +20,7 @@ public class DosisScheme {
 	private Prescription prescription = null;
 	@ManyToOne
 	private TimeScheme timeScheme = null;
-	@OneToMany(mappedBy = "DosisScheme")
+	@OneToMany(mappedBy = "dosisScheme")
 	private ArrayList<ActivityFeedback> activityFeedbacks = null;
 	// ToDO: Zeitpunkt: Timespan
 	private double amount = 0.0;

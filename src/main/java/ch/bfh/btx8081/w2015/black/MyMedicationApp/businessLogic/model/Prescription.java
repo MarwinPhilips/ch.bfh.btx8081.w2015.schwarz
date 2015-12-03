@@ -28,7 +28,7 @@ public class Prescription {
 	private GregorianCalendar endDate = null;
 	private boolean selfMedication= false;
 	private boolean reserveMedication = false;
-	@OneToMany(mappedBy="Prescription")	
+	@OneToMany(mappedBy="prescription")	
 	private ArrayList<DosisScheme> dosisSchemes = null;
 	private String comment = null;
 	public Prescription(){

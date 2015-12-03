@@ -13,7 +13,7 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int personId = 0;	
-	@OneToMany(mappedBy = "Person")
+	@OneToMany(mappedBy = "person")
 	private ArrayList<Prescription> prescriptions = null;
 	private String name = null;
 	private String firstName = null;
