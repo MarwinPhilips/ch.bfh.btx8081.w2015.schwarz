@@ -32,7 +32,6 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
 	@Override
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public abstract String setNavBarTitle();

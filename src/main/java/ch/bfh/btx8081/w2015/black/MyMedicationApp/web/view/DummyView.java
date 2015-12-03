@@ -41,7 +41,6 @@ public class DummyView extends NavigatorContainer {
 
 	@Override
 	public String setNavBarHelpButtonPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
