@@ -7,6 +7,7 @@ import com.vaadin.ui.VerticalLayout;
 
 public abstract class NavigatorContainer extends VerticalLayout implements View {
 	
+	private static final long serialVersionUID = 1L;
 	final HorizontalLayout navigationBar = new HorizontalLayout();
 	
 	

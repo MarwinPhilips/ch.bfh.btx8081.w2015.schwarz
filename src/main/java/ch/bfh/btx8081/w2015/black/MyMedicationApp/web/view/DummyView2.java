@@ -5,7 +5,12 @@ import com.vaadin.ui.Label;
 
 public class DummyView2 extends NavigatorContainer {
 	
-    public DummyView2() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1;
+
+	public DummyView2() {
     	
         setSizeFull();
 

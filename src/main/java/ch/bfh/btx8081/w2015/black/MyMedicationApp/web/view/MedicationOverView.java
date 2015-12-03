@@ -5,7 +5,6 @@ import java.util.Observer;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewView;
 
-import com.vaadin.data.Item;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
@@ -15,6 +14,10 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 public class MedicationOverView extends NavigatorContainer implements View, Observer{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Table medicationTable;
 	private HorizontalLayout topHorizontalLayout;
 	private Button insertDrug;
@@ -84,12 +87,13 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 		medicationTable.addContainerProperty("Schema", String.class, null);
 		medicationTable.addContainerProperty("Note", String.class, null);
 		for(MedicationOverviewView medicationOverview : overviewModel.getMedications()){
-			Object newItemId = medicationTable.addItem();
-			Item row = medicationTable.getItem(newItemId);
-			row.getItemProperty("Drug").setValue(medicationOverview.getMedicamentname());
-			row.getItemProperty("Dose").setValue(medicationOverview.getDose());
-			row.getItemProperty("Schema").setValue(medicationOverview.getTimeschemename());
-			row.getItemProperty("Note").setValue(medicationOverview.getPrescriptioncomment());
+			medicationTable.addItem(new Object[]{medicationOverview.getMedicamentname(), 
+			                         	medicationOverview.getDose(),
+										medicationOverview.getTimeschemename(),
+										medicationOverview.getPrescriptioncomment()}, null);
+			/* TODO: addItem() has a itemId which is generated automatically generated atm
+			 * should be replaced by actual ID of the object medicationOverview.
+			 */
 		}		
 	}
 	public void update(java.util.Observable observable, Object object) {

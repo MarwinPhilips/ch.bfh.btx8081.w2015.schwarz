@@ -9,7 +9,11 @@ import com.vaadin.ui.VerticalLayout;
 
 public class NavigationBarView extends HorizontalLayout  {
     
-    Label title = new Label();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Label title = new Label();
     Label subTitle = new Label();
     ButtonListener menuButtonListener = new ButtonListener();
     ButtonListener helpButtonListener = new ButtonListener();
@@ -17,7 +21,11 @@ public class NavigationBarView extends HorizontalLayout  {
     Button helpButton = new Button(null, helpButtonListener);
     
     class ButtonListener implements Button.ClickListener {
-    	String navigateTo;
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = -2508981136047554299L;
+		String navigateTo;
         
         @Override
         public void buttonClick(ClickEvent event) {
