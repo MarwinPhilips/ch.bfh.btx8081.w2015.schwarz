@@ -86,6 +86,7 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 		medicationTable.addContainerProperty("Dose", String.class, null);
 		medicationTable.addContainerProperty("Schema", String.class, null);
 		medicationTable.addContainerProperty("Note", String.class, null);
+		// TODO: Maybe there is a better option to set titles just once?!
 		for(MedicationOverviewView medicationOverview : overviewModel.getMedications()){
 			medicationTable.addItem(new Object[]{medicationOverview.getMedicamentname(), 
 			                         	medicationOverview.getDose(),
