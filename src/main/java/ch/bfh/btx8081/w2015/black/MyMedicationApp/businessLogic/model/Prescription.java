@@ -31,6 +31,8 @@ public class Prescription {
 	@OneToMany(mappedBy="prescription")	
 	private ArrayList<DosisScheme> dosisSchemes = null;
 	private String comment = null;
+	@ManyToOne
+	private TimeScheme timeScheme = null;
 	public Prescription(){
 		
 	}
@@ -99,5 +101,11 @@ public class Prescription {
 	}
 	public void setDosisSchemes(ArrayList<DosisScheme> dosisSchemes) {
 		this.dosisSchemes = dosisSchemes;
+	}
+	public TimeScheme getTimeScheme() {
+		return timeScheme;
+	}
+	public void setTimeScheme(TimeScheme timeScheme) {
+		this.timeScheme = timeScheme;
 	}
 }

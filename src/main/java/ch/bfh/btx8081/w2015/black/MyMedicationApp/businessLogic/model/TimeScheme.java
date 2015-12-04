@@ -13,23 +13,20 @@ public class TimeScheme{
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int timeSchemeId = 0;
 	@OneToMany(mappedBy="timeScheme")
-	private ArrayList<DosisScheme> dosisSchemes = null;
+	private ArrayList<TimeSchemeTime> timeSchemeTimes = null;
+	@OneToMany(mappedBy="timeScheme")
+	private ArrayList<Prescription> prescriptions = null;
 	private String name = null;
 	private String repetitionType = null;
 	public TimeScheme(){
-		
+		timeSchemeTimes = new ArrayList<TimeSchemeTime>();
+		prescriptions = new ArrayList<Prescription>();
 	}
 	public int getTimeSchemeId() {
 		return timeSchemeId;
 	}
 	public void setTimeSchemeId(int timeSchemeId) {
 		this.timeSchemeId = timeSchemeId;
-	}
-	public ArrayList<DosisScheme> getDosisSchemes() {
-		return dosisSchemes;
-	}
-	public void setDosisSchemes(ArrayList<DosisScheme> dosisSchemes) {
-		this.dosisSchemes = dosisSchemes;
 	}
 	public String getName() {
 		return name;
@@ -42,5 +39,12 @@ public class TimeScheme{
 	}
 	public void setRepetitionType(String repetitionType) {
 		this.repetitionType = repetitionType;
+	}
+	public ArrayList<TimeSchemeTime> getTimeSchemeTimes() {
+		return timeSchemeTimes;
+	}
+	public void setTimeSchemeTimes(
+			ArrayList<TimeSchemeTime> timeSchemeTimes) {
+		this.timeSchemeTimes = timeSchemeTimes;
 	}
 }

@@ -2,8 +2,8 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 import java.util.Observer;
 
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewView;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -87,11 +87,11 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 		medicationTable.addContainerProperty("Schema", String.class, null);
 		medicationTable.addContainerProperty("Note", String.class, null);
 		// TODO: Maybe there is a better option to set titles just once?!
-		for(MedicationOverviewView medicationOverview : overviewModel.getMedications()){
-			medicationTable.addItem(new Object[]{medicationOverview.getMedicamentname(), 
-			                         	medicationOverview.getDose(),
-										medicationOverview.getTimeschemename(),
-										medicationOverview.getPrescriptioncomment()}, null);
+		for(MedicationList medicationList : overviewModel.getMedications()){
+			medicationTable.addItem(new Object[]{medicationList.getMedicamentname(), 
+			                         	medicationList.getDose(),
+										medicationList.getTimeschemename(),
+										medicationList.getPrescriptioncomment()}, null);
 			/* TODO: addItem() has a itemId which is generated automatically generated atm
 			 * should be replaced by actual ID of the object medicationOverview.
 			 */

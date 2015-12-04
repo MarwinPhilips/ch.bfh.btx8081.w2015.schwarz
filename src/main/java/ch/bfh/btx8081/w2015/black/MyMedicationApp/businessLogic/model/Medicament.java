@@ -18,7 +18,7 @@ public class Medicament {
 	private String quantityUnit = "";
 	private String glnNumber = "";
 	private String gtin;
-	private Byte[] picture = null; //Acutally no Image displayed
+	private Byte[] picture = null; //Actually no Image displayed
 	@Column(columnDefinition="text")
 	private String packageInsert = "";
 	

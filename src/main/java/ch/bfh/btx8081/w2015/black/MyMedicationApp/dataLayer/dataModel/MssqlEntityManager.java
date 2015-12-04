@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebListener;
 public class MssqlEntityManager implements ServletContextListener {
 
     private static EntityManagerFactory emf;
-
     @Override
     public void contextInitialized(ServletContextEvent event) {
         emf = Persistence.createEntityManagerFactory("Medication");

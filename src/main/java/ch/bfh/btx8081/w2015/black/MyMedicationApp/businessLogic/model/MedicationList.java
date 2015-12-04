@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="V_MEDICATIONOVERVIEW")
-public class MedicationOverviewView extends Observable {
+public class MedicationList extends Observable {
 	@ManyToOne
 	private Person person;
 	// The prescription is unique in the view
@@ -22,7 +22,7 @@ public class MedicationOverviewView extends Observable {
 	private String timeschemename;
 	private String prescriptioncomment;
 	
-	public MedicationOverviewView(){
+	public MedicationList(){
 		
 	}
 	public Person getPerson() {

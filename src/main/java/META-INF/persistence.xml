@@ -12,7 +12,8 @@
 		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme</class>
 		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication</class>
 		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.ActivityFeedback</class>
-		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewView</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList</class>
+		<class>ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeSchemeTime</class>
 		<properties>
  	
  			<!-- MS SQL SERVER -->

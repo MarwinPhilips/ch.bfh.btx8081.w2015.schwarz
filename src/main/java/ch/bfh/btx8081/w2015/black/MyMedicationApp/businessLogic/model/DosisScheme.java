@@ -1,5 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -18,17 +19,15 @@ public class DosisScheme {
 	private int DosisSchemeId = 0;
 	@ManyToOne
 	private Prescription prescription = null;
-	@ManyToOne
-	private TimeScheme timeScheme = null;
 	@OneToMany(mappedBy = "dosisScheme")
 	private ArrayList<ActivityFeedback> activityFeedbacks = null;
 	// ToDO: Zeitpunkt: Timespan
 	private double amount = 0.0;
+	private Duration time = null;
 	private String quantityUnit = null;
 	private GregorianCalendar validFrom = null;
 	private GregorianCalendar validTo = null;
 	public DosisScheme(){
-		
 	}
 	public int getDosisSchemeId() {
 		return DosisSchemeId;
@@ -41,12 +40,6 @@ public class DosisScheme {
 	}
 	public void setPrescription(Prescription prescription) {
 		this.prescription = prescription;
-	}
-	public TimeScheme getTimeScheme() {
-		return timeScheme;
-	}
-	public void setTimeScheme(TimeScheme timeScheme) {
-		this.timeScheme = timeScheme;
 	}
 	public ArrayList<ActivityFeedback> getActivityFeedbacks() {
 		return activityFeedbacks;
@@ -78,5 +71,4 @@ public class DosisScheme {
 	public void setValidTo(GregorianCalendar validTo) {
 		this.validTo = validTo;
 	}
-	
 }
