@@ -1,5 +1,7 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observer;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
@@ -9,11 +11,12 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
-public class MedicationOverView extends NavigatorContainer implements View, Observer{
+public class MedicationOverView extends NavigatorContainer implements View, Observer,ActionListener{
 	/**
 	 * 
 	 */
@@ -66,6 +69,7 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 		
 		
 		insertDrug=new Button("Insert", new ThemeResource("Icons/Insert.png"));
+		addActionToButton(insertDrug.getCaption());
 		editDrug=new Button("Edit", new ThemeResource("Icons/Edit.png"));
 		deleteDrug=new Button("Delete", new ThemeResource("Icons/Delete.png"));
 		editDrug.setEnabled(false);
@@ -97,10 +101,26 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 			 */
 		}		
 	}
+	
+	/**
+	 * 
+	 */
 	public void update(java.util.Observable observable, Object object) {
 		createTable();		
 	};
-	
+
+	private void addActionToButton(String buttonName){
+		if(buttonName=="Insert"){
+		insertDrug.addClickListener(new Button.ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void buttonClick(ClickEvent event) {
+				MyMedicationApp.navigateTo("MedicationInsertView");
+		    }
+		});
+		}
+
+	}
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
@@ -135,6 +155,13 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 	@Override
 	public String setNavBarMenuButtonPath() {
 		return "activity";
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		
 	}
 
 }
