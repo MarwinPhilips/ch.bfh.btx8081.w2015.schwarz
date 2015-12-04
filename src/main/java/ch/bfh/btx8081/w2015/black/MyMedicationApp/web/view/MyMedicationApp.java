@@ -32,6 +32,7 @@ public class MyMedicationApp extends UI {
         navigator.addView("", new MedicationOverView());
         navigator.addView("medication", new MedicationOverView());
         navigator.addView("activity", new DummyView2());
+        navigator.addView("MedicationInsertView", new MedicationInsertView());
     }
     
     public static void navigateTo(String view) {
