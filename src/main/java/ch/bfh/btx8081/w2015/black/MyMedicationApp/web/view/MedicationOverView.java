@@ -7,6 +7,9 @@ import java.util.Observer;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
 
+import com.vaadin.data.Property;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
@@ -41,6 +44,7 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 		
 		addComponent(topHorizontalLayout);
 		addComponent(bodyVerticalLayout);
+		
 	}
 
 	/**
@@ -66,15 +70,15 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 	 * create three Buttons 
 	 */
 	private void createButtons(){
-		
-		
 		insertDrug=new Button("Insert", new ThemeResource("Icons/Insert.png"));
 		addActionToButton(insertDrug.getCaption());
 		editDrug=new Button("Edit", new ThemeResource("Icons/Edit.png"));
+		addActionToButtonEdit(editDrug.getCaption());
 		deleteDrug=new Button("Delete", new ThemeResource("Icons/Delete.png"));
 		editDrug.setEnabled(false);
 		deleteDrug.setEnabled(false);
 	}
+	
 	
 	/**
 	 * Create medication Table with its headers.
@@ -96,11 +100,21 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 			                         	medicationList.getDose(),
 										medicationList.getTimeschemename(),
 										medicationList.getPrescriptioncomment()}, null);
+			// TODO: the Value: medicationTable should be replaced with the right one!
+			// 			now is this If condition always true
+			if(medicationTable == null){
+			editDrug.setEnabled(false);}
+			else{
+				editDrug.setEnabled(true);
+			// Allow selecting items from the table.
+				medicationTable.setSelectable(true);}
 			/* TODO: addItem() has a itemId which is generated automatically generated atm
 			 * should be replaced by actual ID of the object medicationOverview.
 			 */
 		}		
 	}
+	
+	
 	
 	/**
 	 * 
@@ -108,19 +122,34 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 	public void update(java.util.Observable observable, Object object) {
 		createTable();		
 	};
-
+	
+	
 	private void addActionToButton(String buttonName){
-		if(buttonName=="Insert"){
+		if(buttonName=="Insert")
+		{
 		insertDrug.addClickListener(new Button.ClickListener() {
 			private static final long serialVersionUID = 1L;
 
 			public void buttonClick(ClickEvent event) {
 				MyMedicationApp.navigateTo("MedicationInsertView");
-		    }
-		});
-		}
+				}
+			});
+		}}
+	
+	
+		private void addActionToButtonEdit(String buttonName){
+			if (true && buttonName=="Edit")
+			{
+			editDrug.addClickListener(new Button.ClickListener() {
+				private static final long serialVersionUID = 1L;
 
-	}
+				public void buttonClick(ClickEvent event) {
+					MyMedicationApp.navigateTo("MedicationEditView");
+					}
+				});
+			}}
+		
+
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
