@@ -7,9 +7,6 @@ import java.util.Observer;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
 
-import com.vaadin.data.Property;
-import com.vaadin.event.ItemClickEvent;
-import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
@@ -91,13 +88,14 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 //        table2.setContainerDataSource(container2);
 		medicationTable.clear();
 		medicationTable.addContainerProperty("Drug", String.class, null);
-		medicationTable.addContainerProperty("Dose", String.class, null);
+		//The dose is not that easy to get, so for the moment i remove it.
+		//medicationTable.addContainerProperty("Dose", String.class, null);
 		medicationTable.addContainerProperty("Schema", String.class, null);
 		medicationTable.addContainerProperty("Note", String.class, null);
 		// TODO: Maybe there is a better option to set titles just once?!
 		for(MedicationList medicationList : overviewModel.getMedications()){
 			medicationTable.addItem(new Object[]{medicationList.getMedicamentname(), 
-			                         	medicationList.getDose(),
+			                         	//medicationList.getDose(),
 										medicationList.getTimeschemename(),
 										medicationList.getPrescriptioncomment()}, null);
 			// TODO: the Value: medicationTable should be replaced with the right one!

@@ -8,6 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
+/**
+ * A TimeSchemeTime represents a Time in a Timescheme. To store by Example 4 different Times on a day, on which the Person takes 
+ * a Medicament, we save 4 TimeSchemeTimes to a TimeScheme, each with different Timespans.
+ * @author Marwin
+ *
+ */
 @Entity
 public class TimeSchemeTime {
 	@Id
@@ -20,13 +26,12 @@ public class TimeSchemeTime {
 	 */
 	@Transient
 	private Duration time;
-	private String time_duration;
+	private String time_string;
 	private TimeScheme timeScheme;
+	private String timeSchemeTimeName;
 	public TimeSchemeTime(){
 	}
-	public Duration getTimespan() {
-		return time;
-	}
+	
 	public TimeScheme getTimeScheme() {
 		return timeScheme;
 	}
@@ -41,11 +46,21 @@ public class TimeSchemeTime {
 	}
 	@PostLoad
 	public void init() {
-	  this.time = this.time_duration == null ? null : Duration.parse(this.time_duration);
+	  this.time = this.time_string == null ? null : Duration.parse(this.time_string);
 	};
 	public void setTime(Duration time) {
-	  this.time_duration = time == null ? null : time.toString();
+	  this.time_string = time == null ? null : time.toString();
 	  this.time=time;
 	}
-	
+	public Duration getTimespan() {
+		return time;
+	}
+
+	public String getTimeSchemeTimeName() {
+		return timeSchemeTimeName;
+	}
+
+	public void setTimeSchemeTimeName(String timeSchemeTimeName) {
+		this.timeSchemeTimeName = timeSchemeTimeName;
+	}
 }

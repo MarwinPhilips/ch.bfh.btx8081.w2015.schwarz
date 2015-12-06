@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
 
 @Entity
 public class DosisScheme {
@@ -23,10 +25,17 @@ public class DosisScheme {
 	private ArrayList<ActivityFeedback> activityFeedbacks = null;
 	// ToDO: Zeitpunkt: Timespan
 	private double amount = 0.0;
+	/**
+	 * Duration can not be persisted. Therefore we persist it as a string with the correlated parsing :(
+	 * See: http://stackoverflow.com/questions/28427525/how-to-model-java-time-duration-in-mysql-database
+	 */
+	@Transient
 	private Duration time = null;
+	private String time_string = null;
 	private String quantityUnit = null;
 	private GregorianCalendar validFrom = null;
 	private GregorianCalendar validTo = null;
+	private String dosisSchemeName = null;
 	public DosisScheme(){
 	}
 	public int getDosisSchemeId() {
@@ -70,5 +79,22 @@ public class DosisScheme {
 	}
 	public void setValidTo(GregorianCalendar validTo) {
 		this.validTo = validTo;
+	}
+	public String getDosisSchemeName() {
+		return dosisSchemeName;
+	}
+	public void setDosisSchemeName(String dosisSchemeName) {
+		this.dosisSchemeName = dosisSchemeName;
+	}
+	@PostLoad
+	public void init() {
+	  this.time = this.time_string == null ? null : Duration.parse(this.time_string);
+	};
+	public void setTime(Duration time) {
+	  this.time_string = time == null ? null : time.toString();
+	  this.time=time;
+	}
+	public Duration getTimespan() {
+		return time;
 	}
 }

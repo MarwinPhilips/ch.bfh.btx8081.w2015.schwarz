@@ -18,7 +18,8 @@ public class MedicationList extends Observable {
 	@ManyToOne
 	private Prescription prescription;
 	private String medicamentname;
-	private String dose;
+	// The dose is not saved in one attribute, so for the moment we let it away.
+	//private String dose;
 	private String timeschemename;
 	private String prescriptioncomment;
 	
@@ -43,12 +44,12 @@ public class MedicationList extends Observable {
 	public void setMedicamentname(String medicamentname) {
 		this.medicamentname = medicamentname;
 	}
-	public String getDose() {
-		return dose;
-	}
-	public void setDose(String dose) {
-		this.dose = dose;
-	}
+//	public String getDose() {
+//		return dose;
+//	}
+//	public void setDose(String dose) {
+//		this.dose = dose;
+//	}
 	public String getTimeschemename() {
 		return timeschemename;
 	}
