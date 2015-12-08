@@ -23,7 +23,7 @@ import com.vaadin.ui.Button.ClickEvent;
 public class MedicationEditView extends NavigatorContainer implements View, Observer{
 	
 	private MedicationEditModel medicationEdit;
-	private Form insertForm;
+	private Form insertForm; // TODO: Form() is deprecated! Use FielGroup instead
 	private TextField dosisTextField = new TextField();
 	private TextField noteTextField = new TextField();
 	private TextField textFieldMo = new TextField();
@@ -31,7 +31,7 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	private TextField textFieldAb = new TextField();
 	private TextField textFieldNa = new TextField();
 	private HorizontalLayout hl = new HorizontalLayout();
-	private Button saveBt = new Button("Save");
+    private Button saveButton = new Button("Save", new SaveButtonListener());
 	
 	
 	/**
@@ -70,32 +70,22 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		insertForm.getLayout().addComponents(new Label("Dosis: "),dosisTextField);
 		insertForm.getLayout().addComponents(new Label("Schema:"),hl);
 		insertForm.getLayout().addComponents(new Label("Note: "), noteTextField);	
-		insertForm.getLayout().addComponent(saveBt);
-		
-		
-		/**
-		 * ClickListener for the save button
-		 */
-		saveBt.addClickListener(new Button.ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			/**
-			 *  Save the edited Value
-			 */
-			//TODO: Write the code for saving
-			
-			
-			/**
-			 * Go Back to MedicationOverView
-			 */
-			public void buttonClick(ClickEvent event) {
-				MyMedicationApp.navigateTo("medication");
-				}
-			});
+		insertForm.getLayout().addComponent(saveButton);
 		
 		addComponent(insertForm);
 		
 	}
+	
+	class SaveButtonListener implements Button.ClickListener {
+    	private static final long serialVersionUID = 1L;
+		 
+        @Override
+        public void buttonClick(ClickEvent event) {
+        	//TODO: Validate and save the values to the database
+        	
+        	MyMedicationApp.navigateTo("medication");
+        }
+    }
 	
 	// TODO: Get the actually Value of Medication/Prescription from the DB
 	private void insertEditMedicationText(){
@@ -114,7 +104,6 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 
 	@Override
 	public String setNavBarTitle() {
-		// TODO Auto-generated method stub
 		return "Edit medication";
 	}
 
@@ -126,8 +115,7 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 
 	@Override
 	public String setNavBarHelpButtonText() {
-		// TODO Auto-generated method stub
-		return "Menu";
+		return "?";
 	}
 
 	@Override

@@ -98,6 +98,10 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 			                         	//medicationList.getDose(),
 										medicationList.getTimeschemename(),
 										medicationList.getPrescriptioncomment()}, null);
+			/* TODO: addItem() has a itemId which is generated automatically generated atm
+			 * should be replaced by actual ID of the object medicationOverview.
+			 */
+			
 			// TODO: the Value: medicationTable should be replaced with the right one!
 			// 			now is this If condition always true
 			if(medicationTable == null){
@@ -106,14 +110,10 @@ public class MedicationOverView extends NavigatorContainer implements View, Obse
 				editDrug.setEnabled(true);
 			// Allow selecting items from the table.
 				medicationTable.setSelectable(true);}
-			/* TODO: addItem() has a itemId which is generated automatically generated atm
-			 * should be replaced by actual ID of the object medicationOverview.
-			 */
+			
 		}		
 	}
-	
-	
-	
+
 	/**
 	 * 
 	 */

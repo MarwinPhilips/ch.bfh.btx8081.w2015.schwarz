@@ -21,10 +21,7 @@ public class NavigationBarView extends HorizontalLayout  {
     Button helpButton = new Button(null, helpButtonListener);
     
     class ButtonListener implements Button.ClickListener {
-    	/**
-		 * 
-		 */
-		private static final long serialVersionUID = -2508981136047554299L;
+    	private static final long serialVersionUID = 1L;
 		String navigateTo;
         
         @Override

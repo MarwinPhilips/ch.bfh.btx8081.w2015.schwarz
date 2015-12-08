@@ -48,6 +48,6 @@ public class MyMedicationApp extends UI {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 6394287687267930127L;
+		private static final long serialVersionUID = 1L;
     }
 }

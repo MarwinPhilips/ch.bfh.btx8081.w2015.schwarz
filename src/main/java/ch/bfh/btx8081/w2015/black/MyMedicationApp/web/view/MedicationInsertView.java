@@ -1,7 +1,11 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
+import com.vaadin.ui.Button.ClickEvent;
+
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view.MedicationEditView.SaveButtonListener;
 
 /**
  * 
@@ -12,13 +16,14 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 
 	
 	
-	private Form insertForm;
+	private Form insertForm; // TODO: Form() is deprecated! Use FielGroup instead
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	
+	private Button saveButton = new Button("Save", new SaveButtonListener());
 	
 	
 	/**
@@ -34,28 +39,35 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		        "use here.");
 		addComponent(insertForm);
 	}
+	
+	class SaveButtonListener implements Button.ClickListener {
+    	private static final long serialVersionUID = 1L;
+		 
+        @Override
+        public void buttonClick(ClickEvent event) {
+        	//TODO: Validate and save the values to the database
+        	
+        	MyMedicationApp.navigateTo("medication");
+        }
+    }
 
 	@Override
 	public String setNavBarTitle() {
-		// TODO Auto-generated method stub
 		return " Insert Medication";
 	}
 
 	@Override
 	public String setNavBarSubTitle() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String setNavBarHelpButtonText() {
-		// TODO Auto-generated method stub
-		return "Menu";
+		return "?";
 	}
 
 	@Override
 	public String setNavBarMenuButtonText() {
-		// TODO Auto-generated method stub
 		return "Back";
 	}
 
