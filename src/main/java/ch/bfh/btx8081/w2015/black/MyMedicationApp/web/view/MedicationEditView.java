@@ -1,16 +1,20 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
 
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
 import com.vaadin.ui.Button.ClickEvent;
 
 
@@ -32,6 +36,10 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	private TextField textFieldNa = new TextField();
 	private HorizontalLayout hl = new HorizontalLayout();
     private Button saveButton = new Button("Save", new SaveButtonListener());
+    private List<TimeScheme> timeSchemes = null;
+	private Prescription prescription = null;
+	private TimeScheme selectedTimeScheme = null;
+	private int prescriptionId = 0;
 	
 	
 	/**
@@ -47,6 +55,9 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		super();
 		medicationEdit = new MedicationEditModel();
 		medicationEdit.addObserver(this);
+		medicationEdit.loadData(1);
+		timeSchemes = medicationEdit.getTimeSchemes();
+		prescription = medicationEdit.getPrescription();
 		insertEditMedicationText();
 		
 		/**
@@ -59,7 +70,7 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		textFieldMi.setMaxLength(5);
 		hl.addComponent(new Label("Mi: "));
 		hl.addComponent(textFieldMi);
-		textFieldAb.setMaxLength(5);
+		textFieldAb.setMaxLength(5);	
 		hl.addComponent(new Label("Ab: "));;
 		hl.addComponent(textFieldAb);
 		textFieldNa.setMaxLength(5);
@@ -92,8 +103,16 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		/*
 		 * something like that? medicationName = medicationEdit.getPrescription().getMedicament().getName();
 		 */
+		/*
+		for(TimeSchemeTime t : selectedTimeScheme.getTimeSchemeTimes()){
+			TextField tf = new TextField();
+			tf.setMaxLength(5);
+			hl.addComponent(new Label(t.getTimeSchemeTimeName()));
+			hl.addComponent(tf);
+		}*/
 		dosisTextField.setValue("Aktuelle Dosis aufrufen");
 		noteTextField.setValue("AktuelleNote");
+		
 		textFieldMo.setValue("aktuelle Mo");
 		textFieldMi.setValue("aktuelle Mi");
 		textFieldAb.setValue("aktuelle Ab");
@@ -139,9 +158,15 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		insertEditMedicationText();
-		
+		createView();		
+	}
+
+	private void createView() {
+		medicationEdit.loadData(prescriptionId);		
+	}
+
+	public void setPrescriptionId(int prescriptionId) {
+		this.prescriptionId = prescriptionId;		
 	}
 
 }

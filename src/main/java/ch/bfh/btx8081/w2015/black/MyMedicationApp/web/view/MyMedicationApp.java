@@ -27,13 +27,15 @@ public class MyMedicationApp extends UI {
     	getPage().setTitle("MyMedicationApp");
     	
     	navigator = new Navigator(this, this);
-    	
+    	MedicationInsertView insertView = new MedicationInsertView();
+    	MedicationEditView editView = new MedicationEditView();
+    	MedicationOverView overView = new MedicationOverView(editView);
     	// Create and register the views
-        navigator.addView("", new MedicationOverView());
-        navigator.addView("medication", new MedicationOverView());
+        navigator.addView("", overView);
+        navigator.addView("medication", overView);
         navigator.addView("activity", new DummyView2());
-        navigator.addView("MedicationInsertView", new MedicationInsertView());
-        navigator.addView("MedicationEditView", new MedicationEditView());
+        navigator.addView("MedicationInsertView", insertView);
+        navigator.addView("MedicationEditView", editView);
 
     }
     
