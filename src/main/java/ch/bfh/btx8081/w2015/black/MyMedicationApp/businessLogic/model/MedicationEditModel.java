@@ -19,11 +19,16 @@ public class MedicationEditModel extends Observable {
 		prescriptionRepo = new PrescriptionRepository();
 	}
 
-	public void loadData(int prescriptionId){
-		prescription = prescriptionRepo.getById(prescriptionId);
+	public void loadData(){
+		prescription = prescription == null ? null : prescriptionRepo.getById(prescription.getPrescriptionId());
 		timeSchemes = timeSchemeRepo.getAllTimeschemes();
+		setChanged();
+		notifyObservers(null);
 	}
-
+	public void setPrescriptionId(int prescriptionId){
+		prescription = prescriptionRepo.getById(prescriptionId);
+	}
+	
 	public Prescription getPrescription() {
 		return prescription;
 	}

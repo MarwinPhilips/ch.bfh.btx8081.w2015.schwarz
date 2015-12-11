@@ -55,9 +55,9 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		super();
 		medicationEdit = new MedicationEditModel();
 		medicationEdit.addObserver(this);
-		medicationEdit.loadData(1);
+		medicationEdit.loadData();
 		timeSchemes = medicationEdit.getTimeSchemes();
-		prescription = medicationEdit.getPrescription();
+		//prescription = medicationEdit.getPrescription();
 		insertEditMedicationText();
 		
 		/**
@@ -162,7 +162,7 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	}
 
 	private void createView() {
-		medicationEdit.loadData(prescriptionId);		
+		//medicationEdit.loadData(prescriptionId);		
 	}
 
 	public void setPrescriptionId(int prescriptionId) {
