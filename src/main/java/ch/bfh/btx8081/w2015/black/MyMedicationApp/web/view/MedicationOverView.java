@@ -115,31 +115,6 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		medicationTable.setColumnHeaders(new String[] { "Medikamentenname",
 				"Zeischema", "Verordnungskommentar" });
 		medicationTable.setSelectable(true);
-		medicationTable.addContainerProperty("Drug", String.class, null);
-		//The dose is not that easy to get, so for the moment i remove it.
-		//medicationTable.addContainerProperty("Dose", String.class, null);
-		medicationTable.addContainerProperty("Schema", String.class, null);
-		medicationTable.addContainerProperty("Note", String.class, null);
-		// TODO: Maybe there is a better option to set titles just once?!
-		for(MedicationList medicationList : overviewModel.getMedications()){
-			medicationTable.addItem(new Object[]{medicationList.getMedicamentname(), 
-			                         	//medicationList.getDose(),
-										medicationList.getTimeschemename(),
-										medicationList.getPrescriptioncomment()}, null);
-			/* TODO: addItem() has a itemId which is generated automatically generated atm
-			 * should be replaced by actual ID of the object medicationOverview.
-			 */
-			
-			// TODO: the Value: medicationTable should be replaced with the right one!
-			// 			now is this If condition always true
-			if(medicationTable == null){
-			editDrug.setEnabled(false);}
-			else{
-				editDrug.setEnabled(true);
-			// Allow selecting items from the table.
-				medicationTable.setSelectable(true);}
-			
-		}		
 	}
 
 	/**
