@@ -33,6 +33,7 @@ public class Prescription {
 	private String comment = null;
 	@ManyToOne
 	private TimeScheme timeScheme = null;
+	private boolean deleted = false;
 	public Prescription(){
 		
 	}
@@ -107,5 +108,11 @@ public class Prescription {
 	}
 	public void setTimeScheme(TimeScheme timeScheme) {
 		this.timeScheme = timeScheme;
+	}
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }
