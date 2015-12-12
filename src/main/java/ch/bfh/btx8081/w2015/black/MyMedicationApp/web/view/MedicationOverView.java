@@ -97,6 +97,13 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		addActionToButtonEdit(editDrug.getCaption());
 		editDrug.setEnabled(true);
 		deleteDrug = new Button("Delete", new ThemeResource("Icons/Delete.png"));
+		deleteDrug.addClickListener(new Button.ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void buttonClick(ClickEvent event) {
+				overviewModel.deletePrescription();
+			}
+		});
 		editDrug.setEnabled(false);
 		deleteDrug.setEnabled(false);
 	}
