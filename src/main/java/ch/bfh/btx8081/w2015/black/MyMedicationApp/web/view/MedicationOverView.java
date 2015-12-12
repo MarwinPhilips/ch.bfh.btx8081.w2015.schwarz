@@ -35,7 +35,6 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	private VerticalLayout bodyVerticalLayout;
 	private MedicationOverviewModel overviewModel;
 	private MedicationEditView editView = null;
-	private Prescription selectedPrescription;
 
 	/**
 	 * 
@@ -55,9 +54,9 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 					@Override
 					public void itemClick(ItemClickEvent event) {
-						selectedPrescription = ((Prescription)event.getItem().getItemProperty("prescription").getValue());
-						editDrug.setEnabled(selectedPrescription!=null);
-						deleteDrug.setEnabled(selectedPrescription!=null);						
+					    overviewModel.setSelectedPrescription(((Prescription)event.getItem().getItemProperty("prescription").getValue()));
+						editDrug.setEnabled(overviewModel.getSelectedPrescription()!=null);
+						deleteDrug.setEnabled(overviewModel.getSelectedPrescription()!=null);						
 					}
 				});
 		createTopHorizontalLayout();
@@ -149,9 +148,9 @@ public class MedicationOverView extends NavigatorContainer implements View,
 				private static final long serialVersionUID = 1L;
 
 				public void buttonClick(ClickEvent event) {
-					if (selectedPrescription != null) {
+					if (overviewModel.getSelectedPrescription()!=null) {
 						// ToDO: Fehlermeldung, falls kein Medi ausgewählt ist.
-						editView.setPrescriptionId(selectedPrescription.getPrescriptionId());
+						editView.setPrescriptionId(overviewModel.getSelectedPrescription().getPrescriptionId());
 						MyMedicationApp.navigateTo("MedicationEditView");
 					}
 				}
