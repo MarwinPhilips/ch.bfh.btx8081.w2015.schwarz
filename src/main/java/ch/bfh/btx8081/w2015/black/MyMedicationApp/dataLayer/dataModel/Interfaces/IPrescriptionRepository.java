@@ -4,4 +4,5 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 
 public interface IPrescriptionRepository {
 	public Prescription getById(int id);
+	public Prescription getNewPrescription();
 }

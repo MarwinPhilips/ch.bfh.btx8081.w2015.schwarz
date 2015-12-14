@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
 
 
 @Entity
@@ -34,6 +38,8 @@ public class Prescription {
 	@ManyToOne
 	private TimeScheme timeScheme = null;
 	private boolean deleted = false;
+	@Enumerated(EnumType.STRING)
+	private PrescriptionStateEnum prescriptionState;
 	public Prescription(){
 		
 	}
@@ -114,5 +120,11 @@ public class Prescription {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+	public PrescriptionStateEnum getPrescriptionState() {
+		return prescriptionState;
+	}
+	public void setPrescriptionState(PrescriptionStateEnum prescriptionState) {
+		this.prescriptionState = prescriptionState;
 	}
 }

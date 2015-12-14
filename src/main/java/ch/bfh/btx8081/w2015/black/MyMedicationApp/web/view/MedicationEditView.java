@@ -5,13 +5,17 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextField;
+
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
+
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.DateField;
 
@@ -151,7 +155,6 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	private void getPrescriptionNote(){
 		TextField tf = new TextField("Prescription Note:");
 		String st = new String();
-		setPrescriptionId(1);
 		st = medicationEditModel.getPrescription().getComment();
 		tf.setValue(st);
 		formLayoutEditView.addComponent(tf);
@@ -176,15 +179,14 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	private void getReserveMedication(){
 		OptionGroup single = new OptionGroup("Reserve Medication:");
 		single.addItems("Yes", "No");
-		setPrescriptionId(1);
 		formLayoutEditView.addComponent(single);
 		if (medicationEditModel.getPrescription().isReserveMedication() == true){
 		single.select("Yes");} else
 			single.select("No");
 	}
 	
-	public void setPrescriptionId(int prescriptionId) {
-		medicationEditModel.setPrescriptionId(prescriptionId);
+	public void setPrescriptionContext(PrescriptionContext prescriptionContext) {
+		medicationEditModel.setPrescriptionContext(prescriptionContext);
 	}
 
 }

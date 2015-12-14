@@ -15,8 +15,10 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -27,13 +29,13 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Table medicationTable;
-	private HorizontalLayout topHorizontalLayout;
-	private Button insertDrug;
-	private Button editDrug;
-	private Button deleteDrug;
-	private VerticalLayout bodyVerticalLayout;
-	private MedicationOverviewModel overviewModel;
+	private Table medicationTable = null;
+	private HorizontalLayout topHorizontalLayout = null;
+	private Button insertDrug = null;
+	private Button editDrug = null;
+	private Button deleteDrug = null;
+	private VerticalLayout bodyVerticalLayout = null;
+	private MedicationOverviewModel overviewModel = null;
 	private MedicationEditView editView = null;
 
 	/**
@@ -55,8 +57,8 @@ public class MedicationOverView extends NavigatorContainer implements View,
 					@Override
 					public void itemClick(ItemClickEvent event) {
 					    overviewModel.setSelectedPrescription(((Prescription)event.getItem().getItemProperty("prescription").getValue()));
-						editDrug.setEnabled(overviewModel.getSelectedPrescription()!=null);
-						deleteDrug.setEnabled(overviewModel.getSelectedPrescription()!=null);						
+						editDrug.setEnabled(overviewModel.canModifyPrescription());
+						deleteDrug.setEnabled(overviewModel.canModifyPrescription());						
 					}
 				});
 		createTopHorizontalLayout();
@@ -149,9 +151,9 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 				public void buttonClick(ClickEvent event) {
 					if (overviewModel.getSelectedPrescription()!=null) {
-						// ToDO: Fehlermeldung, falls kein Medi ausgewählt ist.
-						editView.setPrescriptionId(overviewModel.getSelectedPrescription().getPrescriptionId());
+						editView.setPrescriptionContext(overviewModel.getPrescriptionContext());
 						MyMedicationApp.navigateTo("MedicationEditView");
+						ItemCaptionMode s = AbstractSelect.ItemCaptionMode.PROPERTY;
 					}
 				}
 			});
