@@ -2,6 +2,7 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
@@ -13,7 +14,7 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
 	
 	public NavigatorContainer() {
     	setSizeFull();
-    	
+    	setMargin(new MarginInfo(true, true, true, true));
     	navBar = new NavigationBarView();
     	navBar.setTitle(setNavBarTitle());
     	navBar.setSubTitle(setNavBarSubTitle());
