@@ -9,12 +9,12 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
 	
 	private static final long serialVersionUID = 1L;
 	final HorizontalLayout navigationBar = new HorizontalLayout();
-	
+	protected NavigationBarView navBar;
 	
 	public NavigatorContainer() {
     	setSizeFull();
     	
-    	NavigationBarView navBar = new NavigationBarView();
+    	navBar = new NavigationBarView();
     	navBar.setTitle(setNavBarTitle());
     	navBar.setSubTitle(setNavBarSubTitle());
     	navBar.setMenuButtonText(setNavBarMenuButtonText());

@@ -1,23 +1,29 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.OptionGroup;
-import com.vaadin.ui.TextField;
-
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
-
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
 
 
 /**
@@ -29,10 +35,17 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	
 	private MedicationEditModel medicationEditModel;
 	private FormLayout formLayoutEditView = null; // TODO: Form() is deprecated! Use FielGroup instead
-	private HorizontalLayout horizontalLayoutEditView = null;
-    private Button saveButton = new Button("Save", new SaveButtonListener());
-	
-	
+	private VerticalLayout dosisSchemaVerticalLayout = null;
+    private Button saveButton;
+	private TextField prescriptionCommentTF;
+	private TextField prescriptionTimeSchemeNameTF;
+	private Label endDateLabel;
+	private DateField prescriptionEndDateDF;
+	private CheckBox reserveMedicamentCB;
+	private Label beginDateLabel;
+	private DateField prescriptionStartDateDF;
+	private TextField prescriptionMedicamentName;
+	private ComboBox timeSchemeComboB;
 	/**
 	 * 
 	 */
@@ -44,33 +57,117 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	 */
 	public MedicationEditView() {
 		super();
+		createForm();
 		medicationEditModel = new MedicationEditModel();
 		medicationEditModel.addObserver(this);
-		medicationEditModel.loadData();
 		
-		formLayoutEditView = new FormLayout();
-		horizontalLayoutEditView = new HorizontalLayout();
-
-
-		createView();
-		
-		addComponent(formLayoutEditView);
 	}
 	
+	private void createForm() {
+		formLayoutEditView = new FormLayout();
+		addComponent(formLayoutEditView);
+		prescriptionMedicamentName = new TextField("Medikament:");
+		formLayoutEditView.addComponent(prescriptionMedicamentName);
+		dosisSchemaVerticalLayout = new VerticalLayout();
+		formLayoutEditView.addComponent(dosisSchemaVerticalLayout);
+		prescriptionCommentTF = new TextField("Verschreibungsnotiz:");
+		formLayoutEditView.addComponent(prescriptionCommentTF);
+		prescriptionTimeSchemeNameTF = new TextField("Zeitschema:");
+		formLayoutEditView.addComponent(prescriptionTimeSchemeNameTF);
+		beginDateLabel = new Label("Beginn der Verordnung");
+		formLayoutEditView.addComponent(beginDateLabel);
+		prescriptionStartDateDF = new DateField();
+		formLayoutEditView.addComponent(prescriptionStartDateDF);
+		endDateLabel = new Label("Ablaufdatum der Verordnung");
+		formLayoutEditView.addComponent(endDateLabel);
+		prescriptionEndDateDF = new DateField();
+		formLayoutEditView.addComponent(prescriptionEndDateDF);
+		reserveMedicamentCB = new CheckBox("Reserve: ");
+		formLayoutEditView.addComponent(reserveMedicamentCB);
+		saveButton = new Button("Save", new Button.ClickListener() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				save();
+	        	MyMedicationApp.navigateTo("medication");
+			}
+			
+		});
+		formLayoutEditView.addComponent(saveButton);
+		timeSchemeComboB = new ComboBox("Zeitschema: ");
+		timeSchemeComboB.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
+				fillTimeSchemeTimes();
+				}
+		});
+		formLayoutEditView.addComponent(timeSchemeComboB);
+	}
 
-	
-	class SaveButtonListener implements Button.ClickListener {
-    	private static final long serialVersionUID = 1L;
-		 
-        @Override
-        public void buttonClick(ClickEvent event) {
-        	//TODO: Validate and save the values to the database
-        	
-        	MyMedicationApp.navigateTo("medication");
-        }
-    }
+	private void fillForm(){
+		Prescription p = medicationEditModel.getPrescription();
+		prescriptionMedicamentName.setValue(p.getMedicament().getName());
+		prescriptionCommentTF.setValue(p.getComment());
+		prescriptionTimeSchemeNameTF.setValue(p.getTimeScheme().getName());
+		prescriptionStartDateDF.setValue(p.getStartDate().getTime());
+		prescriptionEndDateDF.setValue(p.getEndDate().getTime());
+		reserveMedicamentCB.setValue(p.isReserveMedication());
+		fillTimeSchemeComboBox();
+		timeSchemeComboB.setValue(p.getTimeScheme());
+	}
+	private void fillTimeSchemeTimes() {
+		dosisSchemaVerticalLayout.removeAllComponents();
+		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
+			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeDisplay(d));
+		}
+	}
+	private class DosisSchemeTimeDisplay extends VerticalLayout {
+		private static final long serialVersionUID = 1L;
+		private DosisScheme dosisScheme;
+		private Label timeSchemeName;
+		private Label time;
+		private TextField medicamentAmount;
+		private Label dose;
+		public DosisSchemeTimeDisplay(DosisScheme d) {
+			this.dosisScheme = d;
+			this.timeSchemeName = new Label(dosisScheme.getDosisSchemeName());
+			addComponent(timeSchemeName);
+			this.time = new Label(dosisScheme.getTimespan().toHours() + " h");
+			addComponent(time);
+			this.medicamentAmount = new TextField(dosisScheme.getAmount()+"");
+			medicamentAmount.addValueChangeListener(new Property.ValueChangeListener() {
+				private static final long serialVersionUID = 1L;
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					dosisScheme.setAmount(Double.parseDouble(medicamentAmount.getValue()));
+				}
+			});
+			addComponent(medicamentAmount);
+			this.dose = new Label(dosisScheme.getQuantityUnit());
+			addComponent(dose);
+		}
+		protected DosisScheme getDosisScheme(){
+			return dosisScheme;
+		}
+		protected double getMedicamentAmount(){
+			return Double.parseDouble(medicamentAmount.getValue());
+		}
+	}
+	private void fillTimeSchemeComboBox(){
+		BeanItemContainer<TimeScheme> container = new BeanItemContainer<TimeScheme>(TimeScheme.class,medicationEditModel.getTimeSchemes());
+		timeSchemeComboB.setContainerDataSource(container);
+		timeSchemeComboB.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		timeSchemeComboB.setItemCaptionPropertyId("name");		
+	}
+	private void save() {
+		Prescription p = medicationEditModel.getPrescription();
+		//p.setMedicament(prescriptionMedicamentName.getValue());
+		//prescriptionMedicamentName.setValue(p.getMedicament().getName());
+		p.setReserveMedication(reserveMedicamentCB.getValue());
 		
-
+	}
 	@Override
 	public String setNavBarTitle() {
 		return "Edit medication";
@@ -94,99 +191,24 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 
 	@Override
 	public String setNavBarHelpButtonPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String setNavBarMenuButtonPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		createView();		
-	}
-
-	private void createView() {
-		formLayoutEditView = new FormLayout();
-		getPrescriptionNote();
-		createHorizontalTimeScheme();
-		getPrescriptionEndDate();
-		getPrescriptionDosisScheme();
-		getReserveMedication();
-		formLayoutEditView.addComponent(saveButton);
+		fillForm();		
 	}
 	
-	
-	private void createHorizontalTimeScheme(){
-		horizontalLayoutEditView = new HorizontalLayout();
-		
-		TextField tf = new TextField("Mo:");
-		tf.setValue(String.valueOf(medicationEditModel.getTimeSchemes()));
-		horizontalLayoutEditView.addComponent(tf);
-		
-		TextField tf1 = new TextField("Mi:");
-		tf1.setValue(String.valueOf(medicationEditModel.getTimeSchemes()));
-		horizontalLayoutEditView.addComponent(tf1);
-
-		TextField tf2 = new TextField("Ab:");
-		tf2.setValue(String.valueOf(medicationEditModel.getTimeSchemes()));
-		horizontalLayoutEditView.addComponent(tf2);
-		
-		TextField tf3 = new TextField("Na:");
-		tf3.setValue(String.valueOf(medicationEditModel.getTimeSchemes()));
-		horizontalLayoutEditView.addComponent(tf3);
-		
-		formLayoutEditView.addComponent(horizontalLayoutEditView);
-	}
-
-	
-	private void getPrescriptionDosisScheme(){
-//		setPrescriptionId(1);
-//		TextField tf = new TextField();
-//		tf.setValue(String.valueOf(medicationEditModel.getTimeSchemes()));
-//		formLayoutEditView.addComponent(tf);
-	}
-	
-	// TODO: TextFild tf should be bigger ^^
-	private void getPrescriptionNote(){
-		TextField tf = new TextField("Prescription Note:");
-		String st = new String();
-		st = medicationEditModel.getPrescription().getComment();
-		tf.setValue(st);
-		formLayoutEditView.addComponent(tf);
-	}
-	
-	// TODO: Set the right Date of Prescription, actually its only a example 
-	private void getPrescriptionEndDate(){
-		GregorianCalendar g = new GregorianCalendar();
-		Date d = new Date();
-		d = g.getTime();
-		DateField pDate = new DateField();
-		pDate.setData(d);
-		pDate.setValue(d);
-//		DateField dateField = new DateField("End Date:");
-//		Date pDate = new Date();
-//		setPrescriptionId(1);
-//		pDate = medicationEditModel.getPrescription().getEndDate().getTime();
-//		dateField.setData(pDate);
-		formLayoutEditView.addComponent(pDate);
-	}
-	
-	private void getReserveMedication(){
-		OptionGroup single = new OptionGroup("Reserve Medication:");
-		single.addItems("Yes", "No");
-		formLayoutEditView.addComponent(single);
-		if (medicationEditModel.getPrescription().isReserveMedication() == true){
-		single.select("Yes");} else
-			single.select("No");
-	}
 	
 	public void setPrescriptionContext(PrescriptionContext prescriptionContext) {
 		medicationEditModel.setPrescriptionContext(prescriptionContext);
+		medicationEditModel.loadData();		
 	}
 
 }

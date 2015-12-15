@@ -5,8 +5,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.Button.ClickEvent;
 
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view.MedicationEditView.SaveButtonListener;
-
 /**
  * 
  * @author Amin,Mete
