@@ -12,7 +12,7 @@ Carole:
 Amin:
 Jonas:
 Mete:
-Marwin:
+Marwin: 1.5+1.5+1.5+2.5+2.5+1.5
 Michel:
 
 

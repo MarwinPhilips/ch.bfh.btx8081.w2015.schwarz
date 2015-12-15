@@ -15,6 +15,7 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -60,11 +61,12 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		createForm();
 		medicationEditModel = new MedicationEditModel();
 		medicationEditModel.addObserver(this);
+		//medicationEditModel.loadData();
 		
 	}
 	
 	private void createForm() {
-		formLayoutEditView = new FormLayout();
+		formLayoutEditView = new FormLayout();		
 		addComponent(formLayoutEditView);
 		prescriptionMedicamentName = new TextField("Medikament:");
 		formLayoutEditView.addComponent(prescriptionMedicamentName);
@@ -112,10 +114,13 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		prescriptionCommentTF.setValue(p.getComment());
 		prescriptionTimeSchemeNameTF.setValue(p.getTimeScheme().getName());
 		prescriptionStartDateDF.setValue(p.getStartDate().getTime());
-		prescriptionEndDateDF.setValue(p.getEndDate().getTime());
+		if(p.getEndDate()!=null){
+			prescriptionEndDateDF.setValue(p.getEndDate().getTime());	
+		}
 		reserveMedicamentCB.setValue(p.isReserveMedication());
 		fillTimeSchemeComboBox();
-		timeSchemeComboB.setValue(p.getTimeScheme());
+		timeSchemeComboB.select(p.getTimeScheme().getName());
+		fillTimeSchemeTimes();
 	}
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
@@ -123,7 +128,7 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeDisplay(d));
 		}
 	}
-	private class DosisSchemeTimeDisplay extends VerticalLayout {
+	private class DosisSchemeTimeDisplay extends HorizontalLayout {
 		private static final long serialVersionUID = 1L;
 		private DosisScheme dosisScheme;
 		private Label timeSchemeName;
@@ -132,11 +137,12 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		private Label dose;
 		public DosisSchemeTimeDisplay(DosisScheme d) {
 			this.dosisScheme = d;
-			this.timeSchemeName = new Label(dosisScheme.getDosisSchemeName());
+			this.timeSchemeName = new Label(dosisScheme.getDosisSchemeName()+": ");
 			addComponent(timeSchemeName);
-			this.time = new Label(dosisScheme.getTimespan().toHours() + " h");
+			this.time = new Label(dosisScheme.getTimespan().toHours() + "h");
 			addComponent(time);
-			this.medicamentAmount = new TextField(dosisScheme.getAmount()+"");
+			this.medicamentAmount = new TextField();
+			this.medicamentAmount.setValue(dosisScheme.getAmount()+"");
 			medicamentAmount.addValueChangeListener(new Property.ValueChangeListener() {
 				private static final long serialVersionUID = 1L;
 				@Override
@@ -160,6 +166,8 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		timeSchemeComboB.setContainerDataSource(container);
 		timeSchemeComboB.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		timeSchemeComboB.setItemCaptionPropertyId("name");		
+		timeSchemeComboB.setNullSelectionAllowed(false);
+		timeSchemeComboB.setNewItemsAllowed(false);
 	}
 	private void save() {
 		Prescription p = medicationEditModel.getPrescription();

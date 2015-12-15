@@ -3,6 +3,7 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class DosisScheme {
 	@ManyToOne
 	private Prescription prescription = null;
 	@OneToMany(mappedBy = "dosisScheme")
-	private ArrayList<ActivityFeedback> activityFeedbacks = null;
+	private List<ActivityFeedback> activityFeedbacks = null;
 	// ToDO: Zeitpunkt: Timespan
 	private double amount = 0.0;
 	/**
@@ -50,10 +51,10 @@ public class DosisScheme {
 	public void setPrescription(Prescription prescription) {
 		this.prescription = prescription;
 	}
-	public ArrayList<ActivityFeedback> getActivityFeedbacks() {
+	public List<ActivityFeedback> getActivityFeedbacks() {
 		return activityFeedbacks;
 	}
-	public void setActivityFeedbacks(ArrayList<ActivityFeedback> activityFeedbacks) {
+	public void setActivityFeedbacks(List<ActivityFeedback> activityFeedbacks) {
 		this.activityFeedbacks = activityFeedbacks;
 	}
 	public double getAmount() {

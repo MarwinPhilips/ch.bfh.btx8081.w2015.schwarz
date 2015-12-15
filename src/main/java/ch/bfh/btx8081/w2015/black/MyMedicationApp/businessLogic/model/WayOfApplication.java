@@ -1,6 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ public class WayOfApplication {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int wayOfApplicationId = 0;
 	@OneToMany(mappedBy="wayOfApplication")
-	private ArrayList<Prescription> prescriptions = null;
+	private List<Prescription> prescriptions = null;
 	private String name = null;
 	public WayOfApplication(){
 		
@@ -25,10 +25,10 @@ public class WayOfApplication {
 	public void setWayOfApplicationId(int wayOfApplicationId) {
 		this.wayOfApplicationId = wayOfApplicationId;
 	}
-	public ArrayList<Prescription> getPrescriptions() {
+	public List<Prescription> getPrescriptions() {
 		return prescriptions;
 	}
-	public void setPrescriptions(ArrayList<Prescription> prescriptions) {
+	public void setPrescriptions(List<Prescription> prescriptions) {
 		this.prescriptions = prescriptions;
 	}
 	public String getName() {

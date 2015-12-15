@@ -1,6 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.GregorianCalendar;
 
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ public class Prescription {
 	private boolean selfMedication= false;
 	private boolean reserveMedication = false;
 	@OneToMany(mappedBy="prescription")	
-	private ArrayList<DosisScheme> dosisSchemes = null;
+	private List<DosisScheme> dosisSchemes = null;
 	private String comment = null;
 	@ManyToOne
 	private TimeScheme timeScheme = null;
@@ -103,10 +103,10 @@ public class Prescription {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public ArrayList<DosisScheme> getDosisSchemes() {
+	public List<DosisScheme> getDosisSchemes() {
 		return dosisSchemes;
 	}
-	public void setDosisSchemes(ArrayList<DosisScheme> dosisSchemes) {
+	public void setDosisSchemes(List<DosisScheme> dosisSchemes) {
 		this.dosisSchemes = dosisSchemes;
 	}
 	public TimeScheme getTimeScheme() {

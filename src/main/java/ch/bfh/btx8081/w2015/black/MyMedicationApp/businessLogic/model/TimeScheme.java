@@ -1,6 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +13,12 @@ public class TimeScheme{
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int timeSchemeId = 0;
 	@OneToMany(mappedBy="timeScheme")
-	private ArrayList<TimeSchemeTime> timeSchemeTimes = null;
+	private List<TimeSchemeTime> timeSchemeTimes = null;
 	@OneToMany(mappedBy="timeScheme")
-	private ArrayList<Prescription> prescriptions = null;
+	private List<Prescription> prescriptions = null;
 	private String name = null;
 	private String repetitionType = null;
 	public TimeScheme(){
-		timeSchemeTimes = new ArrayList<TimeSchemeTime>();
-		prescriptions = new ArrayList<Prescription>();
 	}
 	public int getTimeSchemeId() {
 		return timeSchemeId;
@@ -40,11 +38,11 @@ public class TimeScheme{
 	public void setRepetitionType(String repetitionType) {
 		this.repetitionType = repetitionType;
 	}
-	public ArrayList<TimeSchemeTime> getTimeSchemeTimes() {
+	public List<TimeSchemeTime> getTimeSchemeTimes() {
 		return timeSchemeTimes;
 	}
 	public void setTimeSchemeTimes(
-			ArrayList<TimeSchemeTime> timeSchemeTimes) {
+			List<TimeSchemeTime> timeSchemeTimes) {
 		this.timeSchemeTimes = timeSchemeTimes;
 	}
 }
