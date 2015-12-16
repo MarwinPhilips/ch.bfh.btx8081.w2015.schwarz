@@ -38,7 +38,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	public MedicationInsertView() {
 		super();
-		setSizeFull();
+		//setSizeFull();
 		
 		form = new GridLayout(2, 3);
 
@@ -115,7 +115,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	}
 	@Override
 	public String setNavBarTitle() {
-		return " Insert Medication";
+		return "Insert Medication";
 	}
 
 	@Override
@@ -125,12 +125,12 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 
 	@Override
 	public String setNavBarHelpButtonText() {
-		return "?";
+		return null;
 	}
 
 	@Override
 	public String setNavBarMenuButtonText() {
-		return "Back";
+		return "MediView";
 	}
 
 	@Override
@@ -141,8 +141,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 
 	@Override
 	public String setNavBarMenuButtonPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return "medication";
 	}
 
 }

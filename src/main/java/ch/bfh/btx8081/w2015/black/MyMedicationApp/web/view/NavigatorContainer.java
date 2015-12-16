@@ -13,7 +13,7 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
 	protected NavigationBarView navBar;
 	
 	public NavigatorContainer() {
-    	setSizeFull();
+    	//setSizeFull();
     	setMargin(new MarginInfo(true, true, true, true));
     	navBar = new NavigationBarView();
     	navBar.setTitle(setNavBarTitle());
@@ -24,7 +24,7 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
     	navBar.setHelpButtonPath(setNavBarHelpButtonPath());
     
         // add NavigationBar on top of view of every screen
-        navigationBar.setHeight("100px");
+        navigationBar.setHeight("60px");
         navigationBar.setWidth("100%");
         navigationBar.addComponent(navBar);
         
