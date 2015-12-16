@@ -10,7 +10,7 @@ Sprint 2 [Zeit in Stunden]
 
 Carole:
 Amin:
-Jonas: 2+1.5+1.5
+Jonas: 2+1.5+1.5+1
 Mete:
 Marwin: 1.5+1.5+1.5+2.5+2.5+1.5
 Michel:

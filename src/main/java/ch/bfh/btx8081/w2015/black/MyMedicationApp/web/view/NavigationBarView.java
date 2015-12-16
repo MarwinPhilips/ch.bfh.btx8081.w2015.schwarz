@@ -1,5 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
@@ -34,18 +35,23 @@ public class NavigationBarView extends HorizontalLayout  {
     public NavigationBarView(){  
     	final VerticalLayout titleArea = new VerticalLayout();
     	titleArea.setHeight("100%");
-    	titleArea.setWidth("60%");
+    	titleArea.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
     	
     	titleArea.addComponent(title);
     	titleArea.addComponent(subTitle);
+
+    	title.setWidthUndefined();
+    	subTitle.setWidthUndefined();
 	
-        menuButton.setWidth("20%");
-        helpButton.setWidth("20%");
+        menuButton.setWidth("100px");
+        helpButton.setWidth("100px");
         
         addComponent(menuButton);
         addComponent(titleArea);
         addComponent(helpButton);
-	
+        
+        setWidth("100%");
+        setExpandRatio(titleArea, 1);
     }
     
     public void setTitle(String title) {
@@ -61,7 +67,12 @@ public class NavigationBarView extends HorizontalLayout  {
     }
 
     public void setHelpButtonText(String text) {
-    	this.helpButton.setCaption(text);
+    	if(text == null){
+    		this.helpButton.setVisible(false);
+    	}else{
+    		this.helpButton.setVisible(true);
+    		this.helpButton.setCaption(text);
+    	}
 	}
     
     public void setMenuButtonPath(String text) {
@@ -71,4 +82,5 @@ public class NavigationBarView extends HorizontalLayout  {
     public void setHelpButtonPath(String text) {
     	this.helpButtonListener.navigateTo = text;
     }
+    
 }
