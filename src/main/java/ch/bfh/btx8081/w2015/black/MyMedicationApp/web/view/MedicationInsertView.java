@@ -2,20 +2,14 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medicament;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicamentRepository;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicationListRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.TimeSchemeRepository;
 
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
@@ -25,7 +19,6 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
@@ -36,10 +29,6 @@ import com.vaadin.ui.TextArea;
  *
  */
 public class MedicationInsertView extends NavigatorContainer implements View {
-
-	
-	
-	private FieldGroup insertForm; 
 	private static final long serialVersionUID = 1L;
 	private Button saveButton = new Button("Save", new SaveButtonListener());
 	private FormLayout form ;
@@ -53,7 +42,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private PopupDateField startDatum;
 	private PopupDateField  endDatum;
 	private TextArea comments;
-
 	
 	/**
 	 * @param insertForm
@@ -65,7 +53,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	    createStartEndDate();     
 	    createCommentTextArea(); 
 	    createMedicationComboBox();
-	    createFieldGroup();
 	    createFormLayout();
 	    createPanelInsideForm();
 
@@ -76,7 +63,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		 
         @Override
         public void buttonClick(ClickEvent event) {
-        	//TODO: Validate and save the values to the database
+        	//TODO: Validate before saving
         	Prescription p = medicationEditModel.getPrescription();
         	
         	p.setPerson(medicationEditModel.getLoggedInPerson());
@@ -94,16 +81,15 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	p.setMedicament((Medicament)medicationNames.getValue());
         	//p.setMethodOfApplication(methodOfApplication); // TODO get method of dropdown
         	//p.setWayOfApplication(wayOfApplication); // TODO get way of dropdown
+        	//p.setTimeScheme(timeScheme); // TODO get timescheme of dropdown
         	
         	medicationEditModel.save();
         	MyMedicationApp.navigateTo("medication");
         }
     }
 
-	
-
 	/**
-	 * Create the MEdications combo box to insert a new medication
+	 * Create the Medications combo box to insert a new medication
 	 */
 	private void createMedicationComboBox(){
 		medicationNames = new ComboBox("Select your medication");
@@ -134,18 +120,14 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		for(TimeScheme schema:timeSchema.getAllTimeschemes()){
 			timeSchemeComboB.addItem(schema);
 		}
-		
-	
 	}
 	
 	/**
 	 * Create check box for reserve medication
 	 */
 	private void createCheckBox(){
-		
 		reserveType = new CheckBox("Reserve");
 	}
-
 	
 	/**
 	 * Create Start and End date
@@ -157,31 +139,13 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	    endDatum = new PopupDateField ("End Date:");
 	    endDatum.setValue(new Date());
 	}
-
 	
 	/**
 	 * create a Text Area for a comment
 	 */
 	private void createCommentTextArea(){
-		
 		comments = new TextArea("Comments:");
 	}
-
-	
-	/**
-	 * Create field group
-	 */
-	private void createFieldGroup(){
-		insertForm=new FieldGroup();
-	    insertForm.bind(medicationNames,"Select your medications name:");
-	    insertForm.bind(reserveType, "lastName");
-	    insertForm.bind(timeSchemeComboB, "MedTakeType");
-	    insertForm.bind(startDatum, "StartDate");
-	    insertForm.bind(endDatum, "EndDate");
-	    insertForm.bind(comments, "comments");
-
-	}
-
 	
 	/**
 	 * Create a form layout to put component in it.
@@ -196,22 +160,18 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	    form.addComponent(comments);
 	    form.addComponent(saveButton);
 	}
-
 	
 	/**
 	 * Create the Panel
 	 */
 	private void createPanelInsideForm(){
-		
 		panel = new Panel();
 		panel.setSizeFull();
 		panel.setWidth("100%");
 		panel.setContent(form);
 	    addComponent(panel);
-	    setComponentAlignment(panel, Alignment.TOP_CENTER);
-		
+	    setComponentAlignment(panel, Alignment.TOP_CENTER);	
 	}
-
 
 	@Override
 	public String setNavBarTitle() {

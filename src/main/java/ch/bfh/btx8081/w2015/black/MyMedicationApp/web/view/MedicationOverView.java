@@ -8,22 +8,17 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medication
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
 
 public class MedicationOverView extends NavigatorContainer implements View,
 		Observer, ActionListener {
@@ -33,7 +28,6 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	private Button insertDrug = null;
 	private Button editDrug = null;
 	private Button deleteDrug = null;
-	private VerticalLayout bodyVerticalLayout = null;
 	private MedicationOverviewModel overviewModel = null;
 	private MedicationEditView editView = null;
 	private Panel bodyPanel;
@@ -91,12 +85,6 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		overviewModel.loadData();
 		bodyPanel.setWidth("800px");
 		bodyPanel.setContent(medicationTable);
-		
-		/*
-		bodyVerticalLayout = new VerticalLayout();
-		overviewModel.loadData();
-		bodyVerticalLayout.addComponent(medicationTable);
-		*/
 	}
 
 	/**
@@ -165,7 +153,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 					if (overviewModel.getSelectedPrescription()!=null) {
 						editView.setPrescriptionContext(overviewModel.getPrescriptionContext());
 						MyMedicationApp.navigateTo("MedicationEditView");
-						ItemCaptionMode s = AbstractSelect.ItemCaptionMode.PROPERTY;
+						//ItemCaptionMode s = AbstractSelect.ItemCaptionMode.PROPERTY;
 					}
 				}
 			});
