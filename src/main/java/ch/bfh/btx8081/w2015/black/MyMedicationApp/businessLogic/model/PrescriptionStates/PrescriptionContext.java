@@ -3,21 +3,39 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescript
 import java.util.GregorianCalendar;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
-
+/**
+ * The Context for the PrescriptionStates. It provides all Methods which can be called
+ * on a PrescriptionState. Initializes the correct State on setPrescription.
+ * @author Marwin
+ *
+ */
 public class PrescriptionContext {
 	private PrescriptionState prescriptionState;
 	public PrescriptionContext() {
 	}
+	/**
+	 * Only used within this package, nobody else can change the state.
+	 * Every time you change the state you must change the State in this class over this method.
+	 * @param newState
+	 */
 	protected void setPrescriptionState(PrescriptionState newState) {
 		prescriptionState = newState;
 	}
+	/**
+	 * In any state you can load the prescription.
+	 * @return
+	 */
 	public Prescription getPrescription(){
 		return prescriptionState.getPrescription();
 	}
-	//Since we don't now the State of the prescription
-	// we have to check it over the enum.
+	/**
+	 * Sets the prescription and initializes the correct prescriptionState.
+	 * @param prescription
+	 */
 	public void setPrescription(Prescription prescription){
 		switch (prescription.getPrescriptionState()) {
+		//Since we don't now the State of the prescription
+		// we have to check it over the enum.
 		case New:
 			prescriptionState = new NewPrescription(this, prescription);
 			break;

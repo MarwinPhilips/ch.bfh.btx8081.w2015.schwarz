@@ -6,12 +6,19 @@ import javax.persistence.TypedQuery;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.ITimeSchemeRepository;
-
+/**
+ * All TimeScheme POJO need to be created, loaded and persisted over this Repository.
+ * @author Marwin
+ *
+ */
 public class TimeSchemeRepository extends MssqlRepository implements ITimeSchemeRepository {
 
 	public TimeSchemeRepository() {
 		super();
 	}
+	/**
+	 * returns all TimeSchemes. Since they can not be deleted yet no filter need to be applied.
+	 */
 	@Override
 	public List<TimeScheme> getAllTimeschemes() {
 		beginTransaction();
@@ -19,11 +26,6 @@ public class TimeSchemeRepository extends MssqlRepository implements ITimeScheme
 		List<TimeScheme> timeSchemes = q.getResultList();
 		commitTransaction();
 		return timeSchemes;
-	}
-	public void saveTimeScheme(TimeScheme t){
-		transaction = em.getTransaction();
-		transaction.begin();
-		
 	}
 	/**
 	 * Returns a persisted TimeScheme with no attributes set except the ID.
@@ -35,12 +37,5 @@ public class TimeSchemeRepository extends MssqlRepository implements ITimeScheme
 		em.persist(ts);
 		commitTransaction();
 		return ts;
-	}
-	@Override
-	public TimeScheme persist(TimeScheme timeScheme) {
-		beginTransaction();
-		em.persist(timeScheme);
-		commitTransaction();
-		return timeScheme;
 	}
 }

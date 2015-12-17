@@ -123,9 +123,10 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		if(p.getEndDate()!=null){
 			prescriptionEndDateDF.setValue(p.getEndDate().getTime());	
 		}
-		reserveMedicamentCB.setValue(p.isReserveMedication());
 		fillTimeSchemeComboBox();
-		timeSchemeComboB.select(p.getTimeScheme().getName());
+		reserveMedicamentCB.setValue(p.isReserveMedication());
+		
+		timeSchemeComboB.select(p.getTimeScheme().getName());	
 		fillTimeSchemeTimes();
 	}
 	private void fillTimeSchemeTimes() {
@@ -159,12 +160,6 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 			addComponent(medicamentAmount);
 			this.dose = new Label(dosisScheme.getQuantityUnit());
 			addComponent(dose);
-		}
-		protected DosisScheme getDosisScheme(){
-			return dosisScheme;
-		}
-		protected double getMedicamentAmount(){
-			return Double.parseDouble(medicamentAmount.getValue());
 		}
 	}
 	private void fillTimeSchemeComboBox(){

@@ -7,5 +7,4 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme
 public interface ITimeSchemeRepository {
 	public List<TimeScheme> getAllTimeschemes();
 	public TimeScheme getNewTimeScheme();
-	public TimeScheme persist(TimeScheme timeScheme);
 }
