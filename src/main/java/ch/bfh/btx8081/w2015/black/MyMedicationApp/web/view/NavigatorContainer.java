@@ -1,11 +1,14 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
+@Theme("mytheme")
 public abstract class NavigatorContainer extends VerticalLayout implements View {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,10 +26,12 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
     	navBar.setMenuButtonPath(setNavBarMenuButtonPath());
     	navBar.setHelpButtonPath(setNavBarHelpButtonPath());
     
+    	addStyleName("backColorGrey");
         // add NavigationBar on top of view of every screen
         navigationBar.setHeight("60px");
         navigationBar.setWidth("100%");
         navigationBar.addComponent(navBar);
+        
         
         addComponent(navigationBar);
     }
