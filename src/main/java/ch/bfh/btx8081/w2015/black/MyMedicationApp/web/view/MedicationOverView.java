@@ -16,10 +16,12 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
@@ -37,7 +39,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	private VerticalLayout bodyVerticalLayout = null;
 	private MedicationOverviewModel overviewModel = null;
 	private MedicationEditView editView = null;
-
+	private Panel bodyPanel;
 	/**
 	 * 
 	 */
@@ -65,7 +67,10 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		createBodyVerticalLayout();
 
 		addComponent(topHorizontalLayout);
-		addComponent(bodyVerticalLayout);
+		setComponentAlignment(topHorizontalLayout, Alignment.TOP_CENTER);
+		addComponent(bodyPanel);
+		setComponentAlignment(bodyPanel, Alignment.MIDDLE_CENTER);
+
 	}
 
 	/**
@@ -83,9 +88,18 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	 * Create the Body VerticalLayout
 	 */
 	private void createBodyVerticalLayout() {
+		
+		bodyPanel = new Panel();
+		bodyPanel.setSizeFull();
+		overviewModel.loadData();
+		bodyPanel.setWidth("800px");
+		bodyPanel.setContent(medicationTable);
+		
+		/*
 		bodyVerticalLayout = new VerticalLayout();
 		overviewModel.loadData();
 		bodyVerticalLayout.addComponent(medicationTable);
+		*/
 	}
 
 	/**
