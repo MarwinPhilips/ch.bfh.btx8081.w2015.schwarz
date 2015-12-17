@@ -2,6 +2,8 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IRepository;
 /**
  * The MssqlRepository is the super class for all Repositories. 
  * It provides basic connection methods over the reference to the entityManager used for the transactions
@@ -39,5 +41,11 @@ public class MssqlRepository implements IRepository {
 		em.persist(objectToSave);
 		commitTransaction();
 		return objectToSave;
+	}
+	@Override
+	public void remove(Object objectToRemove) {
+		beginTransaction();
+		em.remove(objectToRemove);
+		commitTransaction();		
 	}
 }
