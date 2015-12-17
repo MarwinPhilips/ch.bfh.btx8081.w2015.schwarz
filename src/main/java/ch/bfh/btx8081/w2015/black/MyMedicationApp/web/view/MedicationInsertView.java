@@ -1,14 +1,20 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medicament;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicamentRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicationListRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.TimeSchemeRepository;
 
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
@@ -39,7 +45,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private FormLayout form ;
 	private Panel panel;
 	private ComboBox medicationNames;
-	private MedicationListRepository medicationsList;
+	private MedicamentRepository medicationsList;
 	private MedicationEditModel medicationEditModel;
 	private ComboBox timeSchemeComboB;
 	private TimeSchemeRepository timeSchema;
@@ -71,8 +77,26 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         @Override
         public void buttonClick(ClickEvent event) {
         	//TODO: Validate and save the values to the database
+        	Prescription p = medicationEditModel.getPrescription();
         	
-        	Notification.show("Hallo");
+        	p.setPerson(medicationEditModel.getLoggedInPerson());
+        	p.setComment(comments.getValue());
+        	p.setReserveMedication(reserveType.getValue());
+        	
+        	GregorianCalendar startDateGregorian = new GregorianCalendar();
+        	startDateGregorian.setTime(startDatum.getValue());
+        	p.setStartDate(startDateGregorian);
+        	
+        	GregorianCalendar endDateGregorian = new GregorianCalendar();
+        	endDateGregorian.setTime(endDatum.getValue());
+        	p.setEndDate(endDateGregorian);
+        	
+        	p.setMedicament((Medicament)medicationNames.getValue());
+        	//p.setMethodOfApplication(methodOfApplication); // TODO get method of dropdown
+        	//p.setWayOfApplication(wayOfApplication); // TODO get way of dropdown
+        	
+        	medicationEditModel.save();
+        	MyMedicationApp.navigateTo("medication");
         }
     }
 
@@ -83,11 +107,14 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	private void createMedicationComboBox(){
 		medicationNames = new ComboBox("Select your medication");
-		medicationsList = new MedicationListRepository();
-		List<MedicationList> myList=medicationsList.loadMedications(1);
-		for(int i=0; i<myList.size();i++){
-			medicationNames.addItem(myList.get(i).getMedicamentname());
-		}
+		medicationsList = new MedicamentRepository();
+		
+		BeanItemContainer<Medicament> container = new BeanItemContainer<Medicament>(Medicament.class, medicationsList.getAllMedicaments());
+		medicationNames.setContainerDataSource(container);
+		medicationNames.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		medicationNames.setItemCaptionPropertyId("name");		
+		medicationNames.setNullSelectionAllowed(false);
+		medicationNames.setNewItemsAllowed(false);
 	}
 	
 	/**

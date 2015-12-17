@@ -60,6 +60,10 @@ public class MedicationEditModel extends Observable {
 	public List<TimeScheme> getTimeSchemes() {
 		return timeSchemes;
 	}
+	
+	public void save() {
+		context.save();
+	}
 
 	public void setPrescriptionTimeScheme(TimeScheme timeScheme) {
 		Prescription prescription = context.getPrescription();

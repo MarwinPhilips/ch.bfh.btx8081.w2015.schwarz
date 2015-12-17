@@ -30,7 +30,7 @@ public class PrescriptionContext {
 	 * @return
 	 */
 	public Prescription getPrescription(){
-		if(prescriptionState.getPrescription()==null){
+		if(prescriptionState==null){
 			Prescription p = new Prescription();
 			p.setPrescriptionState(PrescriptionStateEnum.New);
 			setPrescription(p);
