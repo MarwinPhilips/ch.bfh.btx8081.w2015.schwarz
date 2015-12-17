@@ -1,5 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -7,7 +8,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-
+@Theme("mytheme")
 public class NavigationBarView extends HorizontalLayout  {
     
     /**
@@ -50,6 +51,7 @@ public class NavigationBarView extends HorizontalLayout  {
         addComponent(titleArea);
         addComponent(helpButton);
         
+        addStyleName("redColorGrey");
         setWidth("100%");
         setExpandRatio(titleArea, 1);
     }
