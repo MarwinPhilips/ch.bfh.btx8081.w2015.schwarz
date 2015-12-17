@@ -9,12 +9,13 @@ public class EndedPrescription extends PrescriptionState {
 	public EndedPrescription(PrescriptionContext context, Prescription prescription, GregorianCalendar endDate) {
 		super(context, prescription);
 		prescription.setEndDate(endDate);
-		context.setPrescriptionState(PrescriptionStateEnum.Ended);
 	}
 	public void delete(){
+		context.setPrescriptionState(PrescriptionStateEnum.Deleted);
 		context.setPrescriptionState(new DeletedPrescription(context, prescription));
 	}
 	public void edit(){
+		context.setPrescriptionState(PrescriptionStateEnum.Edit);
 		context.setPrescriptionState(new EditPrescription(context, prescription));
 	}
 	// An ended Medicament can be modified.

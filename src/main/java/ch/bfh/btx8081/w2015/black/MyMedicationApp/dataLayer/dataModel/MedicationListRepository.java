@@ -14,7 +14,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
  */
 public class MedicationListRepository extends MssqlRepository implements IMedicationListRepository {
 	public MedicationListRepository(){
-		
+		super();
 	}
 	/**
 	 * Loads all MecicationList for the Person with @personId. 
