@@ -122,7 +122,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	endDateGregorian.setTime(endDatum.getValue());
         	p.setEndDate(endDateGregorian);
         	
-        	p.setMedicament((Medicament)medicationNames.getValue());
+        	//p.setMedicament((Medicament)medicationNames.getValue());
         	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
         	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
         	//p.setTimeScheme(timeScheme); // TODO get timescheme of dropdown
@@ -145,6 +145,15 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		medicationNames.setItemCaptionPropertyId("name");		
 		medicationNames.setNullSelectionAllowed(false);
 		medicationNames.setNewItemsAllowed(false);
+		
+		medicationNames.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				medicationEditModel.getPrescription().setMedicament((Medicament)medicationNames.getValue());
+				timeSchemeComboB.setEnabled(true);
+			}
+		});
 	}
 	
 	/**
@@ -164,11 +173,14 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		for(TimeScheme schema:timeSchema.getAllTimeschemes()){
 			timeSchemeComboB.addItem(schema);
 		}
+		timeSchemeComboB.setEnabled(false); // has to be disabled until we select a medicament
+		
 		timeSchemeComboB.addValueChangeListener(new Property.ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
+				//TODO Not working atm
 				fillTimeSchemeTimes();
 				}
 		});

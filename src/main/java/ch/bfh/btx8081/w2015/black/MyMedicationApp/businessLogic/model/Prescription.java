@@ -1,6 +1,7 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.persistence.Entity;
@@ -104,6 +105,9 @@ public class Prescription {
 		this.comment = comment;
 	}
 	public List<DosisScheme> getDosisSchemes() {
+		if(dosisSchemes==null){
+			dosisSchemes = new ArrayList<DosisScheme>();
+		}
 		return dosisSchemes;
 	}
 	public void setDosisSchemes(List<DosisScheme> dosisSchemes) {

@@ -13,18 +13,22 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.PopupDateField;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MethodOfApplication;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MethodOfApplicationRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfApplicationRepository;
 
 
 /**
@@ -35,16 +39,17 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 public class MedicationEditView extends NavigatorContainer implements View, Observer{
 	
 	private MedicationEditModel medicationEditModel;
-	private FormLayout formLayoutEditView = null; // TODO: Form() is deprecated! Use FielGroup instead
+	private FormLayout formLayoutEditView;
 	private VerticalLayout dosisSchemaVerticalLayout = null;
     private Button saveButton;
-	private TextField prescriptionCommentTF;
-	private TextField prescriptionTimeSchemeNameTF;
-	private Label endDateLabel;
-	private DateField prescriptionEndDateDF;
+	private TextArea prescriptionCommentTA;
+	private MethodOfApplicationRepository methodOfApplication;
+	private WayOfApplicationRepository wayOfApplication;
+	private ComboBox methodOfApplicationComboBox;
+	private ComboBox wayOfApplicationComboBox;
+	private PopupDateField prescriptionEndDateDF;
 	private CheckBox reserveMedicamentCB;
-	private Label beginDateLabel;
-	private DateField prescriptionStartDateDF;
+	private PopupDateField prescriptionStartDateDF;
 	private TextField prescriptionMedicamentName;
 	private ComboBox timeSchemeComboB;
 	/**
@@ -72,24 +77,52 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		p.setSizeFull();
 		addComponent(p);
 		
-		prescriptionMedicamentName = new TextField("Medikament:");
+		prescriptionMedicamentName = new TextField("Your medication:");
 		formLayoutEditView.addComponent(prescriptionMedicamentName);
+		reserveMedicamentCB = new CheckBox("Reserve");
+		formLayoutEditView.addComponent(reserveMedicamentCB);
+		timeSchemeComboB = new ComboBox("Select your time schema: ");
+		timeSchemeComboB.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
+				fillTimeSchemeTimes();
+				}
+		});
+		formLayoutEditView.addComponent(timeSchemeComboB);
 		dosisSchemaVerticalLayout = new VerticalLayout();
 		formLayoutEditView.addComponent(dosisSchemaVerticalLayout);
-		prescriptionCommentTF = new TextField("Verschreibungsnotiz:");
-		formLayoutEditView.addComponent(prescriptionCommentTF);
-		prescriptionTimeSchemeNameTF = new TextField("Zeitschema:");
-		formLayoutEditView.addComponent(prescriptionTimeSchemeNameTF);
-		beginDateLabel = new Label("Beginn der Verordnung");
-		formLayoutEditView.addComponent(beginDateLabel);
-		prescriptionStartDateDF = new DateField();
+		
+		methodOfApplicationComboBox = new ComboBox("Method of Application");
+		methodOfApplication = new MethodOfApplicationRepository();
+		
+		BeanItemContainer<MethodOfApplication> containerMethod = new BeanItemContainer<MethodOfApplication>(MethodOfApplication.class, methodOfApplication.getAllMethodOfApplication());
+		methodOfApplicationComboBox.setContainerDataSource(containerMethod);
+		methodOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		methodOfApplicationComboBox.setItemCaptionPropertyId("name");		
+		methodOfApplicationComboBox.setNullSelectionAllowed(false);
+		methodOfApplicationComboBox.setNewItemsAllowed(false);
+		formLayoutEditView.addComponent(methodOfApplicationComboBox);
+		
+		wayOfApplicationComboBox = new ComboBox("Way of Application");
+		wayOfApplication = new WayOfApplicationRepository();
+		
+		BeanItemContainer<WayOfApplication> containerWay = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplication.getAllWayOfApplication());
+		wayOfApplicationComboBox.setContainerDataSource(containerWay);
+		wayOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		wayOfApplicationComboBox.setItemCaptionPropertyId("name");		
+		wayOfApplicationComboBox.setNullSelectionAllowed(false);
+		wayOfApplicationComboBox.setNewItemsAllowed(false);
+		formLayoutEditView.addComponent(wayOfApplicationComboBox);
+		
+		prescriptionStartDateDF = new PopupDateField("Start Date");
 		formLayoutEditView.addComponent(prescriptionStartDateDF);
-		endDateLabel = new Label("Ablaufdatum der Verordnung");
-		formLayoutEditView.addComponent(endDateLabel);
-		prescriptionEndDateDF = new DateField();
+		prescriptionEndDateDF = new PopupDateField("End Date");
 		formLayoutEditView.addComponent(prescriptionEndDateDF);
-		reserveMedicamentCB = new CheckBox("Reserve: ");
-		formLayoutEditView.addComponent(reserveMedicamentCB);
+		prescriptionCommentTA = new TextArea("Comments:");
+		formLayoutEditView.addComponent(prescriptionCommentTA);
+		
 		saveButton = new Button("Save", new Button.ClickListener() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -100,23 +133,13 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 			
 		});
 		formLayoutEditView.addComponent(saveButton);
-		timeSchemeComboB = new ComboBox("Zeitschema: ");
-		timeSchemeComboB.addValueChangeListener(new Property.ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
-				fillTimeSchemeTimes();
-				}
-		});
-		formLayoutEditView.addComponent(timeSchemeComboB);
 	}
 
 	private void fillForm(){
 		Prescription p = medicationEditModel.getPrescription();
 		prescriptionMedicamentName.setValue(p.getMedicament().getName());
-		prescriptionCommentTF.setValue(p.getComment());
-		prescriptionTimeSchemeNameTF.setValue(p.getTimeScheme().getName());
+		prescriptionMedicamentName.setEnabled(false);
+		prescriptionCommentTA.setValue(p.getComment());
 		prescriptionStartDateDF.setValue(p.getStartDate().getTime());
 		if(p.getEndDate()!=null){
 			prescriptionEndDateDF.setValue(p.getEndDate().getTime());	
@@ -124,7 +147,8 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		fillTimeSchemeComboBox();
 		reserveMedicamentCB.setValue(p.isReserveMedication());
 		
-		timeSchemeComboB.select(p.getTimeScheme().getName());	
+		//timeSchemeComboB.select(p.getTimeScheme().getName());
+		timeSchemeComboB.select((TimeScheme)p.getTimeScheme());
 		fillTimeSchemeTimes();
 	}
 	private void fillTimeSchemeTimes() {

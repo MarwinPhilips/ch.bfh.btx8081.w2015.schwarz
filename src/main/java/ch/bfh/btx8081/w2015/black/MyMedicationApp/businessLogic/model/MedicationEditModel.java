@@ -67,12 +67,15 @@ public class MedicationEditModel extends Observable {
 
 	public void setPrescriptionTimeScheme(TimeScheme timeScheme) {
 		Prescription prescription = context.getPrescription();
-		for (DosisScheme d : prescription.getDosisSchemes()) {
-			dosisSchemeRepo.remove(d);
+		if(prescription.getDosisSchemes()!=null){
+			for (DosisScheme d : prescription.getDosisSchemes()) {
+				dosisSchemeRepo.remove(d);
+			}
+			prescription.getDosisSchemes().clear();
 		}
-		prescription.getDosisSchemes().clear();
+		
 		prescription.setTimeScheme(timeScheme);
-		prescription.getDosisSchemes().clear();
+		//prescription.getDosisSchemes().clear();
 		for (TimeSchemeTime timeSchemeTime : timeScheme.getTimeSchemeTimes()) {
 			DosisScheme d = new DosisScheme();
 			d.setPrescription(prescription);
