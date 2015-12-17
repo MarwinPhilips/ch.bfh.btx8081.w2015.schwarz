@@ -1,8 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IDosisSchemeRepository;
 /**
  * All DosisScheme POJO need to be created, loaded and persisted over this Repository.

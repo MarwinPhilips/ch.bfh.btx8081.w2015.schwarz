@@ -2,7 +2,6 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel;
 
 import java.util.List;
 
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;

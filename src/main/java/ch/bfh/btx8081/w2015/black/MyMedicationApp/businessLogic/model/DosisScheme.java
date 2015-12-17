@@ -1,7 +1,6 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
