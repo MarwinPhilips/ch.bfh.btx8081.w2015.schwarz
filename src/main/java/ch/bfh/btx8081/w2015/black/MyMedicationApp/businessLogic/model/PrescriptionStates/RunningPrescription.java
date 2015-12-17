@@ -7,7 +7,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 public class RunningPrescription extends PrescriptionState {
 	public RunningPrescription(PrescriptionContext context, Prescription prescription) {
 		super(context,prescription);
-		prescription.setPrescriptionState(PrescriptionStateEnum.Running);
+		context.setPrescriptionState(PrescriptionStateEnum.Running);
 	}
 	@Override
 	public void delete() {

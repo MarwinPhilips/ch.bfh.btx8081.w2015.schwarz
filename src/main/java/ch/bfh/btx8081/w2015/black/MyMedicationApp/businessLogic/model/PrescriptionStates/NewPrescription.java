@@ -6,7 +6,7 @@ public class NewPrescription extends PrescriptionState {
 	
 	public NewPrescription(PrescriptionContext context, Prescription prescription) {
 		super(context,prescription);
-		prescription.setPrescriptionState(PrescriptionStateEnum.New);
+		context.setPrescriptionState(PrescriptionStateEnum.New);
 	}
 	@Override
 	public void save() {	
@@ -14,6 +14,7 @@ public class NewPrescription extends PrescriptionState {
 	}
 	@Override
 	public void abort() {
+		
 		context.setPrescriptionState(new DeletedPrescription(context, prescription));
 	}
 

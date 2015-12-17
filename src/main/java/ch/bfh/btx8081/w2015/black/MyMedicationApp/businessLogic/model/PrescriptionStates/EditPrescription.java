@@ -6,7 +6,7 @@ public class EditPrescription extends PrescriptionState {
 
 	public EditPrescription(PrescriptionContext context,Prescription prescription) {
 		super(context, prescription);
-		prescription.setPrescriptionState(PrescriptionStateEnum.Running);
+		context.setPrescriptionState(PrescriptionStateEnum.Running);
 	}
 	@Override
 	public void save(){
@@ -14,6 +14,7 @@ public class EditPrescription extends PrescriptionState {
 	}
 	@Override
 	public void abort(){
+		
 		context.setPrescriptionState(new RunningPrescription(context, prescription));
 	}
 }

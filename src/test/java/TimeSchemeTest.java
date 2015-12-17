@@ -38,7 +38,9 @@ public class TimeSchemeTest {
 		TimeSchemeTime tst = timeSchemeTimeRepo.getNewTimeSchemeTime();
 		tst.setTime(Duration.ofHours(6l));
 		tst.setTimeScheme(ts);
+		timeSchemeRepo.persist(ts);
 		ts.getTimeSchemeTimes().add(tst);
+		timeSchemeTimeRepo.persist(tst);
 	}
 
 }

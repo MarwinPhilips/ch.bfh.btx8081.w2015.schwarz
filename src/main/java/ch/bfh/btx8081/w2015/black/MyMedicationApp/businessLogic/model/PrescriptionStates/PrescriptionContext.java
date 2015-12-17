@@ -3,6 +3,8 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescript
 import java.util.GregorianCalendar;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
 /**
  * The Context for the PrescriptionStates. It provides all Methods which can be called
  * on a PrescriptionState. Initializes the correct State on setPrescription.
@@ -11,7 +13,9 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
  */
 public class PrescriptionContext {
 	private PrescriptionState prescriptionState;
+	private IPrescriptionRepository repo;
 	public PrescriptionContext() {
+		this.repo=new PrescriptionRepository();
 	}
 	/**
 	 * Only used within this package, nobody else can change the state.
@@ -26,6 +30,11 @@ public class PrescriptionContext {
 	 * @return
 	 */
 	public Prescription getPrescription(){
+		if(prescriptionState.getPrescription()==null){
+			Prescription p = new Prescription();
+			p.setPrescriptionState(PrescriptionStateEnum.New);
+			setPrescription(p);
+		}
 		return prescriptionState.getPrescription();
 	}
 	/**
@@ -74,5 +83,9 @@ public class PrescriptionContext {
 	}
 	public void stop(GregorianCalendar endDate){
 		prescriptionState.stop(endDate);
+	}
+	protected void setPrescriptionState(PrescriptionStateEnum state){
+		prescriptionState.getPrescription().setPrescriptionState(state);
+		repo.persist(prescriptionState.getPrescription());
 	}
 }

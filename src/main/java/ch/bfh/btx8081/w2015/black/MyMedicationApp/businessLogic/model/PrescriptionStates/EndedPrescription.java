@@ -9,7 +9,7 @@ public class EndedPrescription extends PrescriptionState {
 	public EndedPrescription(PrescriptionContext context, Prescription prescription, GregorianCalendar endDate) {
 		super(context, prescription);
 		prescription.setEndDate(endDate);
-		prescription.setPrescriptionState(PrescriptionStateEnum.Ended);
+		context.setPrescriptionState(PrescriptionStateEnum.Ended);
 	}
 	public void delete(){
 		context.setPrescriptionState(new DeletedPrescription(context, prescription));

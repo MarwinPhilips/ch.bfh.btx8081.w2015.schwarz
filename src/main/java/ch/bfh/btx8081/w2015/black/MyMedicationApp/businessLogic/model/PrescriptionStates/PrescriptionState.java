@@ -3,6 +3,7 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescript
 import java.util.GregorianCalendar;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
 /**
  * Super class for all PrescriptionStates. If the current state did not implement the method because it 
  * is invalid it writes an error.
@@ -46,4 +47,5 @@ public abstract class PrescriptionState {
 	public boolean canModify() {
 		return false;
 	}
+	
 }

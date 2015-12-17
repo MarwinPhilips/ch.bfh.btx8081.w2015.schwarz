@@ -7,6 +7,6 @@ public class DeletedPrescription extends PrescriptionState {
 	public DeletedPrescription(PrescriptionContext context,	Prescription prescription) {
 		super(context, prescription);
 		prescription.setDeleted(true);
-		prescription.setPrescriptionState(PrescriptionStateEnum.Ended);
+		context.setPrescriptionState(PrescriptionStateEnum.Deleted);
 	}
 }

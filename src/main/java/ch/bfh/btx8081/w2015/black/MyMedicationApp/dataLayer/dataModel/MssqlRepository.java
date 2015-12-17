@@ -9,7 +9,7 @@ import javax.persistence.EntityTransaction;
  * @author Marwin
  *
  */
-public class MssqlRepository {
+public class MssqlRepository implements IRepository {
 	protected EntityManager em = null;
 	EntityTransaction transaction = null;
 	/**
@@ -30,5 +30,14 @@ public class MssqlRepository {
 	 */
 	protected void commitTransaction(){
 		transaction.commit();
+	}
+	public void flush(){
+		em.flush();
+	}
+	public Object persist(Object objectToSave){
+		beginTransaction();
+		em.persist(objectToSave);
+		commitTransaction();
+		return objectToSave;
 	}
 }
