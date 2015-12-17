@@ -17,6 +17,7 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -66,8 +67,13 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	}
 	
 	private void createForm() {
-		formLayoutEditView = new FormLayout();		
-		addComponent(formLayoutEditView);
+		formLayoutEditView = new FormLayout();
+		Panel p=new Panel();
+		p.setContent(formLayoutEditView);
+		p.setSizeFull();
+		addComponent(p);
+
+		
 		prescriptionMedicamentName = new TextField("Medikament:");
 		formLayoutEditView.addComponent(prescriptionMedicamentName);
 		dosisSchemaVerticalLayout = new VerticalLayout();
