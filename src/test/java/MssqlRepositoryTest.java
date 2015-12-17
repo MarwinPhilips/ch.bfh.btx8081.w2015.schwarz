@@ -1,4 +1,4 @@
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.time.Duration;
 
@@ -14,7 +14,8 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.TimeScheme
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.TimeSchemeTimeRepository;
 
 
-public class TimeSchemeTest {
+public class MssqlRepositoryTest {
+
 	MssqlEntityManager mem = null;
 	TimeSchemeRepository timeSchemeRepo = null;
 	TimeSchemeTimeRepository timeSchemeTimeRepo = null;
@@ -52,5 +53,4 @@ public class TimeSchemeTest {
 		TimeScheme againLoadedTs = (TimeScheme) timeSchemeRepo.getById(TimeScheme.class, ts.getTimeSchemeId());
 		assertTrue(againLoadedTs==null);
 	}
-
 }

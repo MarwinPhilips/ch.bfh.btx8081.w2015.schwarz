@@ -3,6 +3,7 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IRepository;
 /**
  * The MssqlRepository is the super class for all Repositories. 
@@ -47,5 +48,12 @@ public class MssqlRepository implements IRepository {
 		beginTransaction();
 		em.remove(objectToRemove);
 		commitTransaction();		
+	}
+	@Override
+	public Object getById(Class c, int id) {
+		beginTransaction();
+		Object o = em.find(c, id);
+		commitTransaction();
+		return o;
 	}
 }
