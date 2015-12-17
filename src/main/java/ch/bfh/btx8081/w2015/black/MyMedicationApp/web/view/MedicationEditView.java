@@ -15,7 +15,6 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
@@ -72,7 +71,6 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		p.setContent(formLayoutEditView);
 		p.setSizeFull();
 		addComponent(p);
-
 		
 		prescriptionMedicamentName = new TextField("Medikament:");
 		formLayoutEditView.addComponent(prescriptionMedicamentName);
@@ -132,36 +130,10 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
 		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
-			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeDisplay(d));
+			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d));
 		}
 	}
-	private class DosisSchemeTimeDisplay extends HorizontalLayout {
-		private static final long serialVersionUID = 1L;
-		private DosisScheme dosisScheme;
-		private Label timeSchemeName;
-		private Label time;
-		private TextField medicamentAmount;
-		private Label dose;
-		public DosisSchemeTimeDisplay(DosisScheme d) {
-			this.dosisScheme = d;
-			this.timeSchemeName = new Label(dosisScheme.getDosisSchemeName()+": ");
-			addComponent(timeSchemeName);
-			this.time = new Label(dosisScheme.getTimespan().toHours() + "h");
-			addComponent(time);
-			this.medicamentAmount = new TextField();
-			this.medicamentAmount.setValue(dosisScheme.getAmount()+"");
-			medicamentAmount.addValueChangeListener(new Property.ValueChangeListener() {
-				private static final long serialVersionUID = 1L;
-				@Override
-				public void valueChange(ValueChangeEvent event) {
-					dosisScheme.setAmount(Double.parseDouble(medicamentAmount.getValue()));
-				}
-			});
-			addComponent(medicamentAmount);
-			this.dose = new Label(dosisScheme.getQuantityUnit());
-			addComponent(dose);
-		}
-	}
+	
 	private void fillTimeSchemeComboBox(){
 		BeanItemContainer<TimeScheme> container = new BeanItemContainer<TimeScheme>(TimeScheme.class,medicationEditModel.getTimeSchemes());
 		timeSchemeComboB.setContainerDataSource(container);

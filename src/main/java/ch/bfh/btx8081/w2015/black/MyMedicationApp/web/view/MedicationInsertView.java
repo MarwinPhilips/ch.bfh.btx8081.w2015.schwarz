@@ -3,13 +3,20 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medicament;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MethodOfApplication;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicamentRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MethodOfApplicationRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.TimeSchemeRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfApplicationRepository;
 
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
@@ -22,6 +29,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * 
@@ -34,9 +42,14 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private FormLayout form ;
 	private Panel panel;
 	private ComboBox medicationNames;
+	private VerticalLayout dosisSchemaVerticalLayout;
 	private MedicamentRepository medicationsList;
+	private MethodOfApplicationRepository methodOfApplication;
+	private WayOfApplicationRepository wayOfApplication;
 	private MedicationEditModel medicationEditModel;
 	private ComboBox timeSchemeComboB;
+	private ComboBox methodOfApplicationComboBox;
+	private ComboBox wayOfApplicationComboBox;
 	private TimeSchemeRepository timeSchema;
 	private CheckBox reserveType;
 	private PopupDateField startDatum;
@@ -53,11 +66,42 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	    createStartEndDate();     
 	    createCommentTextArea(); 
 	    createMedicationComboBox();
+	    createMethodOfApplication();
+	    createWayOfApplication();
 	    createFormLayout();
 	    createPanelInsideForm();
-
 	}
 	
+	/**
+	 * Creates new combo box to insert a new method of Application
+	 */
+	private void createMethodOfApplication() {
+		methodOfApplicationComboBox = new ComboBox("Method of Application");
+		methodOfApplication = new MethodOfApplicationRepository();
+		
+		BeanItemContainer<MethodOfApplication> container = new BeanItemContainer<MethodOfApplication>(MethodOfApplication.class, methodOfApplication.getAllMethodOfApplication());
+		methodOfApplicationComboBox.setContainerDataSource(container);
+		methodOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		methodOfApplicationComboBox.setItemCaptionPropertyId("name");		
+		methodOfApplicationComboBox.setNullSelectionAllowed(false);
+		methodOfApplicationComboBox.setNewItemsAllowed(false);	
+	}
+	
+	/**
+	 * Creates a new combo box to insert a new way of application
+	 */
+	private void createWayOfApplication() {
+		wayOfApplicationComboBox = new ComboBox("Way of Application");
+		wayOfApplication = new WayOfApplicationRepository();
+		
+		BeanItemContainer<WayOfApplication> container = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplication.getAllWayOfApplication());
+		wayOfApplicationComboBox.setContainerDataSource(container);
+		wayOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		wayOfApplicationComboBox.setItemCaptionPropertyId("name");		
+		wayOfApplicationComboBox.setNullSelectionAllowed(false);
+		wayOfApplicationComboBox.setNewItemsAllowed(false);	
+	}
+
 	class SaveButtonListener implements Button.ClickListener {
     	private static final long serialVersionUID = 1L;
 		 
@@ -79,8 +123,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	p.setEndDate(endDateGregorian);
         	
         	p.setMedicament((Medicament)medicationNames.getValue());
-        	//p.setMethodOfApplication(methodOfApplication); // TODO get method of dropdown
-        	//p.setWayOfApplication(wayOfApplication); // TODO get way of dropdown
+        	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
+        	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
         	//p.setTimeScheme(timeScheme); // TODO get timescheme of dropdown
         	
         	medicationEditModel.save();
@@ -120,6 +164,23 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		for(TimeScheme schema:timeSchema.getAllTimeschemes()){
 			timeSchemeComboB.addItem(schema);
 		}
+		timeSchemeComboB.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
+				fillTimeSchemeTimes();
+				}
+		});
+		
+		dosisSchemaVerticalLayout = new VerticalLayout();
+	}
+	
+	private void fillTimeSchemeTimes() {
+		dosisSchemaVerticalLayout.removeAllComponents();
+		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
+			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d));
+		}
 	}
 	
 	/**
@@ -155,6 +216,9 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		form.addComponent(medicationNames);
 	    form.addComponent(reserveType);
 	    form.addComponent(timeSchemeComboB);
+	    form.addComponent(dosisSchemaVerticalLayout);
+	    form.addComponent(methodOfApplicationComboBox);
+	    form.addComponent(wayOfApplicationComboBox);
 	    form.addComponent(startDatum);
 	    form.addComponent(endDatum);
 	    form.addComponent(comments);
