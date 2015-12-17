@@ -9,7 +9,7 @@ M.Muster: 5+8.5+1+6+4.3+...
 Sprint 2 [Zeit in Stunden]
 
 Carole:
-Amin:
+Amin: 3+3+3
 Jonas: 2+1.5+1.5+1
 Mete:
 Marwin: 1.5+1.5+1.5+2.5+2.5+1.5
