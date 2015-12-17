@@ -16,9 +16,6 @@ import com.vaadin.ui.UI;
 @Theme("mytheme")
 @Widgetset("ch.bfh.btx8081.w2015.black.MyMedicationApp.MyAppWidgetset")
 public class MyMedicationApp extends UI {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static Navigator navigator;
 
@@ -45,10 +42,6 @@ public class MyMedicationApp extends UI {
     @WebServlet(urlPatterns = "/*", name = "MyMedicationAppServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyMedicationApp.class, productionMode = false)
     public static class MyMedicationAppServlet extends VaadinServlet {
-
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
     }
 }

@@ -27,9 +27,6 @@ import com.vaadin.ui.VerticalLayout;
 
 public class MedicationOverView extends NavigatorContainer implements View,
 		Observer, ActionListener {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Table medicationTable = null;
 	private HorizontalLayout topHorizontalLayout = null;
@@ -58,7 +55,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 					@Override
 					public void itemClick(ItemClickEvent event) {
-					    overviewModel.setSelectedPrescription(((Prescription)event.getItem().getItemProperty("prescription").getValue()));
+						overviewModel.setSelectedPrescription(((Prescription)event.getItem().getItemProperty("prescription").getValue()));
 						editDrug.setEnabled(overviewModel.canModifyPrescription());
 						deleteDrug.setEnabled(overviewModel.canModifyPrescription());						
 					}
@@ -164,6 +161,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 				private static final long serialVersionUID = 1L;
 
 				public void buttonClick(ClickEvent event) {
+					System.out.println(overviewModel.getSelectedPrescription());
 					if (overviewModel.getSelectedPrescription()!=null) {
 						editView.setPrescriptionContext(overviewModel.getPrescriptionContext());
 						MyMedicationApp.navigateTo("MedicationEditView");
@@ -191,7 +189,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 	@Override
 	public String setNavBarHelpButtonText() {
-		return "Forward";
+		return null;
 	}
 
 	@Override

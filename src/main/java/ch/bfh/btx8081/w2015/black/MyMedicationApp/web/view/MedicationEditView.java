@@ -194,13 +194,13 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 
 	@Override
 	public String setNavBarHelpButtonText() {
-		return "?";
+		return null;
 	}
 
 	@Override
 	public String setNavBarMenuButtonText() {
 		// TODO Should go to MedicatoinOverView without save of the edited Value
-		return "Back";
+		return "Overview";
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 
 	@Override
 	public String setNavBarMenuButtonPath() {
-		return null;
+		return "medication";
 	}
 
 	

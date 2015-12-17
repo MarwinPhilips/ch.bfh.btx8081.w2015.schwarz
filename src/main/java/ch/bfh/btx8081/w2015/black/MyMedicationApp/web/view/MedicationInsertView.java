@@ -116,7 +116,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	private void createCheckBox(){
 		
-		reserveType = new CheckBox("Reserved");
+		reserveType = new CheckBox("Reserve");
 	}
 
 	
@@ -178,7 +178,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.setWidth("800px");
+		panel.setWidth("100%");
 		panel.setContent(form);
 	    addComponent(panel);
 	    setComponentAlignment(panel, Alignment.TOP_CENTER);
@@ -203,7 +203,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 
 	@Override
 	public String setNavBarMenuButtonText() {
-		return "MediView";
+		return "Overview";
 	}
 
 	@Override

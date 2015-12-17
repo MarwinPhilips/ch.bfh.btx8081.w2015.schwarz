@@ -1,12 +1,12 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
-
 import java.util.Observable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name="V_MEDICATIONOVERVIEW")
@@ -17,6 +17,8 @@ public class MedicationList extends Observable {
 	@Id
 	@ManyToOne
 	private Prescription prescription;
+	//@Size(min=1, max=4, message="Should be between 2 and 4 c")
+	@NotNull(message="Please enter a name")
 	private String medicamentname;
 	// The dose is not saved in one attribute, so for the moment we let it away.
 	//private String dose;
