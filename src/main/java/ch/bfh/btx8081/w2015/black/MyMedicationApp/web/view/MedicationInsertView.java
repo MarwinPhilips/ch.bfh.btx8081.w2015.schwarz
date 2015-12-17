@@ -178,6 +178,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		
 		panel = new Panel();
 		panel.setSizeFull();
+		panel.setWidth("800px");
 		panel.setContent(form);
 	    addComponent(panel);
 	    setComponentAlignment(panel, Alignment.TOP_CENTER);
