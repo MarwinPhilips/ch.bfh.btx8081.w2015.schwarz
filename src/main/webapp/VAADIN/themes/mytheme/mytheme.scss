@@ -32,13 +32,52 @@
 @mixin mytheme {
   @include valo;
 
-  // Insert your own theme rules here
-  
-  .backColorGrey{
-  	background:#B0C4DE;
+   /* All buttons have blue caption and some margin */
+  .v-button {
+    height: 30px;
+    font-size: 16pt;
+
+    /* A nested selector to increase specificity */
+    .v-button-caption {
+      color: #093440;
+    }
+    }
+    /* All labels have white text on black background */
+  .titleLabel {
+    background: #093440;
+    color: white;
+    font-size: 24pt;
+    line-height: 24pt;
+    padding: 5px;
+    height: 50px;
+  }
+  .v-panel {
+  	width: 730px;
+  	text-align: center;
+  	alignment: center;
+  	
+  }
+   .v-table-header {
+   color: #093440;
+   background: white;
+   font-size: 18pt;
+   }
+    .v-table-row-spacer {
+    color: #12697F;
+    }
+    
+    .v-table-table {
+        color: #12697F;
+   
+    }
+      .v-table-row {
+            color: #093440;
+            background: #88DAFF;
+   
+      }
+      
+      .v-ui {
+    background: #1A9DBF;
   }
   
-  .redColorGrey{
-  	background:red;
-  }
 }
