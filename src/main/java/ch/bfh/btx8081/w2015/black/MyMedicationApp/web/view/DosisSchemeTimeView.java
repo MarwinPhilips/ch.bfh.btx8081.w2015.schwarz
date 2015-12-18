@@ -10,11 +10,13 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisSchem
 
 public class DosisSchemeTimeView extends HorizontalLayout {
 	private static final long serialVersionUID = 1L;
-	private DosisScheme dosisScheme;
+	
 	private Label timeSchemeName;
 	private Label time;
-	private TextField medicamentAmount;
 	private Label dose;
+	private TextField medicamentAmount;
+	
+	private DosisScheme dosisScheme;
 	
 	public DosisSchemeTimeView(DosisScheme d) {
 		this.dosisScheme = d;
