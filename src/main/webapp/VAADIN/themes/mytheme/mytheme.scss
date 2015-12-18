@@ -76,6 +76,16 @@
    
       }
       
+       
+    .v-table .v-selected[class*="-row"] {
+    background-color: #64FE2E;
+    background-image: none;
+    background-origin: border-box;
+    border: solid;
+    color: red;
+    font-weight: bold;
+    
+	}
       .v-ui {
     background: #1A9DBF;
   }
