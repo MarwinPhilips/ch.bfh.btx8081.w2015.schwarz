@@ -7,6 +7,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MethodOfApplicationRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfApplicationRepository;
 
@@ -186,10 +187,10 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
     	GregorianCalendar startDateGregorian = new GregorianCalendar();
     	startDateGregorian.setTime(prescriptionStartDateDateField.getValue());
     	p.setStartDate(startDateGregorian);
-    	
+    	/*
     	GregorianCalendar endDateGregorian = new GregorianCalendar();
     	endDateGregorian.setTime(prescriptionEndDateDateField.getValue());
-    	p.setEndDate(endDateGregorian);
+    	p.setEndDate(endDateGregorian);*/
     	
     	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
     	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());

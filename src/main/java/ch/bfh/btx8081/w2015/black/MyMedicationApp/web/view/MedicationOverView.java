@@ -172,7 +172,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 	@Override
 	public String setNavBarSubTitle() {
-		return "subtitle";
+		return null;
 	}
 
 	@Override

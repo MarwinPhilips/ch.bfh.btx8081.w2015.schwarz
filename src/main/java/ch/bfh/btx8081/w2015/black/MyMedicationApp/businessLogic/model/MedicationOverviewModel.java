@@ -5,15 +5,19 @@ import java.util.Observable;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicationListRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IMedicationListRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
 
 public class MedicationOverviewModel extends Observable {
 	private List<MedicationList> medications = null;
 	private IMedicationListRepository medicationListRepo = null;
 	private PrescriptionContext prescriptionContext = null;
+	private IPrescriptionRepository prescriptionRepo = null;
 	public MedicationOverviewModel(){
 		medicationListRepo = new MedicationListRepository();	
 		prescriptionContext = new PrescriptionContext();
+		prescriptionRepo = new PrescriptionRepository();
 	}
 	public void loadData(){
 		// currently static PersonId
@@ -29,7 +33,8 @@ public class MedicationOverviewModel extends Observable {
 	    return prescriptionContext.getPrescription();
 	}
 	public void setSelectedPrescription(Prescription selectedPrescription) {
-		prescriptionContext.setPrescription(selectedPrescription);
+		Prescription p = prescriptionRepo.getById(selectedPrescription.getPrescriptionId());
+		prescriptionContext.setPrescription(p);
 	}
 	public void deletePrescription() {
 		prescriptionContext.delete();
