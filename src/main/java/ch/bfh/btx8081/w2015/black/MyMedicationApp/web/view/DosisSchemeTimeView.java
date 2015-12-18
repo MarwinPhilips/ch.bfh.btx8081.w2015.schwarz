@@ -7,6 +7,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
 
 public class DosisSchemeTimeView extends HorizontalLayout {
 	private static final long serialVersionUID = 1L;
@@ -15,10 +16,12 @@ public class DosisSchemeTimeView extends HorizontalLayout {
 	private Label time;
 	private Label dose;
 	private TextField medicamentAmount;
+	MedicationEditModel model;
 	
 	private DosisScheme dosisScheme;
 	
-	public DosisSchemeTimeView(DosisScheme d) {
+	public DosisSchemeTimeView(DosisScheme d, MedicationEditModel model) {
+		this.model=model;
 		this.dosisScheme = d;
 		this.timeSchemeName = new Label(dosisScheme.getDosisSchemeName()+": ");
 		addComponent(timeSchemeName);
@@ -31,6 +34,7 @@ public class DosisSchemeTimeView extends HorizontalLayout {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				dosisScheme.setAmount(Double.parseDouble(medicamentAmount.getValue()));
+				model.saveDosisScheme(dosisScheme);
 			}
 		});
 		addComponent(medicamentAmount);

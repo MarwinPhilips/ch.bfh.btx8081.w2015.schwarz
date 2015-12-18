@@ -10,11 +10,13 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MethodOfApplicationRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfApplicationRepository;
 
+import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.AbstractSelect;
@@ -23,6 +25,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
@@ -50,6 +53,10 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 	private MethodOfApplicationRepository methodOfApplication;
 	private WayOfApplicationRepository wayOfApplication;
 	private MedicationEditModel medicationEditModel;
+	
+	private BeanItemContainer<WayOfApplication> wayOfApplicationContainer;
+	private BeanItemContainer<TimeScheme> timeSchemeContainer;
+	
 	/**
 	 * @param formLayoutEditView
 	 */
@@ -99,8 +106,8 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		wayOfApplicationComboBox = new ComboBox("Way of Application");
 		wayOfApplication = new WayOfApplicationRepository();
 		
-		BeanItemContainer<WayOfApplication> containerWay = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplication.getAllWayOfApplication());
-		wayOfApplicationComboBox.setContainerDataSource(containerWay);
+		wayOfApplicationContainer = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplication.getAllWayOfApplication());
+		wayOfApplicationComboBox.setContainerDataSource(wayOfApplicationContainer);
 		wayOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		wayOfApplicationComboBox.setItemCaptionPropertyId("name");		
 		wayOfApplicationComboBox.setNullSelectionAllowed(false);
@@ -138,30 +145,58 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		fillTimeSchemeComboBox();
 		reserveMedicamentComboBox.setValue(p.isReserveMedication());
 		
+		// TODO load setted dropdown values
 		//timeSchemeComboB.select(p.getTimeScheme().getName());
-		timeSchemeComboBox.select((TimeScheme)p.getTimeScheme());
+		//timeSchemeComboBox.select(timeSchemeContainer.getItem(p.getTimeScheme()));
+		//wayOfApplicationComboBox.select(wayOfApplicationContainer.getIte);
+		
 		fillTimeSchemeTimes();
 	}
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
 		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
-			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d));
+			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d,medicationEditModel));
 		}
 	}
 	
 	private void fillTimeSchemeComboBox(){
-		BeanItemContainer<TimeScheme> container = new BeanItemContainer<TimeScheme>(TimeScheme.class,medicationEditModel.getTimeSchemes());
-		timeSchemeComboBox.setContainerDataSource(container);
+		timeSchemeContainer = new BeanItemContainer<TimeScheme>(TimeScheme.class, medicationEditModel.getTimeSchemes());
+		
+		timeSchemeComboBox.setContainerDataSource(timeSchemeContainer);
 		timeSchemeComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
-		timeSchemeComboBox.setItemCaptionPropertyId("name");		
+		timeSchemeComboBox.setItemCaptionPropertyId("name");
 		timeSchemeComboBox.setNullSelectionAllowed(false);
 		timeSchemeComboBox.setNewItemsAllowed(false);
 	}
 	private void save() {
-		Prescription p = medicationEditModel.getPrescription();
-		//p.setMedicament(prescriptionMedicamentName.getValue());
-		//prescriptionMedicamentName.setValue(p.getMedicament().getName());
-		p.setReserveMedication(reserveMedicamentComboBox.getValue());
+		//TODO: Validate before saving
+    	try {
+            //medicationNamesComboBox.validate();
+        } catch (InvalidValueException e) {
+            Notification.show(e.getMessage());
+            //medicationNamesComboBox.setValidationVisible(true);
+            return;
+        }
+    	Prescription p = medicationEditModel.getPrescription();
+    	
+    	p.setPerson(medicationEditModel.getLoggedInPerson());
+    	p.setComment(prescriptionCommentTextArea.getValue());
+    	p.setReserveMedication(reserveMedicamentComboBox.getValue());
+    	
+    	GregorianCalendar startDateGregorian = new GregorianCalendar();
+    	startDateGregorian.setTime(prescriptionStartDateDateField.getValue());
+    	p.setStartDate(startDateGregorian);
+    	
+    	GregorianCalendar endDateGregorian = new GregorianCalendar();
+    	endDateGregorian.setTime(prescriptionEndDateDateField.getValue());
+    	p.setEndDate(endDateGregorian);
+    	
+    	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
+    	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
+    	
+    	// TODO why does is not save
+    	medicationEditModel.save();
+    	MyMedicationApp.navigateTo("medication");
 		
 	}
 	@Override

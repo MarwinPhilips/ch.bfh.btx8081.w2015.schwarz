@@ -34,6 +34,7 @@ public class PrescriptionContext {
 			Prescription p = new Prescription();
 			p.setPrescriptionState(PrescriptionStateEnum.New);
 			setPrescription(p);
+			repo.persist(p);
 		}
 		return prescriptionState.getPrescription();
 	}

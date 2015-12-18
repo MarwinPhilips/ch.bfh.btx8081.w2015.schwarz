@@ -45,4 +45,22 @@ public class TimeScheme{
 			List<TimeSchemeTime> timeSchemeTimes) {
 		this.timeSchemeTimes = timeSchemeTimes;
 	}
+	@Override
+	public int hashCode() {
+		return timeSchemeId;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TimeScheme other = (TimeScheme) obj;
+		if (timeSchemeId != other.timeSchemeId)
+			return false;
+		return true;
+	}
+	
 }

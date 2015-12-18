@@ -17,7 +17,9 @@ import java.util.GregorianCalendar;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.validator.NullValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -26,6 +28,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
@@ -54,6 +57,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private WayOfApplicationRepository wayOfApplicationRepository;
 	private TimeSchemeRepository timeSchemaRepository;
 	private MedicationEditModel medicationEditModel;
+	
+	private BeanItemContainer<Medicament> medicationNamesContainer;
 	
 	/**
 	 * @param insertForm
@@ -107,6 +112,13 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         @Override
         public void buttonClick(ClickEvent event) {
         	//TODO: Validate before saving
+        	try {
+                medicationNamesComboBox.validate();
+            } catch (InvalidValueException e) {
+                Notification.show(e.getMessage());
+                medicationNamesComboBox.setValidationVisible(true);
+                return;
+            }
         	Prescription p = medicationEditModel.getPrescription();
         	
         	p.setPerson(medicationEditModel.getLoggedInPerson());
@@ -121,10 +133,10 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	endDateGregorian.setTime(endDatum.getValue());
         	p.setEndDate(endDateGregorian);
         	
-        	//p.setMedicament((Medicament)medicationNames.getValue());
         	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
         	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
-        	//p.setTimeScheme(timeScheme); // TODO get timescheme of dropdown
+        	
+        	//p.setDosisSchemes(dosisSchemes);
         	
         	medicationEditModel.save();
         	MyMedicationApp.navigateTo("medication");
@@ -136,14 +148,16 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	private void createMedicationNameComboBox(){
 		medicationNamesComboBox = new ComboBox("Select your medication");
-		medicationsListRepository = new MedicamentRepository();
+		medicationNamesComboBox.addValidator(new NullValidator("you must select a medicament", false));
 		
-		BeanItemContainer<Medicament> container = new BeanItemContainer<Medicament>(Medicament.class, medicationsListRepository.getAllMedicaments());
-		medicationNamesComboBox.setContainerDataSource(container);
+		medicationsListRepository = new MedicamentRepository();
+		medicationNamesContainer = new BeanItemContainer<Medicament>(Medicament.class, medicationsListRepository.getAllMedicaments());
+		medicationNamesComboBox.setContainerDataSource(medicationNamesContainer);
 		medicationNamesComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		medicationNamesComboBox.setItemCaptionPropertyId("name");		
 		medicationNamesComboBox.setNullSelectionAllowed(false);
 		medicationNamesComboBox.setNewItemsAllowed(false);
+		//medicationNamesComboBox.setValue(medicationNamesContainer.getIdByIndex(0));
 		
 		medicationNamesComboBox.addValueChangeListener(new Property.ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
@@ -178,7 +192,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
+				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)timeSchemeComboBox.getValue());
 				//TODO Not working atm
 				fillTimeSchemeTimes();
 				}
@@ -190,7 +204,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
 		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
-			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d));
+			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d,medicationEditModel));
 		}
 	}
 	
