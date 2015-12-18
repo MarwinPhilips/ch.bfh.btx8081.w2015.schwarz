@@ -81,6 +81,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	private void createMethodOfApplicationComboBox() {
 		methodOfApplicationComboBox = new ComboBox("Method of Application");
+		methodOfApplicationComboBox.addValidator(new NullValidator("you must select a method", false));
+		
 		methodOfApplicationRepository = new MethodOfApplicationRepository();
 		
 		BeanItemContainer<MethodOfApplication> container = new BeanItemContainer<MethodOfApplication>(MethodOfApplication.class, methodOfApplicationRepository.getAllMethodOfApplication());
@@ -96,6 +98,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	private void createWayOfApplicationComboBox() {
 		wayOfApplicationComboBox = new ComboBox("Way of Application");
+		wayOfApplicationComboBox.addValidator(new NullValidator("you must select a way", false));
+		
 		wayOfApplicationRepository = new WayOfApplicationRepository();
 		
 		BeanItemContainer<WayOfApplication> container = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplicationRepository.getAllWayOfApplication());
@@ -114,9 +118,13 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	//TODO: Validate before saving
         	try {
                 medicationNamesComboBox.validate();
+                wayOfApplicationComboBox.validate();
+                methodOfApplicationComboBox.validate();
             } catch (InvalidValueException e) {
                 Notification.show(e.getMessage());
                 medicationNamesComboBox.setValidationVisible(true);
+                wayOfApplicationComboBox.setValidationVisible(true);
+                methodOfApplicationComboBox.setValidationVisible(true);
                 return;
             }
         	Prescription p = medicationEditModel.getPrescription();
