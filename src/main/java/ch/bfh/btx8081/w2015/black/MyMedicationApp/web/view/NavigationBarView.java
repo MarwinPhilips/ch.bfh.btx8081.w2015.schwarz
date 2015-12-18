@@ -44,14 +44,14 @@ public class NavigationBarView extends HorizontalLayout  {
     	title.setWidthUndefined();
     	subTitle.setWidthUndefined();
 	
-        menuButton.setWidth("100px");
-        helpButton.setWidth("100px");
+        //menuButton.setWidth("100px");
+        //helpButton.setWidth("100px");
         
         addComponent(menuButton);
         addComponent(titleArea);
         addComponent(helpButton);
         
-        addStyleName("redColorGrey");
+        addStyleName("titleLabel");
         setWidth("100%");
         setExpandRatio(titleArea, 1);
     }
