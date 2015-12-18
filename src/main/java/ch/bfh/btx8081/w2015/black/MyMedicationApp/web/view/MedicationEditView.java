@@ -30,11 +30,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 
-/**
- * 
- * @author Amin,Mete
- *
- */
+
 public class MedicationEditView extends NavigatorContainer implements View, Observer{
 	private static final long serialVersionUID = 1L;
 	

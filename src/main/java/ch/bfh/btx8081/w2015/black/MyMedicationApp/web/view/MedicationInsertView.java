@@ -31,11 +31,7 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-/**
- * 
- * @author Amin,Mete
- *
- */
+
 public class MedicationInsertView extends NavigatorContainer implements View {
 	private static final long serialVersionUID = 1L;
 	
