@@ -14,9 +14,9 @@ public class MethodOfApplicationRepository extends MssqlRepository implements
 	public List<MethodOfApplication> getAllMethodOfApplication() {
 		beginTransaction();
 		TypedQuery<MethodOfApplication> q = em.createQuery("select m from MethodOfApplication m", MethodOfApplication.class);
-		List<MethodOfApplication> wayOfApplications = q.getResultList();
+		List<MethodOfApplication> methodOfApplications = q.getResultList();
 		commitTransaction();
-		return wayOfApplications;
+		return methodOfApplications;
 	}
 
 }

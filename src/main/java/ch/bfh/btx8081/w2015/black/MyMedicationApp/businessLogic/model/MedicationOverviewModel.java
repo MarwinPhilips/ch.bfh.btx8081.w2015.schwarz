@@ -46,4 +46,7 @@ public class MedicationOverviewModel extends Observable {
 	public PrescriptionContext getPrescriptionContext(){
 		return prescriptionContext;
 	}
+	public void edit(){
+		prescriptionContext.edit();
+	}
 }

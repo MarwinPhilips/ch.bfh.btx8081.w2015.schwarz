@@ -9,12 +9,12 @@ public class NewPrescription extends PrescriptionState {
 	}
 	@Override
 	public void save() {	
-		context.setPrescriptionState(PrescriptionStateEnum.Running);
+		context.setPrescriptionState(PrescriptionStateEnum.Running, true);
 		context.setPrescriptionState(new RunningPrescription(context,prescription));
 	}
 	@Override
 	public void abort() {
-		context.setPrescriptionState(PrescriptionStateEnum.Deleted);		
+		context.setPrescriptionState(PrescriptionStateEnum.Deleted, true);		
 		context.setPrescriptionState(new DeletedPrescription(context, prescription));
 	}
 

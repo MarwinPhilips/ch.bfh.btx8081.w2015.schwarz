@@ -24,6 +24,9 @@ public class MedicationListRepository extends MssqlRepository implements IMedica
 		TypedQuery<MedicationList> q = em.createQuery("from MedicationList m where m.person.personId = :id", MedicationList.class);
 		q.setParameter("id", personId);
 		List<MedicationList> medications = q.getResultList();
+		for(MedicationList m : medications){
+			em.refresh(m);
+		}
 		commitTransaction();
 		return medications;
 	}

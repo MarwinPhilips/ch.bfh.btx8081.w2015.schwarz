@@ -5,4 +5,5 @@ public interface IRepository {
 	public Object persist (Object objectToPersist);
 	public void remove(Object objectToRemove);
 	public Object getById(Class c, int id);
+	public Object merge(Object objectToMerge);
 }

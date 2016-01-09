@@ -79,10 +79,8 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	 * Create the Body VerticalLayout
 	 */
 	private void createBodyVerticalLayout() {
-		
 		bodyPanel = new Panel();
 		bodyPanel.setSizeFull();
-		overviewModel.loadData();
 		bodyPanel.setWidth("800px");
 		bodyPanel.setContent(medicationTable);
 	}
@@ -112,11 +110,13 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	 * Create medication Table with its headers.
 	 */
 	private void createTable() {
-		medicationTable.clear();
+		//medicationTable.clear();
 		BeanItemContainer<MedicationList> container = new BeanItemContainer<MedicationList>(
 				MedicationList.class);
 		container.addAll(overviewModel.getMedications());
 		medicationTable.setContainerDataSource(container);
+		// Needs to be called due to the changes we do in our EditView.
+		medicationTable.refreshRowCache();
 		medicationTable.setVisibleColumns(new Object[] { "medicamentname",
 				"timeschemename", "prescriptioncomment" });
 		medicationTable.setColumnHeaders(new String[] { "Medikamentenname",
@@ -125,7 +125,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	}
 
 	/**
-	 * 
+	 * Called by the Observable MedicationEditModel
 	 */
 	public void update(java.util.Observable observable, Object object) {
 		createTable();
@@ -151,6 +151,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 				public void buttonClick(ClickEvent event) {
 					System.out.println(overviewModel.getSelectedPrescription());
 					if (overviewModel.getSelectedPrescription()!=null) {
+						overviewModel.edit();
 						editView.setPrescriptionContext(overviewModel.getPrescriptionContext());
 						MyMedicationApp.navigateTo("MedicationEditView");
 						//ItemCaptionMode s = AbstractSelect.ItemCaptionMode.PROPERTY;
@@ -162,7 +163,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		overviewModel.loadData();
 	}
 
 	@Override

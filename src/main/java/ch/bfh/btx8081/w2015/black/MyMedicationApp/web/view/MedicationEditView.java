@@ -1,5 +1,9 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 
+import java.util.GregorianCalendar;
+import java.util.Observable;
+import java.util.Observer;
+
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.DosisScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationEditModel;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MethodOfApplication;
@@ -7,13 +11,6 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MethodOfApplicationRepository;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfApplicationRepository;
-
-import java.util.GregorianCalendar;
-import java.util.Observable;
-import java.util.Observer;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -33,173 +30,185 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-
-
-public class MedicationEditView extends NavigatorContainer implements View, Observer{
+public class MedicationEditView extends NavigatorContainer implements View,
+		Observer {
 	private static final long serialVersionUID = 1L;
-	
+
 	private FormLayout formLayoutEditView;
-	private VerticalLayout dosisSchemaVerticalLayout;	
-	
-    private Button saveButton;
+	private VerticalLayout dosisSchemaVerticalLayout;
+
+	private Button saveButton;
 	private TextArea prescriptionCommentTextArea;
 	private ComboBox methodOfApplicationComboBox;
 	private ComboBox wayOfApplicationComboBox;
 	private ComboBox timeSchemeComboBox;
-	private CheckBox reserveMedicamentComboBox;
+	private CheckBox reserveMedicamentCheckBox;
 	private PopupDateField prescriptionEndDateDateField;
 	private PopupDateField prescriptionStartDateDateField;
 	private TextField prescriptionMedicamentNameTextField;
-
-	private MethodOfApplicationRepository methodOfApplication;
-	private WayOfApplicationRepository wayOfApplication;
 	private MedicationEditModel medicationEditModel;
-	
+
 	private BeanItemContainer<WayOfApplication> wayOfApplicationContainer;
 	private BeanItemContainer<TimeScheme> timeSchemeContainer;
-	
+
 	/**
 	 * @param formLayoutEditView
 	 */
 	public MedicationEditView() {
 		super();
-		createForm();
 		medicationEditModel = new MedicationEditModel();
+		medicationEditModel.loadData();
+		createForm();
 		medicationEditModel.addObserver(this);
-		//medicationEditModel.loadData();
 	}
-	
+
 	private void createForm() {
 		formLayoutEditView = new FormLayout();
-		Panel p=new Panel();
+		Panel p = new Panel();
 		p.setContent(formLayoutEditView);
 		p.setSizeFull();
 		addComponent(p);
-		
+
 		prescriptionMedicamentNameTextField = new TextField("Your medication:");
 		formLayoutEditView.addComponent(prescriptionMedicamentNameTextField);
-		reserveMedicamentComboBox = new CheckBox("Reserve");
-		formLayoutEditView.addComponent(reserveMedicamentComboBox);
+		reserveMedicamentCheckBox = new CheckBox("Reserve");
+		formLayoutEditView.addComponent(reserveMedicamentCheckBox);
 		timeSchemeComboBox = new ComboBox("Select your time schema: ");
-		timeSchemeComboBox.addValueChangeListener(new Property.ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				medicationEditModel.setPrescriptionTimeScheme((TimeScheme)event.getProperty().getValue());
-				fillTimeSchemeTimes();
-				}
-		});
+
+		timeSchemeComboBox
+				.addValueChangeListener(new Property.ValueChangeListener() {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						medicationEditModel
+								.setPrescriptionTimeScheme((TimeScheme) event
+										.getProperty().getValue());
+						fillTimeSchemeTimes();
+					}
+				});
+
+		timeSchemeContainer = new BeanItemContainer<TimeScheme>(
+				TimeScheme.class, medicationEditModel.getTimeSchemes());
+		timeSchemeComboBox.setContainerDataSource(timeSchemeContainer);
+
 		formLayoutEditView.addComponent(timeSchemeComboBox);
+
 		dosisSchemaVerticalLayout = new VerticalLayout();
 		formLayoutEditView.addComponent(dosisSchemaVerticalLayout);
-		
+
 		methodOfApplicationComboBox = new ComboBox("Method of Application");
-		methodOfApplication = new MethodOfApplicationRepository();
-		
-		BeanItemContainer<MethodOfApplication> containerMethod = new BeanItemContainer<MethodOfApplication>(MethodOfApplication.class, methodOfApplication.getAllMethodOfApplication());
+		BeanItemContainer<MethodOfApplication> containerMethod = new BeanItemContainer<MethodOfApplication>(
+				MethodOfApplication.class,
+				medicationEditModel.getMethodOfApplications());
 		methodOfApplicationComboBox.setContainerDataSource(containerMethod);
-		methodOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
-		methodOfApplicationComboBox.setItemCaptionPropertyId("name");		
-		methodOfApplicationComboBox.setNullSelectionAllowed(false);
-		methodOfApplicationComboBox.setNewItemsAllowed(false);
+		setComboboxProperties(methodOfApplicationComboBox);
+		setComboboxProperties(timeSchemeComboBox);
 		formLayoutEditView.addComponent(methodOfApplicationComboBox);
-		
+
 		wayOfApplicationComboBox = new ComboBox("Way of Application");
-		wayOfApplication = new WayOfApplicationRepository();
-		
-		wayOfApplicationContainer = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplication.getAllWayOfApplication());
-		wayOfApplicationComboBox.setContainerDataSource(wayOfApplicationContainer);
-		wayOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
-		wayOfApplicationComboBox.setItemCaptionPropertyId("name");		
-		wayOfApplicationComboBox.setNullSelectionAllowed(false);
-		wayOfApplicationComboBox.setNewItemsAllowed(false);
+		wayOfApplicationContainer = new BeanItemContainer<WayOfApplication>(
+				WayOfApplication.class,
+				medicationEditModel.getWayOfApplications());
+		wayOfApplicationComboBox
+				.setContainerDataSource(wayOfApplicationContainer);
+		setComboboxProperties(wayOfApplicationComboBox);
 		formLayoutEditView.addComponent(wayOfApplicationComboBox);
-		
+
 		prescriptionStartDateDateField = new PopupDateField("Start Date");
 		formLayoutEditView.addComponent(prescriptionStartDateDateField);
 		prescriptionEndDateDateField = new PopupDateField("End Date");
 		formLayoutEditView.addComponent(prescriptionEndDateDateField);
 		prescriptionCommentTextArea = new TextArea("Comments:");
 		formLayoutEditView.addComponent(prescriptionCommentTextArea);
-		
+
 		saveButton = new Button("Save", new Button.ClickListener() {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				save();
-	        	MyMedicationApp.navigateTo("medication");
+				MyMedicationApp.navigateTo("medication");
 			}
-			
+
 		});
 		formLayoutEditView.addComponent(saveButton);
 	}
 
-	private void fillForm(){
+	private void fillForm() {
 		Prescription p = medicationEditModel.getPrescription();
-		prescriptionMedicamentNameTextField.setValue(p.getMedicament().getName());
-		prescriptionMedicamentNameTextField.setEnabled(false);
-		prescriptionCommentTextArea.setValue(p.getComment());
-		prescriptionStartDateDateField.setValue(p.getStartDate().getTime());
-		if(p.getEndDate()!=null){
-			prescriptionEndDateDateField.setValue(p.getEndDate().getTime());	
+		if (p != null) {
+			prescriptionMedicamentNameTextField.setValue(p.getMedicament()
+					.getName());
+			prescriptionMedicamentNameTextField.setEnabled(false);
+			prescriptionCommentTextArea.setValue(p.getComment());
+			prescriptionStartDateDateField.setValue(p.getStartDate().getTime());
+			if (p.getEndDate() != null) {
+				prescriptionEndDateDateField.setValue(p.getEndDate().getTime());
+			}
+
+			reserveMedicamentCheckBox.setValue(p.isReserveMedication());
+
+			// TODO load setted dropdown values
+			timeSchemeComboBox.select(p.getTimeScheme());
+			wayOfApplicationComboBox.select(p.getWayOfApplication());
+			methodOfApplicationComboBox.select(p.getMethodOfApplication());
+
+			fillTimeSchemeTimes();
 		}
-		fillTimeSchemeComboBox();
-		reserveMedicamentComboBox.setValue(p.isReserveMedication());
-		
-		// TODO load setted dropdown values
-		//timeSchemeComboB.select(p.getTimeScheme().getName());
-		//timeSchemeComboBox.select(timeSchemeContainer.getItem(p.getTimeScheme()));
-		//wayOfApplicationComboBox.select(wayOfApplicationContainer.getIte);
-		
-		fillTimeSchemeTimes();
 	}
+
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
-		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
-			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d,medicationEditModel));
+		for (DosisScheme d : medicationEditModel.getPrescription()
+				.getDosisSchemes()) {
+			dosisSchemaVerticalLayout.addComponent(new DosisSchemeTimeView(d,
+					medicationEditModel));
 		}
 	}
-	
-	private void fillTimeSchemeComboBox(){
-		timeSchemeContainer = new BeanItemContainer<TimeScheme>(TimeScheme.class, medicationEditModel.getTimeSchemes());
-		
-		timeSchemeComboBox.setContainerDataSource(timeSchemeContainer);
-		timeSchemeComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
-		timeSchemeComboBox.setItemCaptionPropertyId("name");
-		timeSchemeComboBox.setNullSelectionAllowed(false);
-		timeSchemeComboBox.setNewItemsAllowed(false);
+
+	private void setComboboxProperties(ComboBox cb) {
+		cb.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
+		cb.setItemCaptionPropertyId("name");
+		cb.setNullSelectionAllowed(false);
+		cb.setNewItemsAllowed(false);
 	}
+
 	private void save() {
-		//TODO: Validate before saving
-    	try {
-            //medicationNamesComboBox.validate();
-        } catch (InvalidValueException e) {
-            Notification.show(e.getMessage());
-            //medicationNamesComboBox.setValidationVisible(true);
-            return;
-        }
-    	Prescription p = medicationEditModel.getPrescription();
-    	
-    	p.setPerson(medicationEditModel.getLoggedInPerson());
-    	p.setComment(prescriptionCommentTextArea.getValue());
-    	p.setReserveMedication(reserveMedicamentComboBox.getValue());
-    	
-    	GregorianCalendar startDateGregorian = new GregorianCalendar();
-    	startDateGregorian.setTime(prescriptionStartDateDateField.getValue());
-    	p.setStartDate(startDateGregorian);
-    	/*
-    	GregorianCalendar endDateGregorian = new GregorianCalendar();
-    	endDateGregorian.setTime(prescriptionEndDateDateField.getValue());
-    	p.setEndDate(endDateGregorian);*/
-    	
-    	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
-    	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
-    	
-    	// TODO why does is not save
-    	medicationEditModel.save();
-    	MyMedicationApp.navigateTo("medication");
-		
+		// TODO: Validate before saving
+		try {
+			// medicationNamesComboBox.validate();
+		} catch (InvalidValueException e) {
+			Notification.show(e.getMessage());
+			// medicationNamesComboBox.setValidationVisible(true);
+			return;
+		}
+		Prescription p = medicationEditModel.getPrescription();
+
+		p.setPerson(medicationEditModel.getLoggedInPerson());
+		p.setComment(prescriptionCommentTextArea.getValue());
+		p.setReserveMedication(reserveMedicamentCheckBox.getValue());
+
+		GregorianCalendar startDateGregorian = new GregorianCalendar();
+		startDateGregorian.setTime(prescriptionStartDateDateField.getValue());
+		p.setStartDate(startDateGregorian);
+		/*
+		 * GregorianCalendar endDateGregorian = new GregorianCalendar();
+		 * endDateGregorian.setTime(prescriptionEndDateDateField.getValue());
+		 * p.setEndDate(endDateGregorian);
+		 */
+
+		p.setMethodOfApplication((MethodOfApplication) methodOfApplicationComboBox
+				.getValue());
+		p.setWayOfApplication((WayOfApplication) wayOfApplicationComboBox
+				.getValue());
+
+		// TODO why does is not save
+		medicationEditModel.save();
+		MyMedicationApp.navigateTo("medication");
+
 	}
+
 	@Override
 	public String setNavBarTitle() {
 		return "Edit medication";
@@ -231,16 +240,14 @@ public class MedicationEditView extends NavigatorContainer implements View, Obse
 		return "medication";
 	}
 
-	
 	@Override
 	public void update(Observable o, Object arg) {
-		fillForm();		
+		fillForm();
 	}
-	
-	
+
 	public void setPrescriptionContext(PrescriptionContext prescriptionContext) {
 		medicationEditModel.setPrescriptionContext(prescriptionContext);
-		medicationEditModel.loadData();		
+		medicationEditModel.loadData();
 	}
 
 }

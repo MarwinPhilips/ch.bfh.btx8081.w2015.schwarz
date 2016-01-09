@@ -42,6 +42,12 @@ public class MssqlRepository implements IRepository {
 		commitTransaction();
 		return objectToSave;
 	}
+	public Object merge(Object objectToMerge){
+		beginTransaction();
+		objectToMerge = em.merge(objectToMerge);
+		commitTransaction();
+		return objectToMerge;
+	}
 	@Override
 	public void remove(Object objectToRemove) {
 		beginTransaction();
