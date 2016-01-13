@@ -29,7 +29,12 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-
+/**
+ * 
+ * @author 
+ *This view allows to edit the selected medication 
+ *from the list.
+ */
 public class MedicationEditView extends NavigatorContainer implements View,
 		Observer {
 	private static final long serialVersionUID = 1L;
@@ -53,6 +58,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 	/**
 	 * @param formLayoutEditView
+	 * Construct a view to edit selected medication.
 	 */
 	public MedicationEditView() {
 		super();
@@ -61,7 +67,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		createForm();
 		medicationEditModel.addObserver(this);
 	}
-
+	/**
+	 * Create the main form in edit view.
+	 */
 	private void createForm() {
 		formLayoutEditView = new FormLayout();
 		Panel p = new Panel();
@@ -135,6 +143,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		formLayoutEditView.addComponent(saveButton);
 	}
 
+	/**
+	 *Create and fill the content of form.
+	 */
 	private void fillForm() {
 		Prescription p = medicationEditModel.getPrescription();
 		if (p != null) {
@@ -158,6 +169,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		}
 	}
 
+	/**
+	 * Add Time schema to the From.
+	 */
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
 		for (DosisScheme d : medicationEditModel.getPrescription()
@@ -166,7 +180,11 @@ public class MedicationEditView extends NavigatorContainer implements View,
 					medicationEditModel));
 		}
 	}
-
+	
+	/**
+	 * Set properties of each Combo box in the From.
+	 * @param cb respective combo box
+	 */
 	private void setComboboxProperties(ComboBox cb) {
 		cb.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		cb.setItemCaptionPropertyId("name");
@@ -174,6 +192,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		cb.setNewItemsAllowed(false);
 	}
 
+	/**
+	 * Save the changed medication and respective information for certain Person.
+	 */
 	private void save() {
 		// TODO: Validate before saving
 		try {
@@ -209,6 +230,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 	}
 
+	/**
+	 * Set the title of navigations bar for this form. 
+	 */
 	@Override
 	public String setNavBarTitle() {
 		return "Edit medication";
@@ -224,6 +248,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		return null;
 	}
 
+	/**
+	 *  Set the text of navigations bar menu for this form. 
+	 */
 	@Override
 	public String setNavBarMenuButtonText() {
 		// TODO Should go to MedicatoinOverView without save of the edited Value
@@ -235,6 +262,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		return null;
 	}
 
+	/**
+	 *  Set the path of navigations bar menu for this form. 
+	 */
 	@Override
 	public String setNavBarMenuButtonPath() {
 		return "medication";
@@ -245,6 +275,10 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		fillForm();
 	}
 
+	/**
+	 * Set the context of Prescription and load data from this model.
+	 * @param prescriptionContext context of Prescription
+	 */
 	public void setPrescriptionContext(PrescriptionContext prescriptionContext) {
 		medicationEditModel.setPrescriptionContext(prescriptionContext);
 		medicationEditModel.loadData();
