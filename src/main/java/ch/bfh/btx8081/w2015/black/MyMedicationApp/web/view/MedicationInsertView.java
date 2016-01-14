@@ -15,6 +15,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfAppli
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Validator.InvalidValueException;
@@ -34,7 +35,12 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-
+@Theme("mytheme")
+/**
+ * 
+ * @author 
+ *This class provide a view to insert new Medications 
+ */
 public class MedicationInsertView extends NavigatorContainer implements View {
 	private static final long serialVersionUID = 1L;
 	
@@ -61,8 +67,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private BeanItemContainer<Medicament> medicationNamesContainer;
 	
 	/**
-	 * @param insertForm
-	 */
+	 * Construct a MedicationInsertView to add medications.
+	 */	
 	public MedicationInsertView() {
 		super();
 	    createMedicationNameComboBox();
@@ -110,6 +116,9 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		wayOfApplicationComboBox.setNewItemsAllowed(false);	
 	}
 
+	/**
+	 *Create Listener for Save button.
+	 */
 	class SaveButtonListener implements Button.ClickListener {
     	private static final long serialVersionUID = 1L;
 		 
@@ -144,8 +153,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	p.setMethodOfApplication((MethodOfApplication)methodOfApplicationComboBox.getValue());
         	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
         	
-        	//p.setDosisSchemes(dosisSchemes);
-        	
         	medicationEditModel.save();
         	MyMedicationApp.navigateTo("medication");
         }
@@ -165,7 +172,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		medicationNamesComboBox.setItemCaptionPropertyId("name");		
 		medicationNamesComboBox.setNullSelectionAllowed(false);
 		medicationNamesComboBox.setNewItemsAllowed(false);
-		//medicationNamesComboBox.setValue(medicationNamesContainer.getIdByIndex(0));
+		
 		
 		medicationNamesComboBox.addValueChangeListener(new Property.ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
@@ -178,7 +185,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	}
 	
 	/**
-	 * 
+	 * Create a Combo box filled with Time schemas. 
 	 */
 	private void createAndFillTimeSchemeComboBox(){
 		medicationEditModel = new MedicationEditModel();
@@ -209,6 +216,9 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		dosisSchemaVerticalLayout = new VerticalLayout();
 	}
 	
+	/**
+	 * Filling the Time schemas in dosis schema in form of vertical layout.
+	 */
 	private void fillTimeSchemeTimes() {
 		dosisSchemaVerticalLayout.removeAllComponents();
 		for(DosisScheme d : medicationEditModel.getPrescription().getDosisSchemes()){
@@ -264,12 +274,14 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private void createPanelInsideForm(){
 		panel = new Panel();
 		panel.setSizeFull();
-		panel.setWidth("100%");
 		panel.setContent(form);
 	    addComponent(panel);
 	    setComponentAlignment(panel, Alignment.TOP_CENTER);	
 	}
 
+	/**
+	 * Set navigation bar title with "Insert Medication"
+	 */
 	@Override
 	public String setNavBarTitle() {
 		return "Insert Medication";
@@ -285,6 +297,9 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		return null;
 	}
 
+	/**
+	 * Set  the button of Navigations bar menu with "Overview".
+	 */
 	@Override
 	public String setNavBarMenuButtonText() {
 		return "Overview";
@@ -296,6 +311,9 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		return null;
 	}
 
+	/**
+	 * Set the button path with "medication".
+	 */
 	@Override
 	public String setNavBarMenuButtonPath() {
 		return "medication";
