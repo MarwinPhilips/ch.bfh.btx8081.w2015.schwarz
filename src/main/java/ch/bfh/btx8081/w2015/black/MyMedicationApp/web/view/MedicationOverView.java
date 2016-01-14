@@ -132,7 +132,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	};
 
 	private void addActionToButton(String buttonName) {
-		if (buttonName == "Insert") {
+		if (buttonName.equals("Insert")) {
 			insertDrug.addClickListener(new Button.ClickListener() {
 				private static final long serialVersionUID = 1L;
 
@@ -144,7 +144,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	}
 
 	private void addActionToButtonEdit(String buttonName) {
-		if (true && buttonName == "Edit") {
+		if (buttonName.equals("Edit")) {
 			editDrug.addClickListener(new Button.ClickListener() {
 				private static final long serialVersionUID = 1L;
 
