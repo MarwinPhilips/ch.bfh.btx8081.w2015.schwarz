@@ -118,4 +118,8 @@ public class MedicationEditModel extends Observable {
 	public void saveDosisScheme(DosisScheme d){
 		dosisSchemeRepo.persist(d);
 	}
+
+	public void resetPrescription() {
+		context = new PrescriptionContext();
+	}
 }

@@ -36,6 +36,10 @@ public class EntityManagerTest {
 		em.persist(medicament);
 		medicament.setName("Vicodin");
 		transaction.commit();
+		transaction = em.getTransaction();
+		transaction.begin();
+		em.remove(medicament);
+		transaction.commit();
 		em.close();
 	}
 

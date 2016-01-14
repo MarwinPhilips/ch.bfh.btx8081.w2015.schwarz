@@ -22,6 +22,7 @@ import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.validator.NullValidator;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
@@ -305,6 +306,10 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	@Override
 	public String setNavBarMenuButtonPath() {
 		return "medication";
+	}
+	@Override
+	public void enter(ViewChangeEvent event) {
+		medicationEditModel.resetPrescription();
 	}
 
 }
