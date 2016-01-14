@@ -7,14 +7,8 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MethodOfAp
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.TimeScheme;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfApplication;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MedicamentRepository;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MethodOfApplicationRepository;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.TimeSchemeRepository;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.WayOfApplicationRepository;
-
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import com.vaadin.annotations.Theme;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -48,7 +42,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private FormLayout form;
 	private Panel panel;
 	private VerticalLayout dosisSchemaVerticalLayout;
-	
 	private CheckBox reserveType;
 	private ComboBox medicationNamesComboBox;
 	private ComboBox timeSchemeComboBox;
@@ -71,7 +64,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		medicationEditModel.loadData();
 	    createMedicationNameComboBox();
 		createReserveCheckBox();
-		createAndFillTimeSchemeComboBox();
+		createTimeSchemeComboBox();
 	    createMethodOfApplicationComboBox();
 	    createWayOfApplicationComboBox();
 	    createStartEndDateDateFields();     
@@ -151,19 +144,33 @@ public class MedicationInsertView extends NavigatorContainer implements View {
     }
 
 	/**
-	 * Create the Medications combo box to insert a new medication
+	 * Create the medications combo box to insert a new medication.
 	 */
 	private void createMedicationNameComboBox(){
 		medicationNamesComboBox = new ComboBox("Select your medication");
 		medicationNamesComboBox.addValidator(new NullValidator("you must select a medicament", false));
-		medicationNamesContainer = new BeanItemContainer<Medicament>(Medicament.class, medicationEditModel.getMedicaments());
-		medicationNamesComboBox.setContainerDataSource(medicationNamesContainer);
+		fillMedicationNameComboBox();
 		medicationNamesComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		medicationNamesComboBox.setItemCaptionPropertyId("name");		
 		medicationNamesComboBox.setNullSelectionAllowed(false);
 		medicationNamesComboBox.setNewItemsAllowed(false);
+		addListnerToMedicationNameComboBox();
 		
-		
+	}
+	
+	
+	/**
+	 * Filling the MedicationNameBomboBox with different medications.
+	 */
+	private void fillMedicationNameComboBox(){
+		medicationNamesContainer = new BeanItemContainer<Medicament>(Medicament.class, medicationEditModel.getMedicaments());
+		medicationNamesComboBox.setContainerDataSource(medicationNamesContainer);
+	}
+	
+	/**
+	 * Add ValueChangeListener to MedicationNameBomboBox
+	 */
+	private void addListnerToMedicationNameComboBox(){
 		medicationNamesComboBox.addValueChangeListener(new Property.ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -174,24 +181,43 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		});
 	}
 	
+	
+	
 	/**
-	 * Create a Combo box filled with Time schemas. 
+	 * Create a combo box for timeSchema.
 	 */
-	private void createAndFillTimeSchemeComboBox(){
+	private void createTimeSchemeComboBox(){
 		
 		timeSchemeComboBox = new ComboBox("Select your time schema");
-		BeanItemContainer<TimeScheme> container = new BeanItemContainer<TimeScheme>(TimeScheme.class,medicationEditModel.getTimeSchemes());
-		timeSchemeComboBox.setContainerDataSource(container);
+		fillTimeSchemaComboBox();
 		timeSchemeComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		timeSchemeComboBox.setItemCaptionPropertyId("name");		
 		timeSchemeComboBox.setNullSelectionAllowed(false);
 		timeSchemeComboBox.setNewItemsAllowed(false);
-
+		
+		timeSchemeComboBox.setEnabled(false); // has to be disabled until we select a medicament
+		
+		addListnerToTimeSchemaComboBox();
+		
+		dosisSchemaVerticalLayout = new VerticalLayout();
+	}
+	
+	/**
+	 * Filling the timeSchemaComboBox with different time schemas.
+	 */
+	private void fillTimeSchemaComboBox(){
+		
+		BeanItemContainer<TimeScheme> container = new BeanItemContainer<TimeScheme>(TimeScheme.class,medicationEditModel.getTimeSchemes());
+		timeSchemeComboBox.setContainerDataSource(container);
 		for(TimeScheme schema:medicationEditModel.getTimeSchemes()){
 			timeSchemeComboBox.addItem(schema);
 		}
-		timeSchemeComboBox.setEnabled(false); // has to be disabled until we select a medicament
-		
+	}
+	
+	/**
+	 * Add valueChangeListener to timeSchemaComboBox.
+	 */
+	private void addListnerToTimeSchemaComboBox(){
 		timeSchemeComboBox.addValueChangeListener(new Property.ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -201,8 +227,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 				fillTimeSchemeTimes();
 				}
 		});
-		
-		dosisSchemaVerticalLayout = new VerticalLayout();
 	}
 	
 	/**
