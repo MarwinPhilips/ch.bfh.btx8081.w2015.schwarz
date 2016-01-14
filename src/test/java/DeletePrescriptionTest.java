@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -8,7 +10,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MssqlEntityManager;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
-
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
 
 public class DeletePrescriptionTest {
 
@@ -39,7 +41,10 @@ public class DeletePrescriptionTest {
 		px.save();
 		px.delete();
 		Prescription deletetprescription = (Prescription) prescriptionRepo.getById(Prescription.class, prescription.getPrescriptionId());
-		deletetprescription.isDeleted();
+		assertTrue(deletetprescription.getPrescriptionState() == PrescriptionStateEnum.Deleted);
+		
+		prescriptionRepo.remove(deletetprescription);
+		
 	}
 
 }
