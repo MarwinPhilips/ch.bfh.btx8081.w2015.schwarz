@@ -57,11 +57,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private PopupDateField  endDatum;
 	private TextArea comments;
 	private Button saveButton = new Button("Save", new SaveButtonListener());
-	
-	private MedicamentRepository medicationsListRepository;
-	private MethodOfApplicationRepository methodOfApplicationRepository;
-	private WayOfApplicationRepository wayOfApplicationRepository;
-	private TimeSchemeRepository timeSchemaRepository;
 	private MedicationEditModel medicationEditModel;
 	
 	private BeanItemContainer<Medicament> medicationNamesContainer;
@@ -71,6 +66,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */	
 	public MedicationInsertView() {
 		super();
+		medicationEditModel = new MedicationEditModel();
+		medicationEditModel.loadData();
 	    createMedicationNameComboBox();
 		createReserveCheckBox();
 		createAndFillTimeSchemeComboBox();
@@ -88,10 +85,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private void createMethodOfApplicationComboBox() {
 		methodOfApplicationComboBox = new ComboBox("Method of Application");
 		methodOfApplicationComboBox.addValidator(new NullValidator("you must select a method", false));
-		
-		methodOfApplicationRepository = new MethodOfApplicationRepository();
-		
-		BeanItemContainer<MethodOfApplication> container = new BeanItemContainer<MethodOfApplication>(MethodOfApplication.class, methodOfApplicationRepository.getAllMethodOfApplication());
+		BeanItemContainer<MethodOfApplication> container = new BeanItemContainer<MethodOfApplication>(MethodOfApplication.class, medicationEditModel.getMethodOfApplications());
 		methodOfApplicationComboBox.setContainerDataSource(container);
 		methodOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		methodOfApplicationComboBox.setItemCaptionPropertyId("name");		
@@ -104,11 +98,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */
 	private void createWayOfApplicationComboBox() {
 		wayOfApplicationComboBox = new ComboBox("Way of Application");
-		wayOfApplicationComboBox.addValidator(new NullValidator("you must select a way", false));
-		
-		wayOfApplicationRepository = new WayOfApplicationRepository();
-		
-		BeanItemContainer<WayOfApplication> container = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, wayOfApplicationRepository.getAllWayOfApplication());
+		wayOfApplicationComboBox.addValidator(new NullValidator("you must select a way", false));		
+		BeanItemContainer<WayOfApplication> container = new BeanItemContainer<WayOfApplication>(WayOfApplication.class, medicationEditModel.getWayOfApplications());
 		wayOfApplicationComboBox.setContainerDataSource(container);
 		wayOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		wayOfApplicationComboBox.setItemCaptionPropertyId("name");		
@@ -164,9 +155,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	private void createMedicationNameComboBox(){
 		medicationNamesComboBox = new ComboBox("Select your medication");
 		medicationNamesComboBox.addValidator(new NullValidator("you must select a medicament", false));
-		
-		medicationsListRepository = new MedicamentRepository();
-		medicationNamesContainer = new BeanItemContainer<Medicament>(Medicament.class, medicationsListRepository.getAllMedicaments());
+		medicationNamesContainer = new BeanItemContainer<Medicament>(Medicament.class, medicationEditModel.getMedicaments());
 		medicationNamesComboBox.setContainerDataSource(medicationNamesContainer);
 		medicationNamesComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		medicationNamesComboBox.setItemCaptionPropertyId("name");		
@@ -188,7 +177,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 * Create a Combo box filled with Time schemas. 
 	 */
 	private void createAndFillTimeSchemeComboBox(){
-		medicationEditModel = new MedicationEditModel();
+		
 		timeSchemeComboBox = new ComboBox("Select your time schema");
 		BeanItemContainer<TimeScheme> container = new BeanItemContainer<TimeScheme>(TimeScheme.class,medicationEditModel.getTimeSchemes());
 		timeSchemeComboBox.setContainerDataSource(container);
@@ -196,9 +185,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		timeSchemeComboBox.setItemCaptionPropertyId("name");		
 		timeSchemeComboBox.setNullSelectionAllowed(false);
 		timeSchemeComboBox.setNewItemsAllowed(false);
-		
-		timeSchemaRepository = new TimeSchemeRepository();
-		for(TimeScheme schema:timeSchemaRepository.getAllTimeschemes()){
+
+		for(TimeScheme schema:medicationEditModel.getTimeSchemes()){
 			timeSchemeComboBox.addItem(schema);
 		}
 		timeSchemeComboBox.setEnabled(false); // has to be disabled until we select a medicament

@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -31,6 +33,7 @@ public class PrescriptionRepositoryTest {
 	@Test
 	public void test() {
 		Prescription prescription = prescriptionRepo.getNewPrescription();
+		assertTrue(prescription!=null);
 	}
 
 

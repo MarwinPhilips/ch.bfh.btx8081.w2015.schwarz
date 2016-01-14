@@ -23,6 +23,7 @@ public class MssqlEntityManager implements ServletContextListener {
      */
     @Override
     public void contextInitialized(ServletContextEvent event) {
+    	// FindBugs: The EntityManagerFactory is only initialized once, because this method is only called on the initialized context event.
         emf = Persistence.createEntityManagerFactory("Medication");
     }
     /**
