@@ -60,6 +60,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	 */	
 	public MedicationInsertView() {
 		super();
+		
 		medicationEditModel = new MedicationEditModel();
 		medicationEditModel.loadData();
 	    createMedicationNameComboBox();
@@ -73,6 +74,8 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 	    createPanelInsideForm();
 	}
 	
+	
+
 	/**
 	 * Creates new combo box to insert a new method of Application
 	 */
@@ -139,8 +142,26 @@ public class MedicationInsertView extends NavigatorContainer implements View {
         	p.setWayOfApplication((WayOfApplication)wayOfApplicationComboBox.getValue());
         	
         	medicationEditModel.save();
+        	resetToInitialStatues();
         	MyMedicationApp.navigateTo("medication");
+        	
         }
+
+        /**
+         * Reset every component of form to the initial status.
+         */
+    	private void resetToInitialStatues() {
+    		// TODO Auto-generated method stub
+    		
+    		medicationNamesComboBox.clear();
+    		methodOfApplicationComboBox.clear();
+    		wayOfApplicationComboBox.clear();
+    		startDatum.clear();
+    		endDatum.clear();
+    		comments.clear();
+    	}
+        
+		
     }
 
 	/**
