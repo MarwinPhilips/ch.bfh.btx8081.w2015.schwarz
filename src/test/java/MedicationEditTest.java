@@ -1,5 +1,7 @@
-import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertTrue;
+
+import java.util.GregorianCalendar;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,11 +9,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.EditPrescription;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionContext;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MssqlEntityManager;
-import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepository;
+import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepositoryTest;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
 
 
@@ -26,7 +27,7 @@ public class MedicationEditTest {
 	public void setUp() throws Exception {
 		mem = new MssqlEntityManager();
 		mem.contextInitialized(null);
-		prescriptionRepo = new PrescriptionRepository();
+		prescriptionRepo = new PrescriptionRepositoryTest();
 	}
 	
 	@After
@@ -67,4 +68,28 @@ public class MedicationEditTest {
 		//Clean up
 		pc.delete();	
 	}
+	
+	@Test
+	public void checkStatePatternChangeToEditAndEnd(){
+		PrescriptionContext pc = new PrescriptionContext();
+		Prescription prescription = pc.getPrescription();
+		pc.setPrescription(prescription);
+		assertTrue("Staus vor Editieren auf Running",prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
+		pc.save();
+		assertTrue("Staus vor Editieren auf Running",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
+		pc.edit();
+		GregorianCalendar endDate = new GregorianCalendar();
+		endDate.set(2001, 01, 01);
+		prescription.setEndDate(endDate);
+		assertTrue("Staus im EditierenView auf Edit",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Edit));
+		assertTrue("Datum wurde über prescription auf 01.01.2001 korrekt geändert", prescription.getEndDate().equals(endDate));
+		pc.save();
+//		assertTrue("EndDatum wurde überschritten und somit ist State auf Ended",prescriptionRepo.getById(prescription.getPrescriptionId()).getEndDate().equals(PrescriptionStateEnum.Ended));
+//		assertTrue("EndDatum wurde überschritten und somit ist State auf Ended",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Ended));
+//		assertTrue("Datum wurde über prescriptionRepo.getById auf 01.01.2001 korrekt geändert",prescriptionRepo.getById(prescription.getPrescriptionId()).getEndDate().equals(endDate));
+		pc.delete();
+		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Deleted));
+	}
+	
+	
 }
