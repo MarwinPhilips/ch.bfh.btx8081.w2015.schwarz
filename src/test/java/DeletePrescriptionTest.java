@@ -42,7 +42,7 @@ public class DeletePrescriptionTest {
 		px.save();
 		px.delete();
 		Prescription deletetprescription = (Prescription) prescriptionRepo.getById(Prescription.class, prescription.getPrescriptionId());
-		assertTrue("Prescription is deleted",(deletetprescription.getPrescriptionState() == PrescriptionStateEnum.Deleted));
+		assertTrue("Prescription is not deleted",(deletetprescription.getPrescriptionState() == PrescriptionStateEnum.Deleted));
 		
 		prescriptionRepo.remove(deletetprescription);
 	
