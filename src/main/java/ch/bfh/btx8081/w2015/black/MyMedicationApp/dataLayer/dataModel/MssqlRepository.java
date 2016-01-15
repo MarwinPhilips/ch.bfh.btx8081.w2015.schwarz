@@ -58,6 +58,8 @@ public class MssqlRepository implements IRepository {
 	public Object getById(Class c, int id) {
 		beginTransaction();
 		Object o = em.find(c, id);
+		//Diese Zeile muss für Testzwecke aktiviert werden damit es keinen Cash gibt.
+		//em.refresh(o);
 		commitTransaction();
 		return o;
 	}

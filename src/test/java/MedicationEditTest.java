@@ -35,16 +35,36 @@ public class MedicationEditTest {
 	}
 
 	@Test
-	public void test() {
+	//Achtung um diesen Test durchzuführen muss die kommentierte Zeile in PrescriptionRepository aktiviert werden, damit der Cash ausgeschaltet wird
+	public void checkStatePatternChangeToRunning() {
 		PrescriptionContext pc = new PrescriptionContext();
-		Prescription prescription = pc.getPrescription();// prescriptionRepo.getNewPrescription();
-		assertTrue(prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
+		Prescription prescription = pc.getPrescription();
+		assertTrue("Staus nach Erstellung auf NEW",prescriptionRepo.getById(prescription.getPrescriptionId()).getPrescriptionState().equals(PrescriptionStateEnum.New));
+		assertTrue("Staus nach Erstellung auf NEW",prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
 		prescription.setReserveMedication(true);
-		assertTrue(prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
+		assertTrue("OK",prescriptionRepo.getById(prescription.getPrescriptionId()).getPrescriptionState().equals(PrescriptionStateEnum.New));
+		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
 		pc.save();
-		prescriptionRepo.getById(prescription.getPrescriptionId());
-		assertTrue(prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
-		
-		
+		assertTrue("Status nach Speicherung ist nicht Running",prescriptionRepo.getById(prescription.getPrescriptionId()).getPrescriptionState().equals(PrescriptionStateEnum.Running));
+		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
+		//Clean up
+		pc.delete();	
+	}
+	
+	@Test
+	//Achtung um diesen Test durchzuführen muss die kommentierte Zeile in PrescriptionRepository aktiviert werden, damit der Cash ausgeschaltet wird
+	public void checkStatePatternChangeToDeleted() {
+		PrescriptionContext pc = new PrescriptionContext();
+		Prescription prescription = pc.getPrescription();
+		assertTrue("Staus nach Erstellung auf NEW",prescriptionRepo.getById(prescription.getPrescriptionId()).getPrescriptionState().equals(PrescriptionStateEnum.New));
+		assertTrue("Staus nach Erstellung auf NEW",prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
+		prescription.setReserveMedication(true);
+		assertTrue("OK",prescriptionRepo.getById(prescription.getPrescriptionId()).getPrescriptionState().equals(PrescriptionStateEnum.New));
+		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
+		pc.save();
+		assertTrue("Status nach Speicherung ist nicht Running",prescriptionRepo.getById(prescription.getPrescriptionId()).getPrescriptionState().equals(PrescriptionStateEnum.Running));
+		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
+		//Clean up
+		pc.delete();	
 	}
 }
