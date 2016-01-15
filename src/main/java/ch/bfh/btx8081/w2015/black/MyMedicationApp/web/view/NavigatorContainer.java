@@ -7,6 +7,13 @@ import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * NavigatorContainer to be implemented in every View which 
+ * uses the navigation
+ * 
+ * @author Jonas Mosimann
+ * 
+ */
 @Theme("mytheme")
 public abstract class NavigatorContainer extends VerticalLayout implements View {
 	
@@ -15,7 +22,6 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
 	protected NavigationBarView navBar;
 	
 	public NavigatorContainer() {
-    	//setSizeFull();
     	setMargin(new MarginInfo(true, true, true, true));
     	navBar = new NavigationBarView();
     	navBar.setTitle(setNavBarTitle());
@@ -31,13 +37,12 @@ public abstract class NavigatorContainer extends VerticalLayout implements View 
         navigationBar.setWidth("100%");
         navigationBar.addComponent(navBar);
         
-        
         addComponent(navigationBar);
     }
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		// not used method
 	}
 	
 	public abstract String setNavBarTitle();

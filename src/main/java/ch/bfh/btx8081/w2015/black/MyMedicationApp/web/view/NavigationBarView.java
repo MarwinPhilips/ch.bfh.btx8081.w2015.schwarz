@@ -8,13 +8,17 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * NavigationBarView which contains a title, subtitle,
+ * two buttons for navigating
+ * 
+ * @author Jonas Mosimann
+ * 
+ */
 @Theme("mytheme")
 public class NavigationBarView extends HorizontalLayout  {
     
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 	Label title = new Label();
     Label subTitle = new Label();
     ButtonListener menuButtonListener = new ButtonListener();
@@ -22,7 +26,7 @@ public class NavigationBarView extends HorizontalLayout  {
     Button menuButton = new Button(null, menuButtonListener);
     Button helpButton = new Button(null, helpButtonListener);
     
-    class ButtonListener implements Button.ClickListener {
+    private static class ButtonListener implements Button.ClickListener {
     	private static final long serialVersionUID = 1L;
 		String navigateTo;
         
@@ -43,9 +47,6 @@ public class NavigationBarView extends HorizontalLayout  {
 
     	title.setWidthUndefined();
     	subTitle.setWidthUndefined();
-	
-        //menuButton.setWidth("100px");
-        //helpButton.setWidth("100px");
         
         addComponent(menuButton);
         addComponent(titleArea);
@@ -56,14 +57,26 @@ public class NavigationBarView extends HorizontalLayout  {
         setExpandRatio(titleArea, 1);
     }
     
+    /**
+	 * Sets the title
+	 * @param	title	The title of the view
+	 */
     public void setTitle(String title) {
     	this.title.setValue(title);
     }
     
+    /**
+	 * Sets the subtitle
+	 * @param	subTitle	The subtitle of the view
+	 */
     public void setSubTitle(String subTitle) {
     	this.subTitle.setValue(subTitle);
     }
     
+    /**
+	 * Sets the text of the menu button
+	 * @param	text	The text of menu button
+	 */
     public void setMenuButtonText(String text) {
     	if(text == null){
     		this.menuButton.setVisible(false);
@@ -73,6 +86,10 @@ public class NavigationBarView extends HorizontalLayout  {
     	}
     }
 
+    /**
+	 * Sets the text of the help button
+	 * @param	text	The text of help button
+	 */
     public void setHelpButtonText(String text) {
     	if(text == null){
     		this.helpButton.setVisible(false);
@@ -82,12 +99,20 @@ public class NavigationBarView extends HorizontalLayout  {
     	}
 	}
     
-    public void setMenuButtonPath(String text) {
-    	this.menuButtonListener.navigateTo = text;
+    /**
+	 * Sets the path of the location for the menu button
+	 * @param	path	The path
+	 */
+    public void setMenuButtonPath(String path) {
+    	this.menuButtonListener.navigateTo = path;
     }
     
-    public void setHelpButtonPath(String text) {
-    	this.helpButtonListener.navigateTo = text;
+    /**
+	 * Sets the path of the location for the help button
+	 * @param	path	The path
+	 */
+    public void setHelpButtonPath(String path) {
+    	this.helpButtonListener.navigateTo = path;
     }
     
 }
