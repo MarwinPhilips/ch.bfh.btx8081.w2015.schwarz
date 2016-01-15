@@ -17,7 +17,6 @@ public class DosisSchemeTimeView extends HorizontalLayout {
 	private Label dose;
 	private TextField medicamentAmount;
 	MedicationEditModel model;
-	
 	private DosisScheme dosisScheme;
 	
 	public DosisSchemeTimeView(DosisScheme d, MedicationEditModel model) {

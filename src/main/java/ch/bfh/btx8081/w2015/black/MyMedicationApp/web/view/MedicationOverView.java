@@ -183,7 +183,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 	@Override
 	public String setNavBarMenuButtonText() {
-		return "Dum2";
+		return null;
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 	@Override
 	public String setNavBarMenuButtonPath() {
-		return "activity";
+		return null;
 	}
 
 	@Override

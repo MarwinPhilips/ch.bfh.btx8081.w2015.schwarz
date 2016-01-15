@@ -65,7 +65,12 @@ public class NavigationBarView extends HorizontalLayout  {
     }
     
     public void setMenuButtonText(String text) {
-    	this.menuButton.setCaption(text);
+    	if(text == null){
+    		this.menuButton.setVisible(false);
+    	}else{
+    		this.menuButton.setVisible(true);
+    		this.menuButton.setCaption(text);
+    	}
     }
 
     public void setHelpButtonText(String text) {
