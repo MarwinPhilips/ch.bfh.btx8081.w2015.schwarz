@@ -74,7 +74,7 @@ public class ValidationTest {
 		} catch (InvalidValueException e) {
 			fail("InvalidValueException of methodOfApplication");
 		}
-		assertTrue("OK", methodOfApplicationComboBox.isValid());
+		assertTrue("methodOfApplication is not valid", methodOfApplicationComboBox.isValid());
 	}
 	
 	@Test
@@ -95,7 +95,7 @@ public class ValidationTest {
 		} catch (InvalidValueException e) {
 			fail("InvalidValueException of wayOfApplication");
 		}
-		assertTrue("OK", wayOfApplicationComboBox.isValid());
+		assertTrue("wayOfApplication is not valid", wayOfApplicationComboBox.isValid());
 	}
 	
 	@Test

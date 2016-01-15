@@ -33,6 +33,7 @@ public class DeletePrescriptionTest {
 	@After
 	public void destroy(){
 		mem.contextDestroyed(null);
+		
 	}
 
 	@Test
