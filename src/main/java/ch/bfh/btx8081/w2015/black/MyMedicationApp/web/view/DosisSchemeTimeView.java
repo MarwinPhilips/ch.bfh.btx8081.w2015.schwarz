@@ -28,6 +28,7 @@ public class DosisSchemeTimeView extends HorizontalLayout {
 		addComponent(time);
 		this.medicamentAmount = new TextField();
 		this.medicamentAmount.setValue(dosisScheme.getAmount()+"");
+		this.medicamentAmount.setImmediate(true);
 		medicamentAmount.addValueChangeListener(new Property.ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 			@Override

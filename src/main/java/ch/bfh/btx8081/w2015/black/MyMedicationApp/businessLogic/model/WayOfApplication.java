@@ -15,7 +15,7 @@ public class WayOfApplication {
 	private int wayOfApplicationId = 0;
 	@OneToMany(mappedBy="wayOfApplication")
 	private List<Prescription> prescriptions = null;
-	private String name = null;
+	private String name = "";
 	public WayOfApplication(){
 		
 	}
@@ -36,5 +36,25 @@ public class WayOfApplication {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + wayOfApplicationId;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WayOfApplication other = (WayOfApplication) obj;
+		if (wayOfApplicationId != other.wayOfApplicationId)
+			return false;
+		return true;
 	}
 }

@@ -1,5 +1,7 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 
@@ -82,10 +84,18 @@ public class MedicationEditModel extends Observable {
 		}
 		
 		prescription.setTimeScheme(timeScheme);
+		List<TimeSchemeTime> timeSchemeTimes = timeScheme.getTimeSchemeTimes();
+		Collections.sort(timeSchemeTimes, new Comparator<TimeSchemeTime>() {
+			@Override
+			public int compare(TimeSchemeTime o1, TimeSchemeTime o2) {
+				return o1.getTimespan().compareTo(o2.getTimespan());
+			}
+        });
+
 		if(prescription.getDosisSchemes()!=null){
 			prescription.getDosisSchemes().clear();
 		}
-		for (TimeSchemeTime timeSchemeTime : timeScheme.getTimeSchemeTimes()) {
+		for (TimeSchemeTime timeSchemeTime : timeSchemeTimes) {
 			DosisScheme d = new DosisScheme();
 			d.setPrescription(prescription);
 			prescription.getDosisSchemes().add(d);

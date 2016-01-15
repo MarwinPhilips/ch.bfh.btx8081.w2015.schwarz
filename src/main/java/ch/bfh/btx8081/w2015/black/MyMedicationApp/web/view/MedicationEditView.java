@@ -29,11 +29,10 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+
 /**
  * 
- * @author 
- *This view allows to edit the selected medication 
- *from the list.
+ * @author This view allows to edit the selected medication from the list.
  */
 public class MedicationEditView extends NavigatorContainer implements View,
 		Observer {
@@ -58,7 +57,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 	/**
 	 * @param formLayoutEditView
-	 * Construct a view to edit selected medication.
+	 *            Construct a view to edit selected medication.
 	 */
 	public MedicationEditView() {
 		super();
@@ -67,6 +66,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		createForm();
 		medicationEditModel.addObserver(this);
 	}
+
 	/**
 	 * Create the main form in edit view.
 	 */
@@ -89,17 +89,22 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 					@Override
 					public void valueChange(ValueChangeEvent event) {
-						medicationEditModel
-								.setPrescriptionTimeScheme((TimeScheme) event
-										.getProperty().getValue());
-						fillTimeSchemeTimes();
+						TimeScheme eventTimeScheme = (TimeScheme) event
+								.getProperty().getValue();
+						// If the selected TimeScheme is the same as the one we already have selected, nothing happens.
+						if (eventTimeScheme.getTimeSchemeId() != medicationEditModel
+								.getPrescription().getTimeScheme()
+								.getTimeSchemeId()){
+							medicationEditModel
+									.setPrescriptionTimeScheme(eventTimeScheme);
+						fillTimeSchemeTimes();}
 					}
 				});
 
 		timeSchemeContainer = new BeanItemContainer<TimeScheme>(
 				TimeScheme.class, medicationEditModel.getTimeSchemes());
 		timeSchemeComboBox.setContainerDataSource(timeSchemeContainer);
-
+		setComboboxProperties(timeSchemeComboBox);
 		formLayoutEditView.addComponent(timeSchemeComboBox);
 
 		dosisSchemaVerticalLayout = new VerticalLayout();
@@ -111,7 +116,6 @@ public class MedicationEditView extends NavigatorContainer implements View,
 				medicationEditModel.getMethodOfApplications());
 		methodOfApplicationComboBox.setContainerDataSource(containerMethod);
 		setComboboxProperties(methodOfApplicationComboBox);
-		setComboboxProperties(timeSchemeComboBox);
 		formLayoutEditView.addComponent(methodOfApplicationComboBox);
 
 		wayOfApplicationComboBox = new ComboBox("Way of Application");
@@ -144,7 +148,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 	}
 
 	/**
-	 *Create and fill the content of form.
+	 * Create and fill the content of form.
 	 */
 	private void fillForm() {
 		Prescription p = medicationEditModel.getPrescription();
@@ -162,7 +166,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 			// TODO load setted dropdown values
 			timeSchemeComboBox.select(p.getTimeScheme());
+			TimeScheme ts = (TimeScheme) timeSchemeComboBox.getValue();
 			wayOfApplicationComboBox.select(p.getWayOfApplication());
+			WayOfApplication woa = (WayOfApplication)wayOfApplicationComboBox.getValue();
 			methodOfApplicationComboBox.select(p.getMethodOfApplication());
 
 			fillTimeSchemeTimes();
@@ -180,20 +186,24 @@ public class MedicationEditView extends NavigatorContainer implements View,
 					medicationEditModel));
 		}
 	}
-	
+
 	/**
 	 * Set properties of each Combo box in the From.
-	 * @param cb respective combo box
+	 * 
+	 * @param cb
+	 *            respective combo box
 	 */
 	private void setComboboxProperties(ComboBox cb) {
 		cb.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		cb.setItemCaptionPropertyId("name");
 		cb.setNullSelectionAllowed(false);
 		cb.setNewItemsAllowed(false);
+		cb.setImmediate(true);
 	}
 
 	/**
-	 * Save the changed medication and respective information for certain Person.
+	 * Save the changed medication and respective information for certain
+	 * Person.
 	 */
 	private void save() {
 		// TODO: Validate before saving
@@ -224,14 +234,13 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		p.setWayOfApplication((WayOfApplication) wayOfApplicationComboBox
 				.getValue());
 
-		// TODO why does is not save
 		medicationEditModel.save();
 		MyMedicationApp.navigateTo("medication");
 
 	}
 
 	/**
-	 * Set the title of navigations bar for this form. 
+	 * Set the title of navigations bar for this form.
 	 */
 	@Override
 	public String setNavBarTitle() {
@@ -249,7 +258,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 	}
 
 	/**
-	 *  Set the text of navigations bar menu for this form. 
+	 * Set the text of navigations bar menu for this form.
 	 */
 	@Override
 	public String setNavBarMenuButtonText() {
@@ -263,7 +272,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 	}
 
 	/**
-	 *  Set the path of navigations bar menu for this form. 
+	 * Set the path of navigations bar menu for this form.
 	 */
 	@Override
 	public String setNavBarMenuButtonPath() {
@@ -277,7 +286,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 	/**
 	 * Set the context of Prescription and load data from this model.
-	 * @param prescriptionContext context of Prescription
+	 * 
+	 * @param prescriptionContext
+	 *            context of Prescription
 	 */
 	public void setPrescriptionContext(PrescriptionContext prescriptionContext) {
 		medicationEditModel.setPrescriptionContext(prescriptionContext);

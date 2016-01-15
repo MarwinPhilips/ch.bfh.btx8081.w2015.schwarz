@@ -86,7 +86,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		methodOfApplicationComboBox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		methodOfApplicationComboBox.setItemCaptionPropertyId("name");		
 		methodOfApplicationComboBox.setNullSelectionAllowed(false);
-		methodOfApplicationComboBox.setNewItemsAllowed(false);	
+		methodOfApplicationComboBox.setNewItemsAllowed(false);
 	}
 	
 	/**
@@ -171,6 +171,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		medicationNamesComboBox.setItemCaptionPropertyId("name");		
 		medicationNamesComboBox.setNullSelectionAllowed(false);
 		medicationNamesComboBox.setNewItemsAllowed(false);
+		medicationNamesComboBox.setImmediate(true);
 		addListnerToMedicationNameComboBox();
 		
 	}
@@ -211,7 +212,7 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		timeSchemeComboBox.setNewItemsAllowed(false);
 		
 		timeSchemeComboBox.setEnabled(false); // has to be disabled until we select a medicament
-		
+		timeSchemeComboBox.setImmediate(true);
 		addListnerToTimeSchemaComboBox();
 		
 		dosisSchemaVerticalLayout = new VerticalLayout();
