@@ -8,6 +8,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Medication
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 
+import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
@@ -115,12 +116,32 @@ public class MedicationOverView extends NavigatorContainer implements View,
 				MedicationList.class);
 		container.addAll(overviewModel.getMedications());
 		medicationTable.setContainerDataSource(container);
+		// sets another css class for reserved medication row
+		// TODO: row style is not automatically refreshed after edit...
+		medicationTable.setCellStyleGenerator(new Table.CellStyleGenerator() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getStyle(Table source, Object itemId, Object propertyId) {
+				if(itemId != null){
+					Item item = source.getItem(itemId);
+					Prescription p = (Prescription)item.getItemProperty("prescription").getValue();
+					if(p.isReserveMedication()){
+						return "reserve-medication";
+					}
+				}
+				return null;
+			}
+		});
+
 		// Needs to be called due to the changes we do in our EditView.
 		medicationTable.refreshRowCache();
 		medicationTable.setVisibleColumns(new Object[] { "medicamentname",
 				"timeschemename", "prescriptioncomment" });
 		medicationTable.setColumnHeaders(new String[] { "Medikamentenname",
 				"Zeischema", "Verordnungskommentar" });
+		
 		medicationTable.setSelectable(true);
 	}
 
