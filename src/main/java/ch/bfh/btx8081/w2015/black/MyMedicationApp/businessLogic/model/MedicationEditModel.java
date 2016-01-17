@@ -18,7 +18,13 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPersonRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.ITimeSchemeRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IWayOfApplicationRepository;
-
+/**
+ * The MedicationEditModel is used to create, read and update single prescriptions.
+ * Since a prescription can have a timescheme, a way of application, a method of application, a medicament,
+ * a person and doses, all these business objects can be related to the prescription. 
+ * @author Marwin
+ *
+ */
 public class MedicationEditModel extends Observable {
 	private List<TimeScheme> timeSchemes = null;
 	private List<WayOfApplication> wayOfApplications = null;
@@ -42,7 +48,9 @@ public class MedicationEditModel extends Observable {
 		personRepo = new PersonRepository();
 		mediRepo = new MedicamentRepository();		
 	}
-
+	/**
+	 * loads the Data for timeschemes, method and way of application and the medicaments.
+	 */
 	public void loadData() {
 		timeSchemes = timeSchemeRepo.getAllTimeschemes();
 		methodOfApplications = methodOfApplicationRepo
@@ -72,7 +80,11 @@ public class MedicationEditModel extends Observable {
 	public void save() {
 		context.save();
 	}
-
+	/**
+	 * If you set a time scheme this method will set the DosisSchemes correlated to the timescheme's  timeschemetimes. 
+	 * The new DosisSchemes will be ordered by time ascending.
+	 * @param timeScheme
+	 */
 	public void setPrescriptionTimeScheme(TimeScheme timeScheme) {
 		Prescription prescription = context.getPrescription();
 		if(prescription.getDosisSchemes()!=null){

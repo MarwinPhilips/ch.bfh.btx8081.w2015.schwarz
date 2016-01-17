@@ -19,8 +19,6 @@ public class PrescriptionRepository extends MssqlRepository implements IPrescrip
 	public Prescription getById(int id) {
 		beginTransaction();
 		Prescription prescription = em.find(Prescription.class, id);
-		//Diese Zeile muss für die Testfälle aktiviert werden, damit der Cash ausgeschaltet wird
-		//em.refresh(prescription);
 		commitTransaction();
 		return prescription;
 	}

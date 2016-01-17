@@ -12,6 +12,9 @@ public class MedicamentRepository extends MssqlRepository implements IMedicament
 	public MedicamentRepository() {
 		super();
 	}
+	/**
+	 * returns all Medicaments without any filter.
+	 */
 	@Override
 	public List<Medicament> getAllMedicaments() {
 		beginTransaction();

@@ -8,7 +8,9 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.WayOfAppli
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IWayOfApplicationRepository;
 
 public class WayOfApplicationRepository extends MssqlRepository implements IWayOfApplicationRepository {
-
+	/**
+	 * returns all Ways of Application without any filter.
+	 */
 	@Override
 	public List<WayOfApplication> getAllWayOfApplication() {
 		beginTransaction();

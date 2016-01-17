@@ -12,7 +12,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
  *
  */
 
-//Diese Klasse wird ausschliesslich zu Testzwecken verwendet der Cash ist deaktiviert
+//Diese Klasse wird ausschliesslich zu Testzwecken verwendet. Der Cache wird mit em.refresh() übersteuert.
 public class MssqlRepositoryTest extends MssqlRepository {
 
 	protected EntityManager em = null;

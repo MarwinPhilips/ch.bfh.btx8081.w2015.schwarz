@@ -10,7 +10,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
  * The Context for the PrescriptionStates. It provides all Methods which can be
  * called on a PrescriptionState. Initializes the correct State on
  * setPrescription.
- * 
+ * Please see the Diagram in documents/task12 folder for UML Diagram and State Diagram managed with this class.
  * @author Marwin
  *
  */

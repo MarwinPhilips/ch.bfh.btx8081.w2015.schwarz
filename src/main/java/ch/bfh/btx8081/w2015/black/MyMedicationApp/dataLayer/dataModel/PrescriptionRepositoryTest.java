@@ -8,7 +8,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
  * @author Carole
  */
 
-//Diese Klasse wird ausschliesslich zu Testzwecken verwendet, Cash deaktiviert!
+//Diese Klasse wird ausschliesslich zu Testzwecken verwendet, Cache wird übersteuert!
 public class PrescriptionRepositoryTest extends MssqlRepositoryTest implements IPrescriptionRepository{
 
 	public PrescriptionRepositoryTest() {

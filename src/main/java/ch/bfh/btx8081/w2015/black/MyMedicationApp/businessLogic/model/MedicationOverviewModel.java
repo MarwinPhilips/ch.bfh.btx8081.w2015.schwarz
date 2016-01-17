@@ -8,7 +8,12 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Medication
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IMedicationListRepository;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
-
+/**
+ * The medicationOverviewModel is used to display existing prescriptions and to handle a prescriptionContext, 
+ * which stores the actually chosen prescription. 
+ * @author Marwin
+ *
+ */
 public class MedicationOverviewModel extends Observable {
 	private List<MedicationList> medications = null;
 	private IMedicationListRepository medicationListRepo = null;
@@ -19,8 +24,11 @@ public class MedicationOverviewModel extends Observable {
 		prescriptionContext = new PrescriptionContext();
 		prescriptionRepo = new PrescriptionRepository();
 	}
+	/**
+	 * Loads all Prescriptions of the logged in person.
+	 */
 	public void loadData(){
-		// currently static PersonId
+		//  static PersonId 1 because we only have 1 imaginary user.
 		medications = medicationListRepo.loadMedications(1);
 		setChanged();
 		notifyObservers(null);

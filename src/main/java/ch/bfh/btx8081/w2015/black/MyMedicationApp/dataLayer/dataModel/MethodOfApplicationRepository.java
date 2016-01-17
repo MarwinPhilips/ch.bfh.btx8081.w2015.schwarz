@@ -9,7 +9,9 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
 
 public class MethodOfApplicationRepository extends MssqlRepository implements
 		IMethodOfApplicationRepository {
-
+	/**
+	 * returns all Methods of Application without any filter.
+	 */
 	@Override
 	public List<MethodOfApplication> getAllMethodOfApplication() {
 		beginTransaction();

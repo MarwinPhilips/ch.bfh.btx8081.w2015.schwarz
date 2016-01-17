@@ -163,12 +163,9 @@ public class MedicationEditView extends NavigatorContainer implements View,
 			}
 
 			reserveMedicamentCheckBox.setValue(p.isReserveMedication());
-
-			// TODO load setted dropdown values
+			
 			timeSchemeComboBox.select(p.getTimeScheme());
-			TimeScheme ts = (TimeScheme) timeSchemeComboBox.getValue();
 			wayOfApplicationComboBox.select(p.getWayOfApplication());
-			WayOfApplication woa = (WayOfApplication)wayOfApplicationComboBox.getValue();
 			methodOfApplicationComboBox.select(p.getMethodOfApplication());
 
 			fillTimeSchemeTimes();
