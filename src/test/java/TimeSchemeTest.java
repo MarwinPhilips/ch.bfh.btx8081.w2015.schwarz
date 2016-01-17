@@ -33,7 +33,11 @@ public class TimeSchemeTest {
 	public void destroy(){
 		mem.contextDestroyed(null);
 	}
-
+	
+	/**
+	 * Tests if the setted TimeScheme is persisted and loaded correctly. Since in the implementation
+	 * the persist is made over a String, we have to check this.
+	 */
 	@Test
 	public void test() {
 		TimeScheme ts = timeSchemeRepo.getNewTimeScheme();

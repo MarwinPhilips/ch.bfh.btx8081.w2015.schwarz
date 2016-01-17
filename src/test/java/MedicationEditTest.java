@@ -27,6 +27,8 @@ public class MedicationEditTest {
 	public void setUp() throws Exception {
 		mem = new MssqlEntityManager();
 		mem.contextInitialized(null);
+		// In this test-repository we don't use the Hibernate first level cache to be able to read the data written to the database
+		// immediately after persisting an object.
 		prescriptionRepo = new PrescriptionRepositoryTest();
 	}
 	
@@ -36,7 +38,6 @@ public class MedicationEditTest {
 	}
 
 	@Test
-	//Achtung um diesen Test durchzuführen muss die kommentierte Zeile in PrescriptionRepository aktiviert werden, damit der Cash ausgeschaltet wird
 	public void checkStatePatternChangeToRunning() {
 		PrescriptionContext pc = new PrescriptionContext();
 		Prescription prescription = pc.getPrescription();
@@ -50,10 +51,10 @@ public class MedicationEditTest {
 		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
 		//Clean up
 		pc.delete();	
+		prescriptionRepo.remove(prescriptionRepo.getById(Prescription.class, pc.getPrescription().getPrescriptionId()));
 	}
 	
 	@Test
-	//Achtung um diesen Test durchzuführen muss die kommentierte Zeile in PrescriptionRepository aktiviert werden, damit der Cash ausgeschaltet wird
 	public void checkStatePatternChangeToDeleted() {
 		PrescriptionContext pc = new PrescriptionContext();
 		Prescription prescription = pc.getPrescription();
@@ -67,6 +68,7 @@ public class MedicationEditTest {
 		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
 		//Clean up
 		pc.delete();	
+		prescriptionRepo.remove(prescriptionRepo.getById(Prescription.class, pc.getPrescription().getPrescriptionId()));
 	}
 	
 	@Test
@@ -89,6 +91,7 @@ public class MedicationEditTest {
 //		assertTrue("Datum wurde über prescriptionRepo.getById auf 01.01.2001 korrekt geändert",prescriptionRepo.getById(prescription.getPrescriptionId()).getEndDate().equals(endDate));
 		pc.delete();
 		assertTrue("OK",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Deleted));
+		prescriptionRepo.remove(prescriptionRepo.getById(Prescription.class, pc.getPrescription().getPrescriptionId()));
 	}
 	
 	

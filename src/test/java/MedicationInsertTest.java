@@ -49,6 +49,7 @@ public class MedicationInsertTest {
 		pc.save();
 		assertTrue(prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
 		pc.delete();
+		prescriptionRepo.remove(prescription);
 	}
 	
 }

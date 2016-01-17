@@ -14,26 +14,23 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescripti
 
 public class DeletePrescriptionTest {
 
-    	PrescriptionContext px = null;
+	PrescriptionContext px = null;
 	MssqlEntityManager mem = null;
 	IPrescriptionRepository prescriptionRepo = null;
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+
 	@Before
 	public void setUp() throws Exception {
 		mem = new MssqlEntityManager();
 		mem.contextInitialized(null);
 		px = new PrescriptionContext();
 		prescriptionRepo = new PrescriptionRepository();
-		
-	
+
 	}
-	
+
 	@After
-	public void destroy(){
+	public void destroy() {
 		mem.contextDestroyed(null);
-		
+
 	}
 
 	@Test
@@ -41,12 +38,14 @@ public class DeletePrescriptionTest {
 		Prescription prescription = px.getPrescription();
 		px.save();
 		px.delete();
-		Prescription deletetprescription = (Prescription) prescriptionRepo.getById(Prescription.class, prescription.getPrescriptionId());
-		assertTrue("Prescription is not deleted",(deletetprescription.getPrescriptionState() == PrescriptionStateEnum.Deleted));
-		
+		Prescription deletetprescription = (Prescription) prescriptionRepo
+				.getById(Prescription.class, prescription.getPrescriptionId());
+		assertTrue(
+				"Prescription is not deleted",
+				(deletetprescription.getPrescriptionState() == PrescriptionStateEnum.Deleted));
+
 		prescriptionRepo.remove(deletetprescription);
-	
-		
+
 	}
 
 }

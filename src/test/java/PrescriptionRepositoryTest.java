@@ -34,6 +34,8 @@ public class PrescriptionRepositoryTest {
 	public void test() {
 		Prescription prescription = prescriptionRepo.getNewPrescription();
 		assertTrue(prescription!=null);
+		assertTrue(prescription.getPrescriptionId() > 0);
+		prescriptionRepo.remove(prescription);
 	}
 
 
