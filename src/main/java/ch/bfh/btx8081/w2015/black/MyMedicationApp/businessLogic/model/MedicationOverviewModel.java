@@ -11,7 +11,7 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
 /**
  * The medicationOverviewModel is used to display existing prescriptions and to handle a prescriptionContext, 
  * which stores the actually chosen prescription. 
- * @author Marwin
+ * @author Marwin, Michel
  *
  */
 public class MedicationOverviewModel extends Observable {
