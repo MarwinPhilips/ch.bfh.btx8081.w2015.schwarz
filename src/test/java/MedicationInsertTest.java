@@ -38,7 +38,7 @@ public class MedicationInsertTest {
 	 * Creating a new prescription and check if it is in the RUNNING status.
 	 */
 	@Test
-	public void test(){
+	public void testNewMedicationInRunningStatus(){
 		
 		PrescriptionContext pc = new PrescriptionContext();
 		Prescription prescription = pc.getPrescription();
@@ -47,7 +47,7 @@ public class MedicationInsertTest {
 		prescription.setEndDate(new GregorianCalendar(2016, 01, 23));
 		prescription.setComment("This Medication is for JUnit Test");
 		pc.save();
-		assertTrue(prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
+		assertTrue("Status is not Running !",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
 		pc.delete();
 		prescriptionRepo.remove(prescription);
 	}
