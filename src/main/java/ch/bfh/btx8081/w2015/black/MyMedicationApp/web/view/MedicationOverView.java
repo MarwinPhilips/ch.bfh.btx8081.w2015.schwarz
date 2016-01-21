@@ -54,10 +54,9 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		overviewModel = new MedicationOverviewModel();
 		overviewModel.addObserver(this);
 		medicationTable = new Table();
-		addListenerToTable();
+		addListenerToMedicationTable();
 		createTopHorizontalLayout();
 		createBodyVerticalLayout();
-
 		addComponent(topHorizontalLayout);
 		setComponentAlignment(topHorizontalLayout, Alignment.TOP_CENTER);
 		addComponent(bodyPanel);
@@ -68,7 +67,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	/**
 	 * Add itemClickListener to the medications table.
 	 */
-	public void addListenerToTable(){
+	public void addListenerToMedicationTable(){
 		medicationTable.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			private static final long serialVersionUID = 1L;
 
