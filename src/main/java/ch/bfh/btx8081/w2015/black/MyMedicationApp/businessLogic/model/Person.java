@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+/**
+ *For more information look at the Classdiagram 
+ * @author Marwin
+ */
 @Entity
 public class Person {
 	@Id

@@ -15,7 +15,10 @@ import javax.persistence.OneToMany;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates.PrescriptionStateEnum;
 
-
+/**
+ *For more information look at the Classdiagram 
+ * @author Marwin
+ */
 @Entity
 public class Prescription {
 	@Id

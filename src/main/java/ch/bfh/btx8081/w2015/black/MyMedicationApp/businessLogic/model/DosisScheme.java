@@ -12,7 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
-
+/**
+ *For more information look at the Classdiagram 
+ * @author Marwin
+ */
 @Entity
 public class DosisScheme {
 	

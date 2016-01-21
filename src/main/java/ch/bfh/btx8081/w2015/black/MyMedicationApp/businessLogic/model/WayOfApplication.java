@@ -2,12 +2,17 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model;
 
 import java.util.List;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ *For more information look at the Classdiagram 
+ * @author Marwin
+ */
 @Entity
 public class WayOfApplication {
 	@Id

@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
+/**
+ *For more information look at the Classdiagram 
+ * @author Marwin
+ */
 
 @Entity
 @Table(name="V_MEDICATIONOVERVIEW")
