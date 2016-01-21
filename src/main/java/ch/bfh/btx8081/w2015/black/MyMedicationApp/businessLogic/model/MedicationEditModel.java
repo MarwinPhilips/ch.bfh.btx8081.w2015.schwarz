@@ -140,8 +140,13 @@ public class MedicationEditModel extends Observable {
 	public void saveDosisScheme(DosisScheme d){
 		dosisSchemeRepo.persist(d);
 	}
-
+	public DosisScheme getDosisScheme(int dosisSchemeId){
+		return (DosisScheme) dosisSchemeRepo.getById(DosisScheme.class, dosisSchemeId);
+	}
 	public void resetPrescription() {
 		context = new PrescriptionContext();
+	}
+	public void abort(){
+		context.abort();
 	}
 }

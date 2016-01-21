@@ -33,6 +33,7 @@ public class DosisSchemeTimeView extends HorizontalLayout {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void valueChange(ValueChangeEvent event) {
+				dosisScheme = model.getDosisScheme(dosisScheme.getDosisSchemeId());
 				dosisScheme.setAmount(Double.parseDouble(medicamentAmount.getValue()));
 				model.saveDosisScheme(dosisScheme);
 			}

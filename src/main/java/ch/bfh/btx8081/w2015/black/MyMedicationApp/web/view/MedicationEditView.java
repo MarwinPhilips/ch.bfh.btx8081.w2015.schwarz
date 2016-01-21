@@ -259,7 +259,15 @@ public class MedicationEditView extends NavigatorContainer implements View,
 	 */
 	@Override
 	public String setNavBarMenuButtonText() {
-		// TODO Should go to MedicatoinOverView without save of the edited Value
+		navBar.menuButton.addClickListener(new Button.ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Prescription p = medicationEditModel.getPrescription();
+				medicationEditModel.abort();
+			}
+		});
 		return "Overview";
 	}
 
