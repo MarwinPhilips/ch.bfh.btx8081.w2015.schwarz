@@ -1,6 +1,9 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates;
 
 import java.util.GregorianCalendar;
+/**
+ * @author Marwin
+ */
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
 

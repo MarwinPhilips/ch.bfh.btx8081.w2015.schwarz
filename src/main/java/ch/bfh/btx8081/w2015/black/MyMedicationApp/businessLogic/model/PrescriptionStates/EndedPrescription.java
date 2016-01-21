@@ -3,7 +3,11 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescript
 import java.util.GregorianCalendar;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
-
+/**
+ *More Information see PerscriptionContext
+ * 
+ * @author Marwin
+ */
 public class EndedPrescription extends PrescriptionState {
 
 	public EndedPrescription(PrescriptionContext context, Prescription prescription, GregorianCalendar endDate) {

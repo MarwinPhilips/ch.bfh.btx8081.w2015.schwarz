@@ -1,7 +1,11 @@
 package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.PrescriptionStates;
 
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
-
+/**
+ *More Information see PerscriptionContext
+ * 
+ * @author Marwin
+ */
 public class NewPrescription extends PrescriptionState {
 	
 	public NewPrescription(PrescriptionContext context, Prescription prescription) {
