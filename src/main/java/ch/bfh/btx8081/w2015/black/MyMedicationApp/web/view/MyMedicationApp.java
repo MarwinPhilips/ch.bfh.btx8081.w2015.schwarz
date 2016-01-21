@@ -30,7 +30,6 @@ public class MyMedicationApp extends UI {
     	// Create and register the views
         navigator.addView("", overView);
         navigator.addView("medication", overView);
-        //navigator.addView("activity", new DummyView2());
         navigator.addView("MedicationInsertView", insertView);
         navigator.addView("MedicationEditView", editView);
     }
