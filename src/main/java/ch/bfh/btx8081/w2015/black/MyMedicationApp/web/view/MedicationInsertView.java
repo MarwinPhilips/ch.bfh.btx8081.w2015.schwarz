@@ -112,7 +112,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 		 
         @Override
         public void buttonClick(ClickEvent event) {
-        	//TODO: Validate before saving
         	try {
                 medicationNamesComboBox.validate();
                 wayOfApplicationComboBox.validate();

@@ -204,7 +204,6 @@ public class MedicationEditView extends NavigatorContainer implements View,
 	 * Person.
 	 */
 	private void save() {
-		// TODO: Validate before saving
 		try {
 			// medicationNamesComboBox.validate();
 		} catch (InvalidValueException e) {
