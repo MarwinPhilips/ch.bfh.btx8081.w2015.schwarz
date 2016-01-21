@@ -3,11 +3,9 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.web.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observer;
-
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationList;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.MedicationOverviewModel;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.model.Prescription;
-
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
@@ -20,8 +18,9 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
+
 /**
- * MedicationOverView lists all medication from patient
+ * MedicationOverView lists all medications from patient
  * 
  * @author BlackTeam
  *
@@ -37,13 +36,18 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	private MedicationOverviewModel overviewModel = null;
 	private MedicationEditView editView = null;
 	private Panel bodyPanel;
+	
 	/**
-	 * 
+	 * Create default constructor for MedicationOverView.
 	 */
 	public MedicationOverView() {
 
 	}
 
+	/**
+	 * Create a customized constructor for MedicationOverView.
+	 * @param editView 
+	 */
 	public MedicationOverView(MedicationEditView editView) {
 		super();
 		this.editView = editView;
@@ -92,13 +96,13 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	}
 
 	/**
-	 * create three Buttons
+	 * create three Buttons with icons.
 	 */
 	private void createButtons() {
 		insertDrug = new Button("Insert", new ThemeResource("Icons/Insert.png"));
-		addActionToButton(insertDrug.getCaption());
+		addActionsToButtons(insertDrug.getCaption());
 		editDrug = new Button("Edit", new ThemeResource("Icons/Edit.png"));
-		addActionToButtonEdit(editDrug.getCaption());
+		addActionsToButtons(editDrug.getCaption());
 		editDrug.setEnabled(true);
 		deleteDrug = new Button("Delete", new ThemeResource("Icons/Delete.png"));
 		deleteDrug.addClickListener(new Button.ClickListener() {
@@ -118,7 +122,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 	 * Create medication Table with its headers.
 	 */
 	private void createTable() {
-		//medicationTable.clear();
+		
 		BeanItemContainer<MedicationList> container = new BeanItemContainer<MedicationList>(
 				MedicationList.class);
 		container.addAll(overviewModel.getMedications());
@@ -159,7 +163,13 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		createTable();
 	};
 
-	private void addActionToButton(String buttonName) {
+	
+	/**
+	 * Add click Listener to specified buttons based on buttons captions.
+	 * @param buttonName buttons caption.
+	 */
+	private void addActionsToButtons(String buttonName) {
+		
 		if (buttonName.equals("Insert")) {
 			insertDrug.addClickListener(new Button.ClickListener() {
 				private static final long serialVersionUID = 1L;
@@ -169,22 +179,19 @@ public class MedicationOverView extends NavigatorContainer implements View,
 				}
 			});
 		}
-	}
-
-	private void addActionToButtonEdit(String buttonName) {
+			
 		if (buttonName.equals("Edit")) {
-			editDrug.addClickListener(new Button.ClickListener() {
-				private static final long serialVersionUID = 1L;
+				editDrug.addClickListener(new Button.ClickListener() {
+					private static final long serialVersionUID = 1L;
 
-				public void buttonClick(ClickEvent event) {
-					System.out.println(overviewModel.getSelectedPrescription());
-					if (overviewModel.getSelectedPrescription()!=null) {
-						overviewModel.edit();
-						editView.setPrescriptionContext(overviewModel.getPrescriptionContext());
-						MyMedicationApp.navigateTo("MedicationEditView");
-						//ItemCaptionMode s = AbstractSelect.ItemCaptionMode.PROPERTY;
+					public void buttonClick(ClickEvent event) {
+						System.out.println(overviewModel.getSelectedPrescription());
+						if (overviewModel.getSelectedPrescription()!=null) {
+							overviewModel.edit();
+							editView.setPrescriptionContext(overviewModel.getPrescriptionContext());
+							MyMedicationApp.navigateTo("MedicationEditView");
+						}
 					}
-				}
 			});
 		}
 	}
@@ -197,6 +204,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		overviewModel.loadData();
 	}
 
+	
 	@Override
 	public String setNavBarTitle() {
 		return "Medication Over View";
