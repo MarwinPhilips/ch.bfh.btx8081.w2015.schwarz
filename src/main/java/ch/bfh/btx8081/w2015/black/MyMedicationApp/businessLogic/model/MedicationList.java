@@ -28,6 +28,7 @@ public class MedicationList extends Observable {
 	//private String dose;
 	private String timeschemename;
 	private String prescriptioncomment;
+	private boolean reservemedication;
 	
 	public MedicationList(){
 		
@@ -68,4 +69,11 @@ public class MedicationList extends Observable {
 	public void setPrescriptioncomment(String prescriptioncomment) {
 		this.prescriptioncomment = prescriptioncomment;
 	}
+	public boolean isReservemedication() {
+		return reservemedication;
+	}
+	public void setReservemedication(boolean reservemedication) {
+		this.reservemedication = reservemedication;
+	}
+	
 }
