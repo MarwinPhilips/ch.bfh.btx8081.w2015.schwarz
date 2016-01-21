@@ -32,9 +32,10 @@ import com.vaadin.ui.VerticalLayout;
 
 @Theme("mytheme")
 /**
+ * This class provide a view to insert new Medications
+ *  
+ * @author BlackTeam
  * 
- * @author 
- *This class provide a view to insert new Medications 
  */
 public class MedicationInsertView extends NavigatorContainer implements View {
 	private static final long serialVersionUID = 1L;

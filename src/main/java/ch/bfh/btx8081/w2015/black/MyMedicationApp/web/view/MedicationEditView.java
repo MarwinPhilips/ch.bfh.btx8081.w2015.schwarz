@@ -31,8 +31,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 /**
+ * This view allows to edit the selected medication from the list.
  * 
- * @author This view allows to edit the selected medication from the list.
+ * @author BlackTeam
  */
 public class MedicationEditView extends NavigatorContainer implements View,
 		Observer {

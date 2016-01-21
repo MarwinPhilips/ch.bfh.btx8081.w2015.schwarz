@@ -11,7 +11,10 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
 /**
- *
+ * MyMedicationApp is the entry point of this vaadin-application
+ * 
+ * @author BlackTeam
+ * 
  */
 @Theme("mytheme")
 @Widgetset("ch.bfh.btx8081.w2015.black.MyMedicationApp.MyAppWidgetset")
@@ -33,6 +36,12 @@ public class MyMedicationApp extends UI {
         navigator.addView("MedicationInsertView", insertView);
         navigator.addView("MedicationEditView", editView);
     }
+    
+    /**
+     * sets the navigator path
+     * 
+     * @param view	The view to navigate to
+     */
     
     public static void navigateTo(String view) {
     	navigator.navigateTo(view);

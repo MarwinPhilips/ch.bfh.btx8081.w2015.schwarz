@@ -20,7 +20,12 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
-
+/**
+ * MedicationOverView lists all medication from patient
+ * 
+ * @author BlackTeam
+ *
+ */
 public class MedicationOverView extends NavigatorContainer implements View,
 		Observer, ActionListener {
 	private static final long serialVersionUID = 1L;
