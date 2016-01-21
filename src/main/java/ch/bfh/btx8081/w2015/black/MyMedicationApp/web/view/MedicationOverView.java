@@ -54,16 +54,7 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		overviewModel = new MedicationOverviewModel();
 		overviewModel.addObserver(this);
 		medicationTable = new Table();
-		medicationTable.addItemClickListener(new ItemClickEvent.ItemClickListener() {
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public void itemClick(ItemClickEvent event) {
-						overviewModel.setSelectedPrescription(((Prescription)event.getItem().getItemProperty("prescription").getValue()));
-						editDrug.setEnabled(overviewModel.canModifyPrescription());
-						deleteDrug.setEnabled(overviewModel.canModifyPrescription());						
-					}
-				});
+		addListenerToTable();
 		createTopHorizontalLayout();
 		createBodyVerticalLayout();
 
@@ -73,7 +64,22 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		setComponentAlignment(bodyPanel, Alignment.MIDDLE_CENTER);
 
 	}
+	
+	/**
+	 * Add itemClickListener to the medications table.
+	 */
+	public void addListenerToTable(){
+		medicationTable.addItemClickListener(new ItemClickEvent.ItemClickListener() {
+			private static final long serialVersionUID = 1L;
 
+			@Override
+			public void itemClick(ItemClickEvent event) {
+				overviewModel.setSelectedPrescription(((Prescription)event.getItem().getItemProperty("prescription").getValue()));
+				editDrug.setEnabled(overviewModel.canModifyPrescription());
+				deleteDrug.setEnabled(overviewModel.canModifyPrescription());						
+			}
+		});
+	}
 	/**
 	 * Create the Horizontal Layout
 	 */
