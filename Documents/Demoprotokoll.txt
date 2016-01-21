@@ -1,0 +1,18 @@
+Auflistung der Protokollpunkte für die Softwaredemo am 22.1.2016
+
+01.) Einfügen einer neuen Prescription
+02.) Screenwechsel
+03.) Korretktes ausfüllen der Felder
+04.) Zeigen, dass das Medikament in der Tabelle efasst wurde.
+05.) Prescription Löschen
+06.) Zeigen, dass das Medikament in der Tabelle gelscht ist.
+07.) Eine bestehende Pescription editieren wollen, auswählen --> alle editiermöglichkeuten zeigen.
+08.)
+09.)
+10.)
+11.)
+12.)
+13.)
+14.)
+15.)
+16.)
