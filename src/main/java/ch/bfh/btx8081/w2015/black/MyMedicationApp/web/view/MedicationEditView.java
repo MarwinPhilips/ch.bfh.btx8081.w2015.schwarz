@@ -266,6 +266,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 			public void buttonClick(ClickEvent event) {
 				Prescription p = medicationEditModel.getPrescription();
 				medicationEditModel.abort();
+				medicationEditModel.resetSelectedPrescription();
 			}
 		});
 		return "Overview";

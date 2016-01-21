@@ -64,6 +64,9 @@ public class MedicationEditModel extends Observable {
 	public void setPrescriptionContext(PrescriptionContext context) {
 		this.context = context;
 	}
+	public void resetSelectedPrescription() {
+			context.setPrescription(null);
+	}
 
 	public Prescription getPrescription() {
 		return context.getPrescription();
