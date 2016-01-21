@@ -133,7 +133,6 @@ public class MedicationOverView extends NavigatorContainer implements View,
 		container.addAll(overviewModel.getMedications());
 		medicationTable.setContainerDataSource(container);
 		// sets another css class for reserved medication row
-		// TODO: row style is not automatically refreshed after edit...
 		medicationTable.setCellStyleGenerator(new Table.CellStyleGenerator() {
 			
 			private static final long serialVersionUID = 1L;
@@ -141,9 +140,8 @@ public class MedicationOverView extends NavigatorContainer implements View,
 			@Override
 			public String getStyle(Table source, Object itemId, Object propertyId) {
 				if(itemId != null){
-					Item item = source.getItem(itemId);
-					Prescription p = (Prescription)item.getItemProperty("prescription").getValue();
-					if(p.isReserveMedication()){
+					MedicationList mediList = (MedicationList)itemId;
+					if(mediList.isReservemedication()){
 						return "reserve-medication";
 					}
 				}
