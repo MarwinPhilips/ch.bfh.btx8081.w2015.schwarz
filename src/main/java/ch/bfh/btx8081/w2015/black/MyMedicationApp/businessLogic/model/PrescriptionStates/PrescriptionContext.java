@@ -9,8 +9,9 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces
 /**
  * The Context for the PrescriptionStates. It provides all Methods which can be
  * called on a PrescriptionState. Initializes the correct State on
- * setPrescription.
- * Please see the Diagram in documents/task12 folder for UML Diagram and State Diagram managed with this class.
+ * setPrescription. Please see the Diagram in documents/task12 folder for UML
+ * Diagram and State Diagram managed with this class.
+ * 
  * @author Marwin
  *
  */
@@ -47,7 +48,8 @@ public class PrescriptionContext {
 			repo.persist(p);
 			return p;
 		}
-		p = repo.getById(prescriptionState.getPrescription().getPrescriptionId());
+		p = repo.getById(prescriptionState.getPrescription()
+				.getPrescriptionId());
 		prescriptionState.setPrescription(p);
 		return p;
 	}
@@ -58,29 +60,33 @@ public class PrescriptionContext {
 	 * @param prescription
 	 */
 	public void setPrescription(Prescription prescription) {
-		switch (prescription.getPrescriptionState()) {
-		// Since we don't now the State of the prescription
-		// we have to check it over the enum.
-		case New:
-			prescriptionState = new NewPrescription(this, prescription);
-			break;
-		case Running:
-			prescriptionState = new RunningPrescription(this, prescription);
-			break;
-		case Deleted:
-			prescriptionState = new DeletedPrescription(this, prescription);
-			break;
-		case Edit:
-			prescriptionState = new EditPrescription(this, prescription);
-			break;
-		case Ended:
-			prescriptionState = new EndedPrescription(this, prescription,
-					prescription.getEndDate());
-			break;
-		default:
-			System.out.println("The Prescrtiption  with ID "
-					+ prescription.getPrescriptionId()
-					+ " has no valid state set.");
+		if (prescription == null) {
+			prescriptionState = null;
+		} else {
+			switch (prescription.getPrescriptionState()) {
+			// Since we don't now the State of the prescription
+			// we have to check it over the enum.
+			case New:
+				prescriptionState = new NewPrescription(this, prescription);
+				break;
+			case Running:
+				prescriptionState = new RunningPrescription(this, prescription);
+				break;
+			case Deleted:
+				prescriptionState = new DeletedPrescription(this, prescription);
+				break;
+			case Edit:
+				prescriptionState = new EditPrescription(this, prescription);
+				break;
+			case Ended:
+				prescriptionState = new EndedPrescription(this, prescription,
+						prescription.getEndDate());
+				break;
+			default:
+				System.out.println("The Prescrtiption  with ID "
+						+ prescription.getPrescriptionId()
+						+ " has no valid state set.");
+			}
 		}
 	}
 
@@ -112,7 +118,9 @@ public class PrescriptionContext {
 		prescriptionState.getPrescription().setPrescriptionState(state);
 		repo.merge(prescriptionState.getPrescription());
 	}
-	protected void setPrescriptionState(PrescriptionStateEnum state, boolean persist) {
+
+	protected void setPrescriptionState(PrescriptionStateEnum state,
+			boolean persist) {
 		prescriptionState.getPrescription().setPrescriptionState(state);
 		if (persist) {
 			repo.persist(prescriptionState.getPrescription());

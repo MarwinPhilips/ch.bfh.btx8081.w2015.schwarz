@@ -5,5 +5,5 @@ package ch.bfh.btx8081.w2015.black.MyMedicationApp.businessLogic.modelInterfaces
  * @author Marwin
  *
  */
-public interface DummyInterface {
+public interface ModelInterface {
 }

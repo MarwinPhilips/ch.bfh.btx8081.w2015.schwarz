@@ -101,6 +101,8 @@ public class MedicationOverView extends NavigatorContainer implements View,
 
 			public void buttonClick(ClickEvent event) {
 				overviewModel.deletePrescription();
+				editDrug.setEnabled(false);
+				deleteDrug.setEnabled(false);
 			}
 		});
 		editDrug.setEnabled(false);

@@ -46,6 +46,7 @@ public class MedicationOverviewModel extends Observable {
 	}
 	public void deletePrescription() {
 		prescriptionContext.delete();
+		prescriptionContext.setPrescription(null);
 	    loadData();
 	}
 	public boolean canModifyPrescription(){
