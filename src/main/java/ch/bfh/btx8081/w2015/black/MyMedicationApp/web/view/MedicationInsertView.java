@@ -336,7 +336,6 @@ public class MedicationInsertView extends NavigatorContainer implements View {
 
 	@Override
 	public String setNavBarHelpButtonPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
