@@ -1,5 +1,4 @@
 import static org.junit.Assert.*;
-import java.util.GregorianCalendar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -39,17 +38,25 @@ public class MedicationInsertTest {
 	 */
 	@Test
 	public void testNewMedicationInRunningStatus(){
-		
+		/*
+		 * Create a new medication.
+		 */
 		PrescriptionContext pc = new PrescriptionContext();
 		Prescription prescription = pc.getPrescription();
-		prescription.setReserveMedication(true);
-		prescription.setStartDate(new GregorianCalendar());
-		prescription.setEndDate(new GregorianCalendar(2016, 01, 23));
-		prescription.setComment("This Medication is for JUnit Test");
+		pc.setPrescription(prescription);
+		
+		/**
+		 * Test if new created medication in NEW Status is.
+		 */
+		assertTrue("Status is not NEW !",prescription.getPrescriptionState().equals(PrescriptionStateEnum.New));
+		//Add it.
 		pc.save();
+		/*
+		 * After saving, check if this medication in Running Status is.
+		 */
 		assertTrue("Status is not Running !",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Running));
 		pc.delete();
-		prescriptionRepo.remove(prescription);
+		prescriptionRepo.remove(prescriptionRepo.getById(Prescription.class, pc.getPrescription().getPrescriptionId()));
 	}
 	
 }
