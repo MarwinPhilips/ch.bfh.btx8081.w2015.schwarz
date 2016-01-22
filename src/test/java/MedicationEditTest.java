@@ -16,7 +16,10 @@ import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.MssqlEntit
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.PrescriptionRepositoryTest;
 import ch.bfh.btx8081.w2015.black.MyMedicationApp.dataLayer.dataModel.Interfaces.IPrescriptionRepository;
 
-
+/**
+ * This is a JUnit test class for editing a prescription
+ * @author Mete, Carol
+ */
 public class MedicationEditTest {
 
 	MssqlEntityManager mem = null;
@@ -63,7 +66,6 @@ public class MedicationEditTest {
 		assertTrue("Staus im EditierenView ist nicht auf Edit",prescription.getPrescriptionState().equals(PrescriptionStateEnum.Edit));
 		assertTrue("Datum wurde über prescription auf 01.01.2001 nicht korrekt geändert", prescription.getEndDate().equals(endDate));
 		pc.save();
-		
 		// after pc.save() should the State of the prescription = Ended. Because the endDate is expired!
 		//	We have an assert because we haven't validate the Dates 
 		assertTrue("EndDatum wurde überschritten und State ist nicht auf Ended",prescriptionRepo.getById(prescription.getPrescriptionId()).getEndDate().equals(PrescriptionStateEnum.Ended));
