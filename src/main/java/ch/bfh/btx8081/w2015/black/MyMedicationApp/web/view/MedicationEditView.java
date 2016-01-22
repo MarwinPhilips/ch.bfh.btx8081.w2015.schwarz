@@ -220,11 +220,6 @@ public class MedicationEditView extends NavigatorContainer implements View,
 		GregorianCalendar startDateGregorian = new GregorianCalendar();
 		startDateGregorian.setTime(prescriptionStartDateDateField.getValue());
 		p.setStartDate(startDateGregorian);
-		/*
-		 * GregorianCalendar endDateGregorian = new GregorianCalendar();
-		 * endDateGregorian.setTime(prescriptionEndDateDateField.getValue());
-		 * p.setEndDate(endDateGregorian);
-		 */
 
 		p.setMethodOfApplication((MethodOfApplication) methodOfApplicationComboBox
 				.getValue());
@@ -264,7 +259,7 @@ public class MedicationEditView extends NavigatorContainer implements View,
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Prescription p = medicationEditModel.getPrescription();
+				//Prescription p = medicationEditModel.getPrescription();
 				medicationEditModel.abort();
 				medicationEditModel.resetSelectedPrescription();
 			}
